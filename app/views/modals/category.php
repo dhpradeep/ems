@@ -8,12 +8,12 @@
                 <div class="modal-body col-md-12">
                     <div class="form-group col-md-6">
                         <label>Category Name</label>
-                        <input type="text" class="form-control" name="categoryName" id="categoryName" placeholder="category name" />
+                        <input id="categoryName" type="text" class="form-control" name="categoryName" id="categoryName" placeholder="category name" />
                         <span class="help-inline"></span>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Description</label>
-                        <input type="text" class="form-control" name="categoryDescription" id="categoryDescription" placeholder="category description" />
+                        <input id="categoryDescription" type="text" class="form-control" name="categoryDescription" id="categoryDescription" placeholder="category description" />
                         <span class="help-inline"></span>
                     </div>
                 </div>

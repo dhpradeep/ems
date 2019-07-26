@@ -2,20 +2,18 @@
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Manage Course</h3>
+                <h3>Add Program</h3>
             </div>
             <div class="modal-body">
                 <form role="form">
                     <div class="form-group">
                         <label class="control-label">Program Name</label>
-                        <input type="hidden" id="course_id" name="course_id">
-                        <input type="hidden" name="csrf" value="<?php echo $_SESSION['form_token'];?>">
-                        <input type="text" class="form-control" id="course_code" name="course_code">
+                        <input id="programName" type="text" class="form-control" id="course_code" name="course_code">
                         <span class="help-inline"></span>
                     </div>
                     <div class="form-group input-group">
                         <span class="input-group-addon">Duration</span>
-                        <input type="number" id="time" name="time" class="form-control" value="" required="" min="0">   
+                        <input id="programDuration" type="number" id="time" name="time" class="form-control" value="" required="" min="0">   
                         <span class="input-group-addon">Min.</span>                 
                     </div>
                 </form>
@@ -31,30 +29,34 @@
 
 
 <!-- For model -->
-
 <div class="modal fade" id="addModel" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Manage Model</h3>
+                <h3>Add Model</h3>
             </div>
             <div class="modal-body">
                 <form role="form">
                     <div class="form-group">
-                        <label class="control-label">Course Code:</label>
-                        <input type="hidden" id="course_id" name="course_id">
-                        <input type="hidden" name="csrf" value="<?php echo $_SESSION['form_token'];?>">
-                        <input type="text" class="form-control" id="course_code" name="course_code">
-                        <span class="help-inline"></span>
+                    <label>Category</label>
+                        <select class="form-control" id="categoryId" name="categoryId">
+                            <option value="1" name="PHP">PHP</option>
+                            <option value="2" name="JAVA">JAVA</option>
+                            <option value="3" name="JAVA">PYTHON</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label class="control-label">Course Description:</label>
-                        <input type="text" class="form-control" id="course_name" name="course_name">
-                        <span class="help-inline"></span>
+                    <label>Question Level </label>
+                        <select class="form-control" id="questionLevel" name="questionLevel">
+                            <option value="1" name="Basic">Basic</option>
+                            <option value="2" name="Intermediate">Intermediate</option>
+                            <option value="3" name="Hard">Hard</option>
+                        </select>
+                        <p class="help-inline"></p>
                     </div>
                     <div class="form-group">
-                        <label class="control-label">Passing Score:</label>
-                        <input type="number" class="form-control" id="passing_score" name="passing_score">
+                        <label class="control-label">No. of questions</label>
+                        <input type="number" class="form-control" id="noOfQuestions" name="passing_score">
                         <span class="help-inline"></span>
                     </div>
                 </form>

@@ -1,17 +1,28 @@
 function create_category(data = null) {
     if(data != null) {
-
+        $('#addcategory').modal('show');
     }else{
+        $("#categoryName").val("");
+        $("#categoryDescription").val("");
         $('#addcategory').modal('show');
     }
 }
-
+ 
 $(document).ready(function() {
     $('#categoryTable').DataTable();
 });
 
 $(document).on("click", ".edit-icon", function() {
-    create_category(/*with value */);
+    var columnValues = $(this).parent().parent().siblings().map(function() {
+        return $(this).text();
+    }).get();
+
+    $("#categoryName").val(columnValues[1].trim());
+    $("#categoryDescription").val(columnValues[2].trim());
+
+    // get category id from DB
+    catId = 1;
+    create_category(catId);
 });
 
 $(document).on("click", ".remove-icon", function() {

@@ -20,8 +20,23 @@ class Question extends Controller {
 		$this->view->render();
     }
     
-    public function model() {
-		$this->model->template = VIEWS_DIR.DS."questions".DS."model.php";
+    public function model($name='') {
+		if($name == "bca"){
+			$this->model->template = VIEWS_DIR.DS."questions".DS."modelDetails.php";
+		}elseif($name == 'bba'){
+			$this->model->template = VIEWS_DIR.DS."questions".DS."modelDetails.php";
+		}elseif($name == 'bph'){
+			$this->model->template = VIEWS_DIR.DS."questions".DS."modelDetails.php";
+		}elseif($name == ''){
+			$this->model->template = VIEWS_DIR.DS."questions".DS."model.php";
+		}else{
+			header("Location: ".SITE_URL."/home/message");
+		}
+		$this->view->render();
+	}
+
+	public function name() {
+		$this->model->template = VIEWS_DIR.DS."questions".DS."modelDetails.php";
 		$this->view->render();
 	}
 
