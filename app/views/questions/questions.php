@@ -74,9 +74,6 @@
                                     <option value="2" name="JAVA">JAVA</option>
                                 </select>
                             </div>
-                            <div class="input-group"> <span class="input-group-addon">Search: </span>
-                                <input id="filter" type="text" class="form-control" placeholder="Type here...">
-                            </div>
                         </form>
                     </div>
                     <br>
@@ -86,7 +83,8 @@
                         </div>
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
-                                <table class="table table-striped table-bordered table-hover paginated tablesorter" id="tbl_questions">
+                                <table id="questionTable" 
+                                    class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr role="row">
                                             <th class="sorting" width="15%">
@@ -167,17 +165,7 @@
     
     <!-- spinJS -->
     <script src="<?= BOWER_DIR ?>/spin.js/spin.js"></script>
-
-    <!-- fancyBox -->
-    <!-- Add fancyBox main JS and CSS files -->
-    <script type="text/javascript" src="<?= BOWER_DIR ?>/fancybox/source/jquery.fancybox.js?v=2.1.5"></script>
-    <!-- Add Button helper (this is optional) -->
-    <script type="text/javascript" src="<?= BOWER_DIR ?>/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
-    <!-- Add Thumbnail helper (this is optional) -->
-    <script type="text/javascript" src="<?= BOWER_DIR ?>/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
-    <!-- Add Media helper (this is optional) -->
-    <script type="text/javascript" src="<?= BOWER_DIR ?>/fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
-
+    
     <!-- Custom Theme JavaScript -->
     <script src="<?= JS_DIR ?>/sb-admin-2.js"></script>
     <script src="<?= JS_DIR ?>/pages/questions.js" type="text/javascript"></script>

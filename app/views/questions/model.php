@@ -58,9 +58,6 @@
                         <form id="frmSearch" role="form">
                             <a onclick="create_program()" class="btn btn-primary">Add Program</a>
                             <a onclick="refresh()" class="btn btn-info">Refresh</a>
-                            <div class="input-group"> <span class="input-group-addon">Search: </span>
-                                <input id="filter" type="text" class="form-control" placeholder="Type here...">
-                            </div>
                         </form>
                     </div>
                     <br>
@@ -70,7 +67,7 @@
                         </div>
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
-                              <table class="table table-bordered table-striped paginated tablesorter" style="margin-bottom:0;" id="tbl_sched">
+                              <table id="modelTable" class="table table-bordered table-striped paginated tablesorter" style="margin-bottom:0;" id="tbl_sched">
                                   <thead>
                                       <tr role="row">
                                             <th class="sorting" width="15%">

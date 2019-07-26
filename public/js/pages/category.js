@@ -6,6 +6,10 @@ function create_category(data = null) {
     }
 }
 
+$(document).ready(function() {
+    $('#categoryTable').DataTable();
+});
+
 $(document).on("click", ".edit-icon", function() {
     create_category(/*with value */);
 });

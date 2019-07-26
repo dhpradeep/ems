@@ -6,8 +6,8 @@ function create_user(data = null) {
     }
 }
 
-$(document).on("click", ".edit-icon", function() {
-    create_user(/*with value */);
+$( document ).ready(function() {
+    $('#userTable').DataTable();
 });
 
 $(document).on("click", ".remove-icon", function() {
@@ -160,12 +160,10 @@ function addUser(){
 }
 
 function deletedata(id = null) {
+    //delete ajax code
+    
     $.notify("Record successfully deleted", "success");
     refresh();
-}
-
-function sleep (time) {
-    return new Promise((resolve) => setTimeout(resolve, time));
 }
 
 function refresh() {
@@ -177,10 +175,13 @@ function refresh() {
         trail: 40
     }).spin(target);
 
-    sleep(1000).then(() => {
-        $.notify("All records display", "info");
-        spinner.stop();
-    });
+    getAllData();
 
+    $.notify("All records display", "info");
+    spinner.stop();
     return;
+}
+
+function getAllData(){
+
 }

@@ -52,9 +52,6 @@
                         <form id="frmSearch" role="form">
                             <a onclick="create_user()" class="btn btn-primary">Add User</a>
                             <a onclick="refresh()" class="btn btn-info">Refresh</a>
-                            <div class="input-group"> <span class="input-group-addon">Search: </span>
-                                <input id="filter" type="text" class="form-control" placeholder="Type here...">
-                            </div>
                         </form>
                     </div>
                     <br>
@@ -64,7 +61,7 @@
                         </div>
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
-                                <table class="table table-bordered table-striped paginated tablesorter" style="margin-bottom:0;" id="tbl_users">
+                                <table id="userTable" class="table table-bordered table-striped paginated tablesorter" style="margin-bottom:0;" id="tbl_users">
                                     <thead>
                                         <tr role="row">
                                             <th class="sorting" >
@@ -94,16 +91,16 @@
                                                 admin@admin.com
                                             </td>
                                             <td class="sorting" >
-                                                admin
+                                                <select class="form-control">
+                                                    <option selected value="1">Admin</option>
+                                                    <option value="2">Teacher</option>
+                                                </select>
                                             </td>
                                             <td width="10%">
                                                 <div class="text-right">
-                                                    <a class="edit-icon btn btn-success btn-xs" data-id="1">
-                                                    <i class="fa fa-pencil"></i>
-                                                    </a>
-                                                    <a class="remove-icon btn btn-danger btn-xs" data-id="1">
-                                                    <i class="fa fa-remove"></i>
-                                                    </a>
+                                                <a class="remove-icon btn btn-danger btn-xs" data-id="1">
+                                                        <i class="fa fa-remove"></i>
+                                                </a>
                                             </div>
                                             </td>
                                         </tr>

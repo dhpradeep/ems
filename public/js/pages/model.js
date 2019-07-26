@@ -6,6 +6,10 @@ function create_program(data = null) {
     }
 }
 
+$( document ).ready(function() {
+    $('#modelTable').DataTable();
+});
+
 $(document).on("click", ".edit-icon-program", function() {
     create_program(/*with value */);
 });

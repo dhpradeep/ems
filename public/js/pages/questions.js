@@ -10,8 +10,11 @@ $(document).on("click", ".edit-icon", function() {
     create_question(/*with value */);
 });
 
+$(document).ready(function() {
+    $('#questionTable').DataTable();
+});
+
 $(document).on("click", ".remove-icon", function() {
-    
     BootstrapDialog.show({
         title: 'Delete',
         message: 'Are you sure to delete this record?',

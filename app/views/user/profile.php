@@ -60,11 +60,14 @@
                                 <div role="tabpanel" class="tab-pane active" id="profile">
                                     <br>
                                     <form role="form"  id="frmProfile" class="padding-top">
-                                        <input type="hidden" name="user_id" value="<?php echo $_SESSION['entrance']['id'];?>">
-                                        <input type="hidden" name="csrf" value="<?php echo $_SESSION['form_token'];?>">
                                         <div class="form-group col-md-6" >
                                             <label>First Name</label>
                                             <input class="form-control" type="text" name="fname" id="fname" placeholder="First Name"/>
+                                            <span class="help-inline"></span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Middle Name</label>
+                                            <input class="form-control" type="text" name="lname" id="lname" placeholder="Last Name"/ >
                                             <span class="help-inline"></span>
                                         </div>
                                         <div class="form-group col-md-6">
@@ -77,11 +80,6 @@
                                             <input class="form-control" type="email" name="email" id= "email" placeholder="Email Address"/>
                                             <span class="help-inline"></span>
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Mobile No.</label>
-                                            <input class="form-control" type="text" name="mobileno" id="mobileno" placeholder="Mobile No."/>
-                                            <span class="help-inline"></span>
-                                        </div>
                                         <div class="form-group col-md-12">
                                             <a id="btn-save" class="btn btn-primary" onclick="saveProfile()">Update</a>
                                             <button type="button" class="btn btn-warning" data-dismiss="modal">Clear</button>
@@ -91,6 +89,7 @@
                                 <div role="tabpanel" class="tab-pane" id="settings">
                                     <br>
                                     <form role="form"  id="frmAccount" class="padding-top">
+                                    
                                         <input type="hidden" id="user_id" name="user_id" value="<?php echo $_SESSION['entrance']['id'];?>">
                                         <div class="form-group">
                                             <div class="col-md-6">
@@ -115,7 +114,7 @@
                                         </div>
                                         <div class="form-group col-md-12">
                                             <a id="btn-save" class="btn btn-primary" onclick="saveAccount()">Update</a>
-                                            <button type="button" class="btn btn-warning" data-dismiss="modal">Clear</button>
+                                            <button type="reset" class="btn btn-warning" data-dismiss="modal">Clear</button>
                                         </div>
                                     </form>                                        
                                 </div>
