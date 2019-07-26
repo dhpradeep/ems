@@ -39,9 +39,12 @@ class Session {
 	* Check session for user login
 	* @param null
 	*/
-	public static function isLoggedIn() {
-		if (!is_null(Session::getSession('loggedIn')) && 
-				!is_null(Session::getSession('uid'))) {
+	public static function isLoggedIn($role = null) {
+		if (!is_null(self::getSession('loggedIn')) && 
+				!is_null(self::getSession('uid'))) {
+			if(!empty($role) && self::getSession('role') != $role) {
+				return false;
+			} 
 			return true;
 		} else {
 			return false;

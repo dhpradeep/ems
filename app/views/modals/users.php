@@ -6,6 +6,7 @@
             </div>
             <form method="post">
                 <div class="modal-body col-md-12">
+                    <input type="hidden" name="id" id="id"/>
                     <div class="form-group col-md-6">
                         <label>First Name</label>
                         <input type="text" class="form-control" name="fname" id="fname" placeholder="Firstname" />
@@ -33,21 +34,21 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label>Password</label>
-                        <input type="password" class="form-control" name="password" id="password"
+                        <input type="password" class="form-control" name="passwordHash" id="passwordHash"
                             placeholder="Password" />
                         <span class="help-inline"></span>
                     </div>
                     <div class="form-group col-md-12">
                         <label>Role</label>
-                        <select class="form-control" id="level" name="level">
+                        <select class="form-control" id="role" name="role">
                             <option value="Admin">Admin</option>
-                            <option value="User">Teacher</option>
+                            <option value="Teacher">Teacher</option>
                         </select>
                         <span class="help-inline"></span>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary"> Save</button>
+                    <a id="saveBtn" class="btn btn-primary"> Save</a>
                     <button type="reset" class="btn btn-warning">Reset</button>
                     <button class="btn btn-default" data-dismiss="modal">Close</button>
             </form>

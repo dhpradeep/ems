@@ -6,7 +6,7 @@ class Database {
 	private $_host = "localhost";
 	private $_user = "root";
 	private $_password = "";
-	private $_name = "eversoft";
+	private $_name = "ems";
 	
 	//PDO Object
 	private $conn = null;

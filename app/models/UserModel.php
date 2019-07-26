@@ -4,7 +4,7 @@ class UserModel extends Model{
 
 	public function __construct() {
 		// tablename for the model
-		$this->table = 'userDetails';
+		$this->table = 'userlogin';
 		// primary key for the table
 		$this->pk = 'id';
 		
@@ -61,7 +61,7 @@ class UserModel extends Model{
 	* @return 0 on failure
 	*/
 	public function login($data) {
-		if((isset($data['uname']) || isset($data['email'])) && isset($data['pwd'])) {
+		if((isset($data['username']) || isset($data['email'])) && isset($data['passwordHash'])) {
 			return $this->getPk($data);
 		}		
 	}

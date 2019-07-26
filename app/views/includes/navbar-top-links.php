@@ -6,7 +6,7 @@
         </a>
         <ul class="dropdown-menu dropdown-user">
             <li>
-                <a href="<?= SITE_URL ?>/user/profile"><i class="fa fa-user fa-fw"></i>Pradip Dhakal</a>
+                <a href="<?= SITE_URL ?>/user/profile"><i class="fa fa-user fa-fw"></i><?= Session::getSession('uname'); ?></a>
             </li>
             <li class="divider"></li>
             <li>

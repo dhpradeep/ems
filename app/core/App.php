@@ -7,7 +7,9 @@ class App {
 	protected $params = [];
 
 	public function __construct() {
-		session_start();
+		if(!isset($_SESSION)) {
+			session_start();
+		}		
 		$url = $this->parseurl();
 
 		if(isset($url[0]) && file_exists(CONTROLLERS_DIR.DS.ucwords($url[0]). '.php')) {
@@ -24,12 +26,12 @@ class App {
 				$params = $method->getParameters();
 				if(isset($url[2]) && sizeof($params) <= 0) {
 					$this->setDefault(0);
-				}else {
+				} else {
 					$this->method = $url[1];
 				}
 				unset($url[1]);
-			}else {
-				$this->setDefault(1);
+			//}else {
+			//	$this->setDefault(1);
 			}						
 		} catch(ReflectionException $e) {
 			$this->setDefault(0);
@@ -45,8 +47,8 @@ class App {
 		$this->controller = 'Home';
 		require_once CONTROLLERS_DIR.DS. $this->controller. '.php';
 		$this->controller = new $this->controller;
-		if($mode == 0)
-			$this->method = 'message';
+		//if($mode == 0)
+		$this->method = 'message';
 	}
 
 	public function parseUrl() {
