@@ -194,6 +194,44 @@ abstract class Model {
 	}
 
 	/**
+	* This method return whole table as array with conditions.
+	* @param $search : search keyword;
+	* @param $searchField : array of field names to be searched;
+	* @param $sort : sorting fieldname
+	* @param $sortType : 'ASC' or 'DSC'
+	* @return whole table as array.  
+	*/
+	protected function allConditions($search = null, $searchFields = null, $sort = null, $sortType = ''){
+		$query = "SELECT * FROM " . $this->table;
+		if(!empty($search)) {
+			$fieldName = array();
+			if(empty($searchFields)) {
+				$query0 = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'".$this->table."'";
+				$ans = $this->db->query($query0);
+				foreach ($ans as $value) {
+					array_push($fieldName, $value['COLUMN_NAME']);
+				}
+			} else {
+				$fieldName = $searchFields;	
+			}
+			$query .= " WHERE( ";
+
+			for($i = 0; $i < count($fieldName); $i++) {
+				$query .= $fieldName[$i] . " LIKE '%" . $search . "%' ";
+				if($i >= count($fieldName) - 1) {
+					$query .= ")";
+				} else {
+					$query .= "OR ";
+				}
+			}
+		}
+		if(!empty($sort)) {
+			$query .= " ORDER BY " . $sort ." ". $sortType;
+		}	
+		return $this->db->query($query);
+	}
+
+	/**
 	* This method count number of datas in the field.
 	* @param $field : string eg. 'id'
 	* @return if field found number of data else 0;

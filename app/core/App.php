@@ -30,8 +30,6 @@ class App {
 					$this->method = $url[1];
 				}
 				unset($url[1]);
-			//}else {
-			//	$this->setDefault(1);
 			}						
 		} catch(ReflectionException $e) {
 			$this->setDefault(0);
@@ -39,7 +37,14 @@ class App {
 
 		$this->params = $url ? array_values($url) : [];
 
-		call_user_func_array([$this->controller, $this->method], $this->params);
+		try {
+			if(@call_user_func_array([$this->controller, $this->method], $this->params) == false) {
+				throw new Exception("Call to private/unkown function");
+			}
+		}catch(Exception $e) {
+			$this->setDefault(0);
+			call_user_func_array([$this->controller, $this->method], $this->params);
+		}		
 
 	}
 
@@ -47,7 +52,6 @@ class App {
 		$this->controller = 'Home';
 		require_once CONTROLLERS_DIR.DS. $this->controller. '.php';
 		$this->controller = new $this->controller;
-		//if($mode == 0)
 		$this->method = 'message';
 	}
 

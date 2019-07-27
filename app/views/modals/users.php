@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <h3><i class="fa fa-user"></i> Manage User</h3>
             </div>
-            <form method="post">
+            <form>
                 <div class="modal-body col-md-12">
                     <input type="hidden" name="id" id="id"/>
                     <div class="form-group col-md-6">
@@ -35,13 +35,13 @@
                     <div class="form-group col-md-6">
                         <label>Password</label>
                         <input type="password" class="form-control" name="passwordHash" id="passwordHash"
-                            placeholder="Password" required min="6" max="15"/>
+                            placeholder="Password" required />
                         <span class="help-inline"></span>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Confirm Password</label>
                         <input type="password" class="form-control" name="cpasswordHash" id="cpasswordHash"
-                            placeholder="Confirm Password" required min="6" max="15"/>
+                            placeholder="Confirm Password" required />
                         <span class="help-inline"></span>
                     </div>
                     <div class="form-group col-md-6">

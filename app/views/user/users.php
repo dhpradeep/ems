@@ -61,50 +61,24 @@
                         </div>
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
-                                <table id="userTable" class="table table-bordered table-striped paginated tablesorter" style="margin-bottom:0;" id="tbl_users">
+                                <table id="userTable" class="table table-bordered table-striped paginated tablesorter" style="margin-bottom:0;">
                                     <thead>
-                                        <tr role="row">
-                                            <th class="sorting" >
+                                        <tr>
+                                            <th>
                                                 Name
                                             </th>
-                                            <th class="sorting" >
+                                            <th>
                                                 Username
                                             </th>
-                                            <th class="sorting" >
+                                            <th>
                                                 Email
                                             </th>
-                                            <th class="sorting" >
+                                            <th>
                                                 Role
                                             </th>
-                                            <th width="10%"></th>
+                                            <th style="min-width: 60px;">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="searchable">
-                                        <tr role="row">
-                                            <td class="sorting" >
-                                                Pradip Dhakal
-                                            </td>
-                                            <td class="sorting" >
-                                                dhpradeep
-                                            </td>
-                                            <td class="sorting" >
-                                                admin@admin.com
-                                            </td>
-                                            <td class="sorting" >
-                                                <select class="form-control">
-                                                    <option selected value="1">Admin</option>
-                                                    <option value="2">Teacher</option>
-                                                </select>
-                                            </td>
-                                            <td width="10%">
-                                                <div class="text-right">
-                                                <a class="remove-icon btn btn-danger btn-xs" data-id="1">
-                                                        <i class="fa fa-remove"></i>
-                                                </a>
-                                            </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
                                 </table>
                             </div>
                         </div>
