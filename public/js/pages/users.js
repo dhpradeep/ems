@@ -49,6 +49,7 @@ function updateUser(id, role) {
                 role: role
             },
             success: function(response) {
+                animate(300);
                 var decode = JSON.parse(response);
                 if (decode.success == true) {
                     $.notify("Record successfully updated", "success");
@@ -153,7 +154,11 @@ function deletedata(id) {
     });
 }
 
-function refresh() {
+function sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+function animate(sec) {
     var target = document.getElementById('target1');
     var spinner = new Spinner({
         radius: 30,
@@ -162,11 +167,16 @@ function refresh() {
         trail: 40
     }).spin(target);
 
-    getAllData();
-
-    $.notify("All records display", "info");
-    spinner.stop();
+    sleep(sec).then(() => {
+        $.notify("All records display", "info");
+        spinner.stop();
+    });
     return;
+}
+
+function refresh() {
+   getAllData();
+   animate(500);
 }
 
 function getAllData(){

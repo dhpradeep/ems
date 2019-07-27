@@ -35,16 +35,28 @@ class App {
 			$this->setDefault(0);
 		}	
 
+
+
 		$this->params = $url ? array_values($url) : [];
 
+		set_error_handler(function($errno, $errstr, $errfile, $errline, $errcontext) {
+		    if (0 === error_reporting()) {
+		        return false;
+		    }
+		    throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+		});
+
 		try {
-			if(@call_user_func_array([$this->controller, $this->method], $this->params) == false) {
-				throw new Exception("Call to private/unkown function");
-			}
-		}catch(Exception $e) {
-			$this->setDefault(0);
 			call_user_func_array([$this->controller, $this->method], $this->params);
-		}		
+		}catch(ErrorException $e) {
+			if($e->getFile() == __FILE__) {
+				$this->params = array("No permission to load page", 103);
+			} else {
+				$this->params = array($e->getMessage(), 104);
+			}
+			$this->setDefault(0);			
+			call_user_func_array([$this->controller, $this->method], $this->params);
+		}
 
 	}
 

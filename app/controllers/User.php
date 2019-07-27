@@ -10,7 +10,7 @@ class User extends Controller
 
 	public function index()
 	{
-		header("Location: ".SITE_URL."/user/login");
+		header("Location: ".SITE_URL."/user/users");
 	}
 
 	public function logout()
@@ -72,23 +72,23 @@ class User extends Controller
 		}
 	}
 	
-	/*public function forgot() 
-	{
-		$this->model->template = VIEWS_DIR.DS."user".DS."forgot.php";
-		$this->model->data = array();
-		$this->view->render();
-	}
-
-	public function recover($name = '') 
-	{
-		$this->model->template = VIEWS_DIR.DS."user".DS."recover.php";
-		$this->view->render();
-	}*/
 
 	public function profile() 
 	{
-		$this->model->template = VIEWS_DIR.DS."user".DS."profile.php";
-		$this->view->render();
+		if(!Session::isLoggedIn()) {
+			header("Location: ".SITE_URL."/user/login");
+		}else {
+			$dataToSearch = array("id" => Session::getSession('uid'),
+			"role" => Session::getSession("role"));
+			$userdata = $this->model->searchUser($dataToSearch);
+			if(count($userdata[0]) > 0) {
+				unset($userdata[0]['passwordHash']);
+				$this->model->data = $userdata[0];
+			}
+			//$this->model->data['success'] = true;
+			$this->model->template = VIEWS_DIR.DS."user".DS."profile.php";
+			$this->view->render();
+		}
 	}
 
 	public function users($name = '') 
@@ -207,7 +207,7 @@ class User extends Controller
 		$res = $this->model->searchUser($dataForSearch);
 		if(count($res) >= 1) {
 			$idToChange = $data['id'];
-			if(!($data['role'] == 0 || $data['role'] == 1 || $data['role'] == 2))
+			if(!($data['role'] == 1 || $data['role'] == 2 || $data['role'] == 3))
 			{
 				$result['status'] = 0;
 			}else {

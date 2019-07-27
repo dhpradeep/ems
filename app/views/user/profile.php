@@ -19,9 +19,7 @@
 </head>
 
 <body>
-
     <div id="wrapper">
-
         <!-- Navigation -->
         <?php include(INCLUDES_DIR.DS.'nav-bar.php'); ?>
 
@@ -59,30 +57,30 @@
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane active" id="profile">
                                     <br>
-                                    <form role="form"  id="frmProfile" class="padding-top">
+                                    <form method="POST" action="<?= SITE_URL."/user/profile" ?>" role="form"  id="frmProfile" class="padding-top">
                                         <div class="form-group col-md-6" >
                                             <label>First Name</label>
-                                            <input class="form-control" type="text" name="fname" id="fname" placeholder="First Name"/>
+                                            <input class="form-control" type="text" name="fname" id="fname" placeholder="First Name" value="<?=$this->fname ?>" />
                                             <span class="help-inline"></span>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Middle Name</label>
-                                            <input class="form-control" type="text" name="lname" id="lname" placeholder="Last Name"/ >
+                                            <input class="form-control" type="text" name="mname" id="mname" placeholder="Middle Name" value="<?=$this->mname ?>" / >
                                             <span class="help-inline"></span>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Last Name</label>
-                                            <input class="form-control" type="text" name="lname" id="lname" placeholder="Last Name"/ >
+                                            <input class="form-control" type="text" name="lname" id="lname" placeholder="Last Name" value="<?=$this->lname ?>" / >
                                             <span class="help-inline"></span>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Email</label>
-                                            <input class="form-control" type="email" name="email" id= "email" placeholder="Email Address"/>
+                                            <input class="form-control" type="email" name="email" id= "email" placeholder="Email Address" value="<?=$this->email ?>" />
                                             <span class="help-inline"></span>
                                         </div>
                                         <div class="form-group col-md-12">
-                                            <a id="btn-save" class="btn btn-primary" onclick="saveProfile()">Update</a>
-                                            <button type="button" class="btn btn-warning" data-dismiss="modal">Clear</button>
+                                            <button name="submit_profile" type = "submit" id="btn-save" class="btn btn-primary">  Update </button>
+                                            <button type="reset" class="btn btn-warning" data-dismiss="modal">Reset</button>
                                         </div>
                                     </form>
                                 </div>
@@ -90,31 +88,30 @@
                                     <br>
                                     <form role="form"  id="frmAccount" class="padding-top">
                                     
-                                        <input type="hidden" id="user_id" name="user_id" value="<?php echo $_SESSION['entrance']['id'];?>">
                                         <div class="form-group">
                                             <div class="col-md-6">
                                                 <label>Username</label>
-                                                <input class="form-control" type="text" name="username" id="username" placeholder="Username" />
+                                                <input class="form-control" type="text" name="username" id="username" placeholder="Username" value="<?=$this->username ?>" />
                                                 <span class="help-inline"></span>
                                             </div>
                                         </div>
                                         <div class="form-group col-md-12">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <label>Password</label>
-                                                    <input class="form-control" type="password" name="password" id="password" placeholder="Password" />
+                                                    <label>New Password</label>
+                                                    <input class="form-control" type="password" name="passwordHash" id="password" placeholder="Password" />
                                                     <span class="help-inline"></span>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label>Confirm Password</label>
-                                                    <input class="form-control" type="password" name="password2" id="password2" placeholder="Confirm Password" />
+                                                    <input class="form-control" type="password" name="passwordHash" id="password2" placeholder="Confirm Password" />
                                                     <span class="help-inline"></span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group col-md-12">
-                                            <a id="btn-save" class="btn btn-primary" onclick="saveAccount()">Update</a>
-                                            <button type="reset" class="btn btn-warning" data-dismiss="modal">Clear</button>
+                                            <button name="submit_security" type = "submit" id="btn-save" class="btn btn-primary">  Update </button>
+                                            <button type="reset" class="btn btn-warning" data-dismiss="modal">Reset</button>
                                         </div>
                                     </form>                                        
                                 </div>
@@ -151,8 +148,26 @@
     <script src="<?= BOWER_DIR ?>/spin.js/spin.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="<?= JS_DIR ?>/pages/profile.js"></script>
     <script src="<?= JS_DIR ?>/sb-admin-2.js"></script>
+    <script type="text/javascript">
+        <?php
+            if(!is_null($this->success)) {
+                if($this->success) {
+        ?>
+                $(document).ready(function() {
+                    $.notify("Updated", "success");
+                });
+        <?php
+                }else {
+        ?>
+                $(document).ready(function() {
+                    $.notify("Updated", "error");
+                });
+        <?php
+                }
+            }
+        ?>
+    </script>
 
 </body>
 

@@ -11,23 +11,26 @@ class Home extends Controller {
 	}
 
 	public function dashboard() {
-		$this->model->template = VIEWS_DIR.DS."home".DS."dashboard.php";
-		$this->view->render();
+		if(!Session::isloggedIn()) {
+			header("Location: ".SITE_URL."/user/login");
+		}else {
+			$this->model->template = VIEWS_DIR.DS."home".DS."dashboard.php";
+			$this->view->render();
+		}		
 	}
 
-	public function message($name = '') {
+	public function message($name = '', $code='') {
 		if(!empty($name)) {
+			$code = (!empty($code)) ? $code : 404;
 			$this->model->data = array(
 			'message'=> array(
-			'header' => 'Error 404',
-			'content' => '<b>Page doesn\'t exist!</b>',
-			'link' => '../index',
-			'link_content' => 'Go back'
+			'header' => 'Error '.$code,
+			'content' => '<b>'.$name.'!</b>',
+			'link' => SITE_URL,
+			'link_content' => 'Go to home'
 			));
-			$this->model->template = VIEWS_DIR.DS."error.php";
-		}else {
-			$this->model->template = VIEWS_DIR.DS."error.php";
 		}
+		$this->model->template = VIEWS_DIR.DS."error.php";
 		$this->view->render();
 	}
 }

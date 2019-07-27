@@ -24,11 +24,31 @@
   <div class="container">
     <div class="col-md-12 text-center">
       <span class="display-1 d-block">
-        <h1> Error 404</h1>
-      </span>
-      <div class="mb-4 lead">Page doesn't Exist </div>
-      <a href="<?= SITE_URL ?>" type="submit" class="btn btn-lg btn-primary btn-block">Go Back Home</a>
-    </div>
+        <?php
+            if(!is_null($this->message)) {
+          ?>
+          <h1> 
+            <?= $this->message['header'] ?>
+          </h1>
+          </span>
+          <div class="mb-4 lead"><?= $this->message['content'] ?></div>
+          <a href="<?= $this->message['link'] ?>" type="submit" class="btn btn-lg btn-primary btn-block"><?= $this->message['link_content'] ?></a>
+          </div>    
+        <?php 
+            } else {
+        ?>
+          <h1> 
+            Error 404
+          </h1>
+          </span>
+          <div class="mb-4 lead"><b>Page doesn't Exist</b></div>
+          <a href="<?= SITE_URL ?>" type="submit" class="btn btn-lg btn-primary btn-block">Go Back Home</a>
+          </div>  
+
+        <?php
+            }
+        ?>
+        
   </div>
 </body>
 
