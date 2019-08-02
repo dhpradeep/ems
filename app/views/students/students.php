@@ -62,7 +62,7 @@
                 <div class="col-lg-12">
                     <div class="form-inline form-padding">
                         <form id="frmSearch" role="form">
-                            <a onclick="create_student()" class="btn btn-primary">Add Student</a>
+                            <a href="<?= SITE_URL.DS.'student'.DS ?>add" class="btn btn-primary">Add Student</a>
                             <!-- <a onclick="create_student_bulk()" class="btn btn-primary">Add Student in Bulk</a> -->
                             <!-- <a class="btn btn-primary" disabled="true">Add Student in Bulk</a> -->
                             <a onclick="refresh()" class="btn btn-info">Refresh</a>
