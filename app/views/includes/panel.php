@@ -8,7 +8,7 @@
                 <a href="#students"><i class="fa fa-table fa-fw"></i> Students<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="<?= SITE_URL.DS.'student'.DS ?>add">Add New</a>
+                        <a href="<?= SITE_URL.DS.'student'.DS ?>add">Add Student</a>
                     </li>
                     <li>
                         <a href="<?= SITE_URL.DS.'student'.DS ?>all">Manage Students</a>
