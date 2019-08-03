@@ -78,14 +78,126 @@ class User extends Controller
 		if(!Session::isLoggedIn()) {
 			header("Location: ".SITE_URL."/user/login");
 		}else {
+			$this->model->data['activeTab'] = "profile";
+			if(isset($_POST)) {
+				$validate = new Validator();
+				$result = array('status' => 0);
+				if (isset($_POST['submit_profile'])) {
+					unset($_POST['submit_profile']);					
+					$validation = $validate->check($_POST, array(
+						'fname' => array(
+							'name' => 'First Name',
+							'required' => true,
+							'min' => 1,
+							'max' => 30
+						),
+						'mname' => array(
+							'name' => 'Middle Name',
+							'min' => 1,
+							'max' => 30
+						),
+						'lname' => array(
+							'name' => 'Last Name',
+							'required' => true,
+							'min' => 1,
+							'max' => 30
+						),
+						'email' => array(
+							'name' => 'User Email',
+							'required' => true,
+							'min' => 5,
+							'max' => 50,
+							'type' => 'email'
+						)
+					));
+					if($validate->passed()){
+						$data = array();
+						$id = Session::getSession('uid');
+						foreach ($_POST as $key => $value) {
+							$data[$key] = Input::get($key);
+						}
+						$checkEmail = array('email' => $data['email']);
+						$checkId = $this->model->getUserID($checkEmail);
+						if(!($checkId == 0 || $checkId == $id)) {
+							$validate->addError("Email already exists.");
+							$result['status'] = 0;
+						} else {
+							$id = $this->model->updateUser($id, $data);
+							if($id == 1){
+								$result['status'] = 1;
+							}else{
+								$result['status'] = -1;
+								$validate->addError("Nothing updated.");
+							}
+						}
+					} else {
+						$result['status'] = 0;
+					}
+				}else if(isset($_POST['submit_security'])) {
+					$this->model->data['activeTab'] = "security";
+					unset($_POST['submit_security']);					
+					$validation = $validate->check($_POST, array(
+						'username' => array(
+							'name' => 'Username',
+							'required' => true,
+							'min' => 5,
+							'max' => 20
+							),
+						'passwordHash' => array(
+							'name' => 'Password',
+							'matchName' => 'Confirm Password',
+							'matches' => 'cpasswordHash'
+						)
+					));
+					if(strlen(Input::get("passwordHash")) >= 6 && strlen(Input::get("passwordHash")) <= 25 ) {
+						$_POST['passwordHash'] = md5(Input::get("passwordHash"));
+					} else {
+						
+						if(strlen(Input::get("passwordHash")) != 0) {
+							$validate->addError("Password must be between 6 to 25 characters.");
+						}						
+						unset($_POST['passwordHash']);
+					}
+					unset($_POST['cpasswordHash']);
+					if($validate->passed()){
+						$data = array();
+						$id = Session::getSession('uid');
+						foreach ($_POST as $key => $value) {
+							$data[$key] = Input::get($key);
+						}
+						$checkUsername = array('username' => $data['username']);
+						$checkId = $this->model->getUserID($checkUsername);
+						if(!($checkId == 0 || $checkId == $id)) {
+							$validate->addError("Username already exists.");
+							$result['status'] = 0;
+						} else {
+							$id = $this->model->updateUser($id, $data);
+							if($id == 1){
+								$result['status'] = 1;
+							}else{
+								$result['status'] = -1;
+								$validate->addError("Nothing updated.");
+							}
+						}
+					} else {
+						$result['status'] = 0;
+					}
+				}
+				if($result['status'] == 1) {
+					$this->model->data['success'] = true;
+				} else {
+					$this->model->data['success'] = false;
+					$this->model->data['errors'] = $validate->errors();
+				}
+				unset($_POST);
+			}
 			$dataToSearch = array("id" => Session::getSession('uid'),
 			"role" => Session::getSession("role"));
 			$userdata = $this->model->searchUser($dataToSearch);
 			if(count($userdata[0]) > 0) {
 				unset($userdata[0]['passwordHash']);
-				$this->model->data = $userdata[0];
+				$this->model->data['profile'] = $userdata[0];
 			}
-			//$this->model->data['success'] = true;
 			$this->model->template = VIEWS_DIR.DS."user".DS."profile.php";
 			$this->view->render();
 		}
@@ -169,6 +281,7 @@ class User extends Controller
 			$totalUsers = count($this->model->getAllUser());
 			$result['recordsTotal'] = ($totalUsers >= $total) ? $totalUsers - 1 : $total;
 			$result['recordsFiltered'] = $total;
+		unset($_POST);
 		return print json_encode($result);
 	} 
 
@@ -302,7 +415,7 @@ class User extends Controller
 					$result['success'] = true;
 				}else{
 					$result['status'] = -1;
-					$result['errors'] = array("Problem with connection to server!");
+					$result['errors'] = $validate->addError("Problem with connection to server!");
 				}
 			}
 		} else {

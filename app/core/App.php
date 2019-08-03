@@ -52,7 +52,7 @@ class App {
 			if($e->getFile() == __FILE__) {
 				$this->params = array("No permission to load page", 103);
 			} else {
-				$this->params = array($e->getMessage(), 104);
+				$this->params = array($e->getMessage()."\n<br> File: ".$e->getFile()." Line : ".$e->getLine(), 104);
 			}
 			$this->setDefault(0);			
 			call_user_func_array([$this->controller, $this->method], $this->params);

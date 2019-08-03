@@ -60,6 +60,20 @@ abstract class Model {
 		return null;
 	}
 
+	/** This method set table for the model
+	* @param name - tablename
+	**/
+	public function setTable($name) {
+		$this->table = $name;
+	}
+
+	/** This method set table for the model
+	* @param name - tablename
+	**/
+	public function getTable($name) {
+		return $this->table;
+	}
+
 	/**
 	* This method insert the data set from $variables to table in $table.
 	* @return last inserted id on success or 0 on failure.

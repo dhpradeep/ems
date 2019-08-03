@@ -66,7 +66,20 @@
                         </div>
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
-                                <table id="categoryTable" class="table table-bordered table-striped paginated tablesorter"
+                                <table id="categoryTable" class="table table-bordered table-striped paginated tablesorter" style="margin-bottom:0;">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Category Name
+                                            </th>
+                                            <th>
+                                                Category Description
+                                            </th>
+                                            <th style="min-width: 60px;">Action</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <!--<table id="categoryTable" class="table table-bordered table-striped paginated tablesorter"
                                     style="margin-bottom:0;">
                                     <thead>
                                         <tr role="row">
@@ -126,7 +139,7 @@
                                             </td>
                                         </tr>
                                     </tbody>
-                                </table>
+                                </table>-->
                             </div>
                         </div>
                     </div>

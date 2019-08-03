@@ -49,33 +49,33 @@
                         <div class="panel-body">
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist" id="myTabs">                                    
-                                <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-                                <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Security Accounts</a></li>
+                                <li role="presentation" class="<?= ($this->activeTab == 'profile') ? "active" : "" ?>"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
+                                <li role="presentation" class="<?= ($this->activeTab == 'security') ? "active" : "" ?>"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Security Accounts</a></li>
                             </ul>
 
                             <!-- Tab panes -->
                             <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active" id="profile">
+                                <div role="tabpanel" class="tab-pane <?= ($this->activeTab == 'profile') ? "active" : "" ?>" id="profile">
                                     <br>
                                     <form method="POST" action="<?= SITE_URL."/user/profile" ?>" role="form"  id="frmProfile" class="padding-top">
                                         <div class="form-group col-md-6" >
                                             <label>First Name</label>
-                                            <input class="form-control" type="text" name="fname" id="fname" placeholder="First Name" value="<?=$this->fname ?>" />
+                                            <input class="form-control" type="text" name="fname" id="fname" placeholder="First Name" minlength="1" value="<?=$this->profile['fname'] ?>" required />
                                             <span class="help-inline"></span>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Middle Name</label>
-                                            <input class="form-control" type="text" name="mname" id="mname" placeholder="Middle Name" value="<?=$this->mname ?>" / >
+                                            <input class="form-control" type="text" name="mname" id="mname" placeholder="Middle Name" value="<?=$this->profile['mname'] ?>" / >
                                             <span class="help-inline"></span>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Last Name</label>
-                                            <input class="form-control" type="text" name="lname" id="lname" placeholder="Last Name" value="<?=$this->lname ?>" / >
+                                            <input class="form-control" type="text" name="lname" id="lname" placeholder="Last Name" minlength="1" value="<?=$this->profile['lname'] ?>" required />
                                             <span class="help-inline"></span>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Email</label>
-                                            <input class="form-control" type="email" name="email" id= "email" placeholder="Email Address" value="<?=$this->email ?>" />
+                                            <input class="form-control" type="email" name="email" id= "email" placeholder="Email Address" minlength="5" value="<?=$this->profile['email'] ?>" required />
                                             <span class="help-inline"></span>
                                         </div>
                                         <div class="form-group col-md-12">
@@ -84,14 +84,14 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div role="tabpanel" class="tab-pane" id="settings">
+                                <div role="tabpanel" class="tab-pane <?= ($this->activeTab == 'security') ? "active" : "" ?>" id="settings">
                                     <br>
-                                    <form role="form"  id="frmAccount" class="padding-top">
+                                    <form method="post" role="form" action="<?= SITE_URL."/user/profile" ?>" id="frmAccount" class="padding-top">
                                     
                                         <div class="form-group">
                                             <div class="col-md-6">
                                                 <label>Username</label>
-                                                <input class="form-control" type="text" name="username" id="username" placeholder="Username" value="<?=$this->username ?>" />
+                                                <input class="form-control" type="text" name="username" id="username" placeholder="Username" minlength="5" value="<?=$this->profile['username'] ?>" required />
                                                 <span class="help-inline"></span>
                                             </div>
                                         </div>
@@ -104,7 +104,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label>Confirm Password</label>
-                                                    <input class="form-control" type="password" name="passwordHash" id="password2" placeholder="Confirm Password" />
+                                                    <input class="form-control" type="password" name="cpasswordHash" id="password2" placeholder="Confirm Password" />
                                                     <span class="help-inline"></span>
                                                 </div>
                                             </div>
@@ -161,7 +161,7 @@
                 }else {
         ?>
                 $(document).ready(function() {
-                    $.notify("Updated", "error");
+                    $.notify("<?= $this->errors[0]?>", "error");
                 });
         <?php
                 }
