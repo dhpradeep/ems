@@ -1,39 +1,47 @@
-function create_program(data = null) {
-    if (data != null) {
-        $('#addProgram').modal('show');
-    } else {
-        $("#programName").val("");
-        $("#programDuration").val(60);
-        $('#addProgram').modal('show');
+function create_model(data = null) {
+    if(data != null) {
+        $("#modelId").data('id',data.id);
+        $('#noOfQuestions').val(data.noOfQuestions);
+        $("#saveBtn")[0].innerHTML = "Update";
+
+        $('#categoryId > option').each(function () { 
+            if(this.value == data.categoryId) {
+                $(this).attr("selected","selected");
+            }
+         });
+
+        $('#minLevel > option').each(function () { 
+            if(this.value == data.minLevel) {
+                $(this).attr("selected","selected");
+            }
+         });
+
+        $('#addModel').modal('show');
+    }else{
+        $("#modelId").data('id','-1');
+        $("#saveBtn")[0].innerHTML = "Add";
+        $('#noOfQuestions').val("");
+        $('#addModel').modal('show');
     }
 }
-
+ 
 $(document).ready(function() {
-    $('#programTable').DataTable();
-    $('#modelTable').DataTable();
+    refresh();
 });
 
-$(document).on("click", ".edit-icon-program", function() {
-    var columnValues = $(this).parent().parent().siblings().map(function() {
-        return $(this).text();
-    }).get();
-
-    console.log(columnValues);
-
-    $("#programName").val(columnValues[1].trim());
-    $("#programDuration").val(columnValues[2].trim().split(" ")[0]);
-
-    // get category id from DB
-    catId = 1;
-    create_program(catId);
+$(document).on("click", "#saveBtn", function(e) {
+    e.preventDefault();
+    var btn = $('#saveBtn')[0].innerHTML;
+    if(btn == "Update") {
+        updateModel();
+    } else {
+        addModel();
+    }
 });
 
-$(document).on("click", ".edit-icon-model", function() {
-    create_model( /*with value */ );
-});
 
-$(document).on("click", ".remove-icon-program", function() {
-
+$(document).on("click", ".remove-icon", function(e) {
+    var id = $(this).data('id');
     BootstrapDialog.show({
         title: 'Delete',
         message: 'Are you sure to delete this record?',
@@ -41,7 +49,7 @@ $(document).on("click", ".remove-icon-program", function() {
             label: 'Yes',
             cssClass: 'btn-primary',
             action: function(dialog) {
-                deletedata();
+                deletedata(id);
                 dialog.close();
             }
         }, {
@@ -54,17 +62,139 @@ $(document).on("click", ".remove-icon-program", function() {
     });
 });
 
-function deletedata() {
-    $.notify("Record successfully deleted", "success");
-    refresh();
+function updateModel() {
+     $('input[type="text"]').each(function() {
+        $(this).val($(this).val().trim());
+    });
+
+    var programId = $('#programId').data('id');
+    var id = $('#modelId').data('id');
+    if(id > 0) {
+        $.ajax({
+            url: '../../question/modelController/update',
+            async: true,
+            type: 'POST',
+            data: {
+                id: $('#modelId').data('id'),
+                programId: $('#programId').data('id'),
+                categoryId: $('#categoryId').val(),
+                minLevel: $('#minLevel').val(),
+                maxLevel: $('#minLevel').val(),
+                noOfQuestions: $('#noOfQuestions').val()
+            },
+            success: function(response) {
+                animate(300);
+                var decode = JSON.parse(response);
+                if (decode.success == true) {
+                    $('#addModel').modal('hide');
+                    refresh();
+                    $.notify("Record successfully updated", "success");
+                } else if (decode.success === false) {
+                    decode.errors.forEach(function(element) {
+                      $.notify(element, "error");
+                    });
+                    if(decode.status === -1) $('#addModel').modal('hide');
+                    return;
+                }
+            },
+            error: function(error) {
+                console.log("Error:");
+                console.log(error.responseText);
+                console.log(error.message);
+                if (error.responseText) {
+                    var msg = JSON.parse(error.responseText)
+                    $.notify(msg.msg, "error");
+                }
+                return;
+            }
+        });
+    }
+    
 }
 
-function sleep(time) {
+function addModel(){
+
+    $('input[type="text"]').each(function() {
+        $(this).val($(this).val().trim());
+    });
+
+    $.ajax({
+        url: '../../question/modelController/add',
+        async: true,
+        type: 'POST',
+        data: {
+            programId: $('#programId').data('id'),
+            categoryId: $('#categoryId').val(),
+            minLevel: $('#minLevel').val(),
+            maxLevel: $('#minLevel').val(),
+            noOfQuestions: $('#noOfQuestions').val()
+            },
+        success: function(response) {
+            var decode = JSON.parse(response);
+            if (decode.success == true) {
+                $('#addModel').modal('hide');
+                refresh();
+                $.notify("Record successfully saved", "success");
+            } else if (decode.success === false) {
+                decode.errors.forEach(function(element) {
+                  $.notify(element, "error");
+                });
+                if(decode.status == -1) $('#addModel').modal('hide');
+                return;
+            }
+        },
+        error: function(error) {
+            console.log("Error:");
+            console.log(error.responseText);
+            console.log(error.message);
+            if (error.responseText) {
+                var msg = JSON.parse(error.responseText)
+                $.notify(msg.msg, "error");
+            }
+            return;
+        }
+    });
+}
+
+function deletedata(id) {
+     $.ajax({
+            url: '../../question/modelController/delete',
+            async: true,
+            type: 'POST',
+            data: {
+                id: id
+            },
+            success: function(response) {
+                var decode = JSON.parse(response);
+                if (decode.success == true) {
+                    refresh();
+                    $.notify("Record successfully updated", "success");
+                } else if (decode.success === false) {
+                    decode.errors.forEach(function(element) {
+                      $.notify(element, "error");
+                    });
+                    return;
+                }
+            },
+            error: function(error) {
+                console.log("Error:");
+                console.log(error.responseText);
+                console.log(error.message);
+                if (error.responseText) {
+                    var msg = JSON.parse(error.responseText)
+                    $.notify(msg.msg, "error");
+                }
+                return;
+            }
+    });
+}
+
+function sleep (time) {
     return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-function refresh() {
-    var target = document.getElementById('target1')
+function animate(sec) {
+    var target = document.getElementById('target1');
     var spinner = new Spinner({
         radius: 30,
         length: 0,
@@ -72,60 +202,51 @@ function refresh() {
         trail: 40
     }).spin(target);
 
-    sleep(1000).then(() => {
+    sleep(sec).then(() => {
         $.notify("All records display", "info");
         spinner.stop();
     });
-
     return;
 }
 
-
-
-// For Models
-function create_model(data = null) {
-    if (data != null) {
-        $('#addModel').modal('show');
-    } else {
-        $("#categoryId").val($("#categoryId option:first").val());
-        $("#questionLevel").val($("#questionLevel option:first").val());
-        $("#noOfQuestions").val('');
-        $('#addModel').modal('show');
-    }
+function refresh() {
+   getAllData();
+   animate(500);
 }
 
-$(document).on("click", ".edit-model", function() {
-    var columnValues = $(this).parent().parent().siblings().map(function() {
-        return $(this).text();
-    }).get();
 
-    $("#categoryId select").val(columnValues[1].trim());
-    $("#questionLevel select").val(columnValues[2].trim());
-    $("#noOfQuestions").val(columnValues[3].trim());
+function getAllData(){
+    var programId = $('#programId').data('id');
+    if(programId > 0) {
+        $("#modelTable").dataTable().fnDestroy();
+        var table = $('#modelTable').DataTable( {
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "../../question/modelController/get",
+                "data": {
+                    programId: programId
+                },
+                "type": "POST"
+            },
+            "columns": [
+                { "data": "category" },
+                { "data": "levelName" },
+                { "data": "noOfQuestions" },
+                {   
+                     sortable: false,
+                     "render": function ( data, type, row, meta ) {
+                        return "<a data-id="+ row.id +" class='edit-icon btn btn-success btn-xs'><i class='fa fa-pencil'></i> </a><a data-id="+ row.id +" class='remove-icon btn btn-danger btn-xs'><i class='fa fa-remove'></i></a>";
+                     }
+                }
+            ],
+            "order": [[1, 'asc']]
+        } );
 
-    // get category id from DB
-    catId = 1;
-    create_model(catId);
-});
-
-$(document).on("click", ".remove-model", function() {
-
-    BootstrapDialog.show({
-        title: 'Delete',
-        message: 'Are you sure to delete this record?',
-        buttons: [{
-            label: 'Yes',
-            cssClass: 'btn-primary',
-            action: function(dialog) {
-                deletedata();
-                dialog.close();
-            }
-        }, {
-            label: 'No',
-            cssClass: 'btn-warning',
-            action: function(dialog) {
-                dialog.close();
-            }
-        }]
-    });
-});
+        $('#modelTable tbody').on('click', '.edit-icon', function () {
+            var tr = $(this).closest('tr');
+            var row = table.row( tr );
+            create_model(row.data());
+        } );
+    }
+}

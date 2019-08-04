@@ -17,11 +17,19 @@
                         <input id="duration" type="number" name="duration" class="form-control" value="60" required min="0">   
                         <span class="input-group-addon">Min.</span>                 
                     </div>
+                    <div class="form-group col-md-12">
+                        <label>Welcome Message for Students</label>
+                        <textarea name="welcome" class="ckeditor" id="welcome" required></textarea>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>Exit Message for Students</label>
+                        <textarea name="thanks" class="ckeditor" id="thanks" required></textarea>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary" id="saveBtn">Add</button>
-                <button type="reset" class="btn btn-warning">Reset</button>
+                <!--<button type="reset" class="btn btn-warning">Reset</button>-->
                 <button class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>

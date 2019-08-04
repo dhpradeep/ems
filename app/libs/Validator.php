@@ -98,7 +98,7 @@ class Validator {
     * @return true in success
     */
     public function passed() {
-        return $this->passed;
+        return empty($this->errors);
     }
 }
 

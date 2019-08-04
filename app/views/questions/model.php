@@ -45,7 +45,7 @@
                             <a href="<?= SITE_URL.DS.'home'.DS ?>dashboard">Dashboard</a>
                         </li>
                         <li>
-                            <a href="<?= SITE_URL.DS.'question'.DS ?>model">Program</a>
+                            <a href="<?= SITE_URL.DS.'question'.DS ?>program">Program</a>
                         </li>
                         <li class="active">
                             Details
@@ -56,14 +56,15 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Welcome Message: </h1><span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores ab possimus quia saepe aspernatur cum, neque omnis similique enim nulla. Nihil, dicta veniam. Rem dignissimos quod, enim adipisci commodi recusandae.</span>
-                    <h1>Program Name: <strong>BCA</strong></h1>
-                    <h1>Exam Duration: <strong>150 min</strong></h1>
+                    <h2>Welcome Message: </h2><h4><span><?= htmlspecialchars_decode($this->program['welcome']); ?></h4></span>
+                    <h3>Program Name: <strong><?= $this->program['name']; ?></strong></h3>
+                    <h3>Exam Duration: <strong><?= $this->program['duration']; ?> min</strong></h3>
                 </div>
-                <div class="col-lg-12">
+                <div class="col-lg-12" style="margin-top: 30px;">
                     <div class="float-right">
                         <form id="frmSearch" role="form">
                         <a onclick="create_model()" class="btn btn-primary">Add Model</a>
+                        <a onclick="refresh()" class="btn btn-info">Refresh</a>
                         </form>
                     </div>
                     <br>
@@ -74,105 +75,28 @@
                         <div id="target1"></div>
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
-                                <table class="table table-bordered table-striped">
+                                <table id="modelTable" class="table table-bordered table-striped">
                                     <thead>
                                         <tr role="row">
-                                            <th class="sorting">
-                                                S.N
-                                            </th>
-                                            <th class="sorting">
+                                            <th>
                                                 Category
                                             </th>
-                                            <th class="sorting">
+                                            <th>
                                                 Level
                                             </th>
-                                            <th class="sorting">
+                                            <th>
                                                 Number of Questions
                                             </th>
-                                            <th width="10%"></th>
+                                            <th style="min-width: 60px">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="searchable">
-                                        <tr role="row">
-                                            <td class="sorting">
-                                                1
-                                            </td>
-                                            <td class="sorting">
-                                                PHP
-                                            </td>
-                                            <td class="sorting">
-                                                Basic
-                                            </td>
-                                            <td class="sorting">
-                                                15
-                                            </td>
-                                            <td width="10%">
-                                                <div class="text-right">
-                                                    <a class="edit-model btn btn-success btn-xs" data-id="1">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
-                                                    <a class="remove-model btn btn-danger btn-xs" data-id="1">
-                                                        <i class="fa fa-remove"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr role="row">
-                                            <td class="sorting">
-                                                2
-                                            </td>
-                                            <td class="sorting">
-                                                JAVA
-                                            </td>
-                                            <td class="sorting">
-                                                Intermediate
-                                            </td>
-                                            <td class="sorting">
-                                                10
-                                            </td>
-                                            <td width="10%">
-                                                <div class="text-right">
-                                                    <a class="edit-model btn btn-success btn-xs" data-id="1">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
-                                                    <a class="remove-model btn btn-danger btn-xs" data-id="1">
-                                                        <i class="fa fa-remove"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr role="row">
-                                            <td class="sorting">
-                                               3
-                                            </td>
-                                            <td class="sorting">
-                                                PYTHON
-                                            </td>
-                                            <td class="sorting">
-                                                Hard
-                                            </td>
-                                            <td class="sorting">
-                                                5
-                                            </td>
-                                            <td width="10%">
-                                                <div class="text-right">
-                                                    <a class="edit-model btn btn-success btn-xs" data-id="1">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
-                                                    <a class="remove-model btn btn-danger btn-xs" data-id="1">
-                                                        <i class="fa fa-remove"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-12">
-                    <h1>Thank you Message: </h1><span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores ab possimus quia saepe aspernatur cum, neque omnis similique enim nulla. Nihil, dicta veniam. Rem dignissimos quod, enim adipisci commodi recusandae.</span>
+                    <h3>Exit Message: </h3><h4><span><?= htmlspecialchars_decode($this->program['thanks']); ?></span></h4></span>
                 </div>
             </div>
             <!-- /.row -->

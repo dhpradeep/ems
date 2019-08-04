@@ -1,5 +1,11 @@
+jQuery.fn.CKEditorValFor = function(element_id) {
+    return CKEDITOR.instances[element_id].getData();
+}
+
 function create_program(data = null) {
     if(data != null) {
+        CKEDITOR.instances['welcome'].setData(data.welcome);
+        CKEDITOR.instances['thanks'].setData(data.thanks);
         $("#programId").data('id',data.id);
         $('#name').val(data.name);
         $('#duration').val(data.duration);
@@ -63,7 +69,9 @@ function updateProgram() {
             data: {
                 id: $('#programId').data('id'),
                 name: $('#name').val(),
-                duration: $('#duration').val()
+                duration: $('#duration').val(),
+                welcome: $().CKEditorValFor('welcome'),
+                thanks : $().CKEditorValFor('thanks')
             },
             success: function(response) {
                 animate(300);
@@ -107,7 +115,9 @@ function addProgram(){
         type: 'POST',
         data: {
             name: $('#name').val(),
-            duration: $('#duration').val()
+            duration: $('#duration').val(),
+            welcome: $().CKEditorValFor('welcome'),
+            thanks : $().CKEditorValFor('thanks')
         },
         success: function(response) {
             var decode = JSON.parse(response);

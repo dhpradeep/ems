@@ -96,7 +96,7 @@
                                     class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th style="min-width: 30px">Extension</th>
+                                            <th style="min-width: 60px">Extension</th>
                                             <th>Question</th>
                                             <th style="min-width: 100px">Categories</th>
                                             <th style="min-width: 50px">Level</th>

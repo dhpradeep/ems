@@ -110,6 +110,9 @@
     <script src="<?= BOWER_DIR ?>/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="<?= BOWER_DIR ?>/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 
+    <!-- ckeditor -->
+    <script src="<?= BOWER_DIR ?>/ckeditor/ckeditor.js"></script>
+
     <!-- Notify -->
     <script src="<?= BOWER_DIR ?>/notifyjs/dist/notify.js"></script>
     <script src="<?= BOWER_DIR ?>/notifyjs/dist/styles/bootstrap/notify-bootstrap.js"></script>
