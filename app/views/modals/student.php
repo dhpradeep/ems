@@ -1,62 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>
-        <?= WEBSITE_TITLE ?> | Add Students</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="<?= BOWER_DIR ?>/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- MetisMenu CSS -->
-    <link href="<?= BOWER_DIR ?>/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="<?= CSS_DIR ?>/sb-admin-2.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="<?= BOWER_DIR ?>/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-</head>
-
-<body>
-
-    <div id="wrapper">
-
-        <!-- Navigation -->
-        <?php include(INCLUDES_DIR.DS.'nav-bar.php'); ?>
-
-        <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2 class="page-header">Student</h2>
-                    <ol class="breadcrumb">
-                        <li>
-                            <i class="fa fa-dashboard"></i> <a href="<?= SITE_URL.DS.'home'.DS ?>dashboard">Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="<?= SITE_URL.DS.'student'.DS ?>all"> Students</a>
-                        </li>
-                        <li class="active">
-                            Add Student
-                        </li>
-                    </ol>
-                </div>
-                <!-- /.col-lg-12 -->
+<div class="modal fade" id="addStudent" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Manage Program</h3>
             </div>
-            <!-- /.row -->
+            <div class="modal-body">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            Add Student
+                            Update Student
                         </div>
                         <div class="panel-body">
                             <div class="row">
@@ -106,7 +59,7 @@
                                 <input type="email" class="form-control" name="email" id="email" placeholder="Email Address" />
                                 <span class="help-inline"></span>
                             </div>
-                            <div class="form-group col-md-12 text-center">
+                            <div class="form-group col-md-12 text-right">
                                     <a href="#" class="btn btn-primary next">Next</a>
                             </div>
                     </div>
@@ -148,7 +101,7 @@
                                 <input type="text" class="form-control" name="fatherName" id="fatherName" placeholder="Father's Name" />
                                 <span class="help-inline"></span>
                             </div>
-                            <div class="form-group col-md-12 text-center">
+                            <div class="form-group col-md-12 text-right">
                                     <a href="#" class="btn btn-primary previous">Previous</a>
                                     <a href="#" class="btn btn-primary next">Next</a>
                             </div>
@@ -161,7 +114,7 @@
                         </div>
                         <div id="nestedForm">
                         </div>
-                            <div class="form-group col-md-12 text-center">
+                            <div class="form-group col-md-12 text-right">
                                     <a href="#" class="btn btn-primary previous">Previous</a>
                                     <a href="#" class="btn btn-primary next">Next</a>
                             </div>
@@ -228,7 +181,7 @@
                                 <input type="text" class="form-control" name="guardianContact" id="guardianContact" placeholder="Gurdian Contact" />
                                 <span class="help-inline"></span>
                             </div>
-                            <div class="form-group col-md-12 text-center">
+                            <div class="form-group col-md-12 text-right">
                                     <a href="#" class="btn btn-primary previous">Previous</a>
                                     <a href="#" class="btn btn-primary next">Next</a>
                             </div>
@@ -305,7 +258,7 @@
                                     </div>
                                     </div>
                             </div>
-                            <div class="form-group col-md-12 text-center">
+                            <div class="form-group col-md-12 text-right">
                                     <a href="#" class="btn btn-primary previous">Previous</a>
                                     <a href="#" class="btn btn-warning">Submit</a>
                             </div>
@@ -313,40 +266,12 @@
                     </div>
                 </div>
             </div>
-                            </div>
-                            <!-- /.row (nested) -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-12 -->
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="submit" class="btn btn-primary" id="saveBtn">Add</button>
+                <button type="reset" class="btn btn-warning">Reset</button>
+                <button class="btn btn-default" data-dismiss="modal">Close</button> -->
             </div>
         </div>
-        <!-- /#page-wrapper -->
-
     </div>
-    <!-- /#wrapper -->
-
-    <!-- jQuery -->
-    <script src="<?= BOWER_DIR ?>/jquery/dist/jquery.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="<?= BOWER_DIR ?>/bootstrap/dist/js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="<?= BOWER_DIR ?>/metisMenu/dist/metisMenu.min.js"></script>
-
-    <!-- Notify -->
-    <script src="<?= BOWER_DIR ?>/notifyjs/dist/notify.js"></script>
-    <script src="<?= BOWER_DIR ?>/notifyjs/dist/styles/bootstrap/notify-bootstrap.js"></script>
-    <!-- spinJS -->
-    <script src="<?= BOWER_DIR ?>/spin.js/spin.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="<?= JS_DIR ?>/sb-admin-2.js"></script>
-    <script src="<?= JS_DIR ?>/pages/student.js"></script>
-
-</body>
-
-</html>
+</div>

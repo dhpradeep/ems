@@ -62,7 +62,7 @@
                 <div class="col-lg-12">
                     <div class="form-inline form-padding">
                         <form id="frmSearch" role="form">
-                            <a href="<?= SITE_URL.DS.'student'.DS ?>add" class="btn btn-primary">Add Student</a>
+                            <a href="<?= SITE_URL ?>/student/add" class="btn btn-primary">Add Student</a>
                             <!-- <a onclick="create_student_bulk()" class="btn btn-primary">Add Student in Bulk</a> -->
                             <!-- <a class="btn btn-primary" disabled="true">Add Student in Bulk</a> -->
                             <a onclick="refresh()" class="btn btn-info">Refresh</a>
@@ -90,7 +90,8 @@
                                             <th></th>
                                         </tr>
                                     </thead>
-                                    <tbody class="searchable"></tbody>
+                                    <tbody class="searchable">
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -103,6 +104,9 @@
             <!-- /.row -->
         </div>
         <!-- /#page-wrapper -->
+
+        <!-- modals -->
+     <?php include(MODALS_DIR.DS.'student.php'); ?>
 
     <!-- jQuery -->
     <script src="<?= BOWER_DIR ?>/jquery/dist/jquery.min.js"></script>

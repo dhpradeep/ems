@@ -41,7 +41,8 @@
                 </div>
                 <!-- /.row -->
 
-                <div class="row">
+    <!-- on admin session -->
+                <!-- <div class="row">
                     <div class="col-lg-12">
                         <h4>About the system here</h4>
                         
@@ -54,6 +55,29 @@
                           proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                         </blockquote>
                     </div>
+                </div> -->
+
+    <!-- on student session -->
+                <div class="row">
+                    <div class="col md-12">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, quisquam eaque. Quis culpa blanditiis veritatis repellat aut! Totam quas praesentium atque earum porro, nisi eos inventore. Ea voluptatem dolor neque. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum exercitationem aliquam velit dolorem! Porro blanditiis eligendi reiciendis, quaerat iure voluptatem, alias, minima reprehenderit maxime facere harum animi dolorem id rem! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore odit perspiciatis, nemo unde sit perferendis placeat itaque aperiam beatae non omnis earum numquam soluta sint eos porro ipsa alias. Aspernatur. Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci alias, hic aperiam eligendi assumenda facere eum earum quisquam provident aliquam expedita ea non eius perferendis voluptatibus, numquam ab unde atque. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse aut delectus illum corporis commodi eligendi iusto asperiores quaerat expedita quae aperiam omnis culpa placeat ipsa ipsum, similique ullam modi vitae?</p>
+
+<p>&nbsp;</p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+	<li>You can use pen and pencil only.</li>
+	<li>User don&#39;t have permission to use calculator.</li>
+	<li>user has only 30 min time for this test.</li>
+</ul>
+
+<p>&nbsp;</p>
+
+                    </div>
+                </div>
+                <div class="col col-md-12 text-center">
+                    <button class="btn btn-success" type="button">Take Test</button>
                 </div>
             </div>
         <!-- /#page-wrapper -->
