@@ -30,20 +30,6 @@
                 </ul>
                 <!-- /.nav-second-level -->
             </li>
-            <!-- <li>
-                <a href="#"><i class="fa fa-files-o fa-fw"></i> Reports<span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li>
-                        <a href="flot.php">Exam Result</a>
-                    </li>
-                    <li>
-                        <a href="grid.php">Passers</a>
-                    </li>
-                </ul>
-            </li> -->
-            <!-- <li>
-                <a href="sms.php"><i class="fa fa-edit fa-fw"></i> SMS</a>
-            </li> -->
             <li>
                 <a href="#"><i class="fa fa-wrench fa-fw"></i> Settings<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
@@ -55,6 +41,19 @@
                     </li> -->
                 </ul>
                 <!-- /.nav-second-level -->
+            </li>
+
+        <!-- Student session -->
+            <li>
+                <a href="#"><i class="fa fa-check fa-fw"></i> Test<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="<?= SITE_URL?>/test">Take Test</a>
+                    </li>
+                    <li>
+                        <a href="<?= SITE_URL?>/test/result/username">View Result</a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>

@@ -73,4 +73,12 @@ defined("FONTS_DIR")
 defined("WEBSITE_TITLE")
 	|| define("WEBSITE_TITLE", "Entrance Management System");
 
+// Brand Name
+defined("BRAND_NAME")
+	|| define("BRAND_NAME", "EVERsoft GROUP");
+
+// Brand Website
+defined("BRAND_WEBSITE")
+	|| define("BRAND_WEBSITE", "http://www.eversoftgroup.com");
+
 ?>

@@ -61,25 +61,69 @@
                 <div class="row">
                     <div class="col md-12">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, quisquam eaque. Quis culpa blanditiis veritatis repellat aut! Totam quas praesentium atque earum porro, nisi eos inventore. Ea voluptatem dolor neque. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum exercitationem aliquam velit dolorem! Porro blanditiis eligendi reiciendis, quaerat iure voluptatem, alias, minima reprehenderit maxime facere harum animi dolorem id rem! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore odit perspiciatis, nemo unde sit perferendis placeat itaque aperiam beatae non omnis earum numquam soluta sint eos porro ipsa alias. Aspernatur. Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci alias, hic aperiam eligendi assumenda facere eum earum quisquam provident aliquam expedita ea non eius perferendis voluptatibus, numquam ab unde atque. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse aut delectus illum corporis commodi eligendi iusto asperiores quaerat expedita quae aperiam omnis culpa placeat ipsa ipsum, similique ullam modi vitae?</p>
+                    <p>&nbsp;</p>
+                    <p><strong>Rules:</strong></p>
+                    <ul>
+                        <li>You can use pen and pencil only.</li>
+                        <li>User don&#39;t have permission to use calculator.</li>
+                        <li>user has only 30 min time for this test.</li>
+                    </ul>
+                    <p>&nbsp;</p>
 
-<p>&nbsp;</p>
-
-<p><strong>Rules:</strong></p>
-
-<ul>
-	<li>You can use pen and pencil only.</li>
-	<li>User don&#39;t have permission to use calculator.</li>
-	<li>user has only 30 min time for this test.</li>
-</ul>
-
-<p>&nbsp;</p>
-
+                    <div class="col col-md-12 text-center">
+                        <a href="<?= SITE_URL ?>/test"><button class="btn btn-success" type="button">Take Test</button></a>
                     </div>
                 </div>
-                <div class="col col-md-12 text-center">
-                    <button class="btn btn-success" type="button">Take Test</button>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-inline form-padding">
+                            <form id="frmSearch" role="form">
+                                <a onclick="refresh()" class="btn btn-info">Refresh</a>
+                            </form>
+                        </div>
+                        <br>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                Overall Results
+                            </div>
+                            <div class="panel-body">
+                                <div class="dataTable_wrapper">
+                                <table id="resultHomeTable" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr role="row">
+                                                <th >
+                                                    Student Name
+                                                </th>
+                                                <th>
+                                                    Total given answers
+                                                </th>
+                                                <th>
+                                                    Marks
+                                                </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr>
+                                                <td>Pradip Dhakal</td>
+                                                <td>45/50</td>
+                                                <td>60/100</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Saroj Tripathi</td>
+                                                <td>47/50</td>
+                                                <td>70/100</td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            </div>
+        
         <!-- /#page-wrapper -->
     </div>
     <!-- /#wrapper -->
