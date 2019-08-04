@@ -1,35 +1,15 @@
-jQuery.fn.CKEditorValFor = function(element_id) {
-    return CKEDITOR.instances[element_id].getData();
-}
-
-function create_question(data = null) {
+function create_program(data = null) {
     if(data != null) {
-        CKEDITOR.instances['question'].setData(data.question);
-        $("#questionId").data('id',data.id);
+        $("#programId").data('id',data.id);
+        $('#name').val(data.name);
+        $('#duration').val(data.duration);
         $("#saveBtn")[0].innerHTML = "Update";
-        $('#answer').val(data.answer);
-        $('#choice2').val(data.choice2);
-        $('#choice3').val(data.choice3);
-        $('#choice4').val(data.choice4);
-
-        $('#level > option').each(function () { 
-            if(this.value == data.level) {
-                $(this).attr("selected","selected");
-            }
-         });
-
-        $('#categoryId > option').each(function () { 
-            if(this.value == data.categoryId) {
-                $(this).attr("selected","selected");
-            }
-         });
-
-        $('#addQuestion').modal('show');
+        $('#addProgram').modal('show');
     }else{
-        $("#questionId").data('id','-1');
+        $("#programId").data('id','-1');
         $("#saveBtn")[0].innerHTML = "Add";
                
-        $('#addQuestion').modal('show');
+        $('#addProgram').modal('show');
     }
 }
  
@@ -41,9 +21,9 @@ $(document).on("click", "#saveBtn", function(e) {
     e.preventDefault();
     var btn = $('#saveBtn')[0].innerHTML;
     if(btn == "Update") {
-        updateQuestion();
+        updateProgram();
     } else {
-        addQuestion();
+        addProgram();
     }
 });
 
@@ -69,39 +49,34 @@ $(document).on("click", ".remove-icon", function(e) {
     });
 });
 
-function updateQuestion() {
+function updateProgram() {
      $('input[type="text"]').each(function() {
         $(this).val($(this).val().trim());
     });
 
-    var id = $('#questionId').data('id');
+    var id = $('#programId').data('id');
     if(id > 0) {
         $.ajax({
-            url: '../question/all/update',
+            url: '../question/program/update',
             async: true,
             type: 'POST',
             data: {
-                id: $('#questionId').data('id'),
-                categoryId: $('#categoryId').children("option:selected").val(),
-                question : $().CKEditorValFor('question'),
-                level: $('#level').children("option:selected").val(),
-                answer: $('#answer').val(),
-                choice2: $('#choice2').val(),
-                choice3: $('#choice3').val(),
-                choice4: $('#choice4').val()
+                id: $('#programId').data('id'),
+                name: $('#name').val(),
+                duration: $('#duration').val()
             },
             success: function(response) {
                 animate(300);
                 var decode = JSON.parse(response);
                 if (decode.success == true) {
-                    $('#addQuestion').modal('hide');
+                    $('#addProgram').modal('hide');
                     refresh();
                     $.notify("Record successfully updated", "success");
                 } else if (decode.success === false) {
                     decode.errors.forEach(function(element) {
                       $.notify(element, "error");
                     });
-                    if(decode.status === -1) $('#addQuestion').modal('hide');
+                    if(decode.status === -1) $('#addProgram').modal('hide');
                     return;
                 }
             },
@@ -120,36 +95,31 @@ function updateQuestion() {
     
 }
 
-function addQuestion(){
+function addProgram(){
 
     $('input[type="text"]').each(function() {
         $(this).val($(this).val().trim());
     });
 
     $.ajax({
-        url: '../question/all/add',
+        url: '../question/program/add',
         async: true,
         type: 'POST',
         data: {
-            categoryId: $('#categoryId').children("option:selected").val(),
-            question : $().CKEditorValFor('question'),
-            level: $('#level').children("option:selected").val(),
-            answer: $('#answer').val(),
-            choice2: $('#choice2').val(),
-            choice3: $('#choice3').val(),
-            choice4: $('#choice4').val()
+            name: $('#name').val(),
+            duration: $('#duration').val()
         },
         success: function(response) {
             var decode = JSON.parse(response);
             if (decode.success == true) {
-                $('#addQuestion').modal('hide');
+                $('#addProgram').modal('hide');
                 refresh();
                 $.notify("Record successfully saved", "success");
             } else if (decode.success === false) {
                 decode.errors.forEach(function(element) {
                   $.notify(element, "error");
                 });
-                if(decode.status == -1) $('#addQuestion').modal('hide');
+                if(decode.status == -1) $('#addProgram').modal('hide');
                 return;
             }
         },
@@ -168,7 +138,7 @@ function addQuestion(){
 
 function deletedata(id) {
      $.ajax({
-            url: '../question/all/delete',
+            url: '../question/program/delete',
             async: true,
             type: 'POST',
             data: {
@@ -224,83 +194,33 @@ function refresh() {
    animate(500);
 }
 
-/* Formatting function for row details*/
-function format ( d ) {
-    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-        '<tr>'+
-            '<td class = "choices">Question:</td>'+
-            '<td class = "answers"><b>'+d.question+'</b></td>'+
-        '</tr>'+
-        '<tr>'+
-            '<td class = "choices">Answer:</td>'+
-            '<td class = "answers"><b>'+d.answer+'</b></td>'+
-        '</tr>'+
-        '<tr>'+
-            '<td class = "choices">2nd Choice:</td>'+
-            '<td class = "answers">'+d.choice2+'</td>'+
-        '</tr>'+
-        '<tr>'+
-            '<td class = "choices">3rd Choice:</td>'+
-            '<td class = "answers">'+d.choice3+'</td>'+
-        '</tr>'+
-        '<tr>'+
-            '<td class = "choices">4th Choice:</td>'+
-            '<td class = "answers">'+d.choice4+'</td>'+
-        '</tr>'+
-    '</table>';
-}
 
 function getAllData(){
-    $("#questionTable").dataTable().fnDestroy();
-    var table = $('#questionTable').DataTable( {
+    $("#programTable").dataTable().fnDestroy();
+    var table = $('#programTable').DataTable( {
         "processing": true,
         "serverSide": true,
         "ajax": {
-            "url": "../question/all/get",
+            "url": "../question/program/get",
             "type": "POST"
         },
         "columns": [
-            {
-                "className":      'details-control',
-                "orderable":      false,
-                "data":           null,
-                "defaultContent": ''
-            },
-            { 
-                "data" : "question"
-            },
-            { "data": "category" },
-            { "data": "levelName" },
+            { "data": "name" },
+            { "data": "duration" },
             {   
                  sortable: false,
                  "render": function ( data, type, row, meta ) {
-                     return "<a data-id="+ row.id +" class='edit-icon btn btn-success btn-xs'><i class='fa fa-pencil'></i> </a><a data-id="+ row.id +" class='remove-icon btn btn-danger btn-xs'><i class='fa fa-remove'></i></a>";
+                    return '<a href="./model/'+row.url+'" class="details-program btn btn-default btn-xs">Details</a>'+
+                     "<a data-id="+ row.id +" class='edit-icon btn btn-success btn-xs'><i class='fa fa-pencil'></i> </a><a data-id="+ row.id +" class='remove-icon btn btn-danger btn-xs'><i class='fa fa-remove'></i></a>";
                  }
             }
         ],
         "order": [[1, 'asc']]
     } );
 
-     // Add event listener for opening and closing details
-    $('#questionTable tbody').on('click', 'td.details-control', function () {
+    $('#programTable tbody').on('click', '.edit-icon', function () {
         var tr = $(this).closest('tr');
         var row = table.row( tr );
- 
-        if ( row.child.isShown() ) {
-            // This row is already open - close it
-            row.child.hide();
-            tr.removeClass('shown');
-        }
-        else {
-            // Open this row
-            row.child( format(row.data()) ).show();
-            tr.addClass('shown');
-        }
-    } );
-
-    $('#questionTable tbody').on('click', '.edit-icon', function () {
-        var tr = $(this).closest('tr');
-        var row = table.row( tr );
-        create_question(row.data());
+        create_program(row.data());
     } );
 }

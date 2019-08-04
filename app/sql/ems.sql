@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 26, 2019 at 10:47 AM
--- Server version: 10.3.16-MariaDB
--- PHP Version: 7.3.7
+-- Erstellungszeit: 04. Aug 2019 um 04:02
+-- Server-Version: 10.1.38-MariaDB
+-- PHP-Version: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ems`
+-- Datenbank: `ems`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
+-- Tabellenstruktur für Tabelle `category`
 --
 
 CREATE TABLE `category` (
@@ -34,10 +34,17 @@ CREATE TABLE `category` (
   `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Daten für Tabelle `category`
+--
+
+INSERT INTO `category` (`id`, `name`, `description`) VALUES
+(4, 'Basic Mathematics', 'Basic Mathematics for BBA');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `connection`
+-- Tabellenstruktur für Tabelle `connection`
 --
 
 CREATE TABLE `connection` (
@@ -49,7 +56,7 @@ CREATE TABLE `connection` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `contactdetails`
+-- Tabellenstruktur für Tabelle `contactdetails`
 --
 
 CREATE TABLE `contactdetails` (
@@ -72,7 +79,7 @@ CREATE TABLE `contactdetails` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `documents`
+-- Tabellenstruktur für Tabelle `documents`
 --
 
 CREATE TABLE `documents` (
@@ -91,7 +98,7 @@ CREATE TABLE `documents` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `education`
+-- Tabellenstruktur für Tabelle `education`
 --
 
 CREATE TABLE `education` (
@@ -107,7 +114,7 @@ CREATE TABLE `education` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `personaldata`
+-- Tabellenstruktur für Tabelle `personaldata`
 --
 
 CREATE TABLE `personaldata` (
@@ -125,7 +132,7 @@ CREATE TABLE `personaldata` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `program`
+-- Tabellenstruktur für Tabelle `program`
 --
 
 CREATE TABLE `program` (
@@ -134,10 +141,19 @@ CREATE TABLE `program` (
   `duration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Daten für Tabelle `program`
+--
+
+INSERT INTO `program` (`id`, `name`, `duration`) VALUES
+(2, 'BBA', 120),
+(3, 'BPH', 90),
+(6, 'Bachelor in Computer Science', 60);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `questionmodel`
+-- Tabellenstruktur für Tabelle `questionmodel`
 --
 
 CREATE TABLE `questionmodel` (
@@ -152,26 +168,31 @@ CREATE TABLE `questionmodel` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `questions`
+-- Tabellenstruktur für Tabelle `questions`
 --
 
 CREATE TABLE `questions` (
   `id` int(11) NOT NULL,
   `categoryId` int(11) NOT NULL,
   `question` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `level` tinyint(4) NOT NULL,
-  `choice1` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `answer` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `choice2` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `choice3` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `choice4` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `answer` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `choice4` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Daten für Tabelle `questions`
+--
+
+INSERT INTO `questions` (`id`, `categoryId`, `question`, `level`, `answer`, `choice2`, `choice3`, `choice4`) VALUES
+(4, 4, '&lt;p&gt;Who is famous for formula to calculate hypotenuse for right angle traingle?&lt;/p&gt;\n', 3, 'Pythagorus', 'Niels Bohr', 'Einstein', 'Newton');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `record`
+-- Tabellenstruktur für Tabelle `record`
 --
 
 CREATE TABLE `record` (
@@ -187,7 +208,7 @@ CREATE TABLE `record` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `timetrack`
+-- Tabellenstruktur für Tabelle `timetrack`
 --
 
 CREATE TABLE `timetrack` (
@@ -200,7 +221,7 @@ CREATE TABLE `timetrack` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `userlogin`
+-- Tabellenstruktur für Tabelle `userlogin`
 --
 
 CREATE TABLE `userlogin` (
@@ -215,163 +236,170 @@ CREATE TABLE `userlogin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `userlogin`
+-- Daten für Tabelle `userlogin`
 --
 
 INSERT INTO `userlogin` (`id`, `username`, `fname`, `mname`, `lname`, `email`, `passwordHash`, `role`) VALUES
-(1, 'admin', '', NULL, '', 'admin@admin.com', 'admin', 1);
+(13, 'admin', 'Saroj', '', 'Tripathi', 'admin@admin.com', '8e87a82e2ef8273a64ec7f2bf770a178', 1),
+(14, 'admin2^', 'Pradip', '', 'Dhakal', 'admin2@admin.com', 'c84258e9c39059a89ab77d846ddab909', 1),
+(26, 'admin5dasf', 'djkaj', NULL, 'fdasfas', 'gasgas@daf.cad', 'dfsjfkahjkh2jkhjhrkjhdakcjs', 3),
+(27, 'jkdjfakj', 'Sar', 'kdaf', 'jkdjafksj', 'kjkjdfka@dhfa.fakj', 'e10adc3949ba59abbe56e057f20f883e', 1),
+(28, 'thaxaina', 'Saroj', '', 'Tripathi', 'ademin@admin.com', 'e00cf25ad42683b3df678c61f42c6bda', 1),
+(29, 'hkjdafdfa', 'khkkjh', 'hkj', 'hjk', 'hjk@daf.dfas', 'e10adc3949ba59abbe56e057f20f883e', 2),
+(31, 'admin1', 'Arjun', 'Prasad', 'Subedi', 'admin1@admin.com', 'e00cf25ad42683b3df678c61f42c6bda', 1),
+(32, 'student', 'Saroj', '', 'Tripathi', 'student@student.com', 'cd73502828457d15655bbd7a63fb0bc8', 3);
 
 --
--- Indexes for dumped tables
+-- Indizes der exportierten Tabellen
 --
 
 --
--- Indexes for table `category`
+-- Indizes für die Tabelle `category`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `connection`
+-- Indizes für die Tabelle `connection`
 --
 ALTER TABLE `connection`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `contactdetails`
+-- Indizes für die Tabelle `contactdetails`
 --
 ALTER TABLE `contactdetails`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `documents`
+-- Indizes für die Tabelle `documents`
 --
 ALTER TABLE `documents`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `education`
+-- Indizes für die Tabelle `education`
 --
 ALTER TABLE `education`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `personaldata`
+-- Indizes für die Tabelle `personaldata`
 --
 ALTER TABLE `personaldata`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `program`
+-- Indizes für die Tabelle `program`
 --
 ALTER TABLE `program`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `questionmodel`
+-- Indizes für die Tabelle `questionmodel`
 --
 ALTER TABLE `questionmodel`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `questions`
+-- Indizes für die Tabelle `questions`
 --
 ALTER TABLE `questions`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `record`
+-- Indizes für die Tabelle `record`
 --
 ALTER TABLE `record`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `timetrack`
+-- Indizes für die Tabelle `timetrack`
 --
 ALTER TABLE `timetrack`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `userlogin`
+-- Indizes für die Tabelle `userlogin`
 --
 ALTER TABLE `userlogin`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT für exportierte Tabellen
 --
 
 --
--- AUTO_INCREMENT for table `category`
+-- AUTO_INCREMENT für Tabelle `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `connection`
+-- AUTO_INCREMENT für Tabelle `connection`
 --
 ALTER TABLE `connection`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `contactdetails`
+-- AUTO_INCREMENT für Tabelle `contactdetails`
 --
 ALTER TABLE `contactdetails`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `documents`
+-- AUTO_INCREMENT für Tabelle `documents`
 --
 ALTER TABLE `documents`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `education`
+-- AUTO_INCREMENT für Tabelle `education`
 --
 ALTER TABLE `education`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `personaldata`
+-- AUTO_INCREMENT für Tabelle `personaldata`
 --
 ALTER TABLE `personaldata`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `program`
+-- AUTO_INCREMENT für Tabelle `program`
 --
 ALTER TABLE `program`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `questionmodel`
+-- AUTO_INCREMENT für Tabelle `questionmodel`
 --
 ALTER TABLE `questionmodel`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `questions`
+-- AUTO_INCREMENT für Tabelle `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `record`
+-- AUTO_INCREMENT für Tabelle `record`
 --
 ALTER TABLE `record`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `timetrack`
+-- AUTO_INCREMENT für Tabelle `timetrack`
 --
 ALTER TABLE `timetrack`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `userlogin`
+-- AUTO_INCREMENT für Tabelle `userlogin`
 --
 ALTER TABLE `userlogin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

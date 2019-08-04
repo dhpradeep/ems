@@ -42,7 +42,7 @@ $(document).on("click", ".remove-icon", function(e) {
     var id = $(this).data('id');
     BootstrapDialog.show({
         title: 'Delete',
-        message: 'Are you sure to delete this record?',
+        message: 'Are you sure to delete this record? <b>(All questions of the category will be deleted)</b>',
         buttons: [{
             label: 'Yes',
             cssClass: 'btn-primary',

@@ -8,7 +8,7 @@
                 <a href="#students"><i class="fa fa-table fa-fw"></i> Students<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="<?= SITE_URL.DS.'student'.DS ?>add">Add Student</a>
+                        <a href="<?= SITE_URL.DS.'student'.DS ?>add">Add New</a>
                     </li>
                     <li>
                         <a href="<?= SITE_URL.DS.'student'.DS ?>all">Manage Students</a>
@@ -19,13 +19,13 @@
                 <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Manage<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="<?= SITE_URL.DS.'question'.DS ?>category">Questions Category</a>
+                        <a href="<?= SITE_URL.DS.'question'.DS ?>program">Manage Programs</a>
+                    </li>
+                    <li>
+                        <a href="<?= SITE_URL.DS.'question'.DS ?>category">Manage Categories</a>
                     </li>
                     <li>
                         <a href="<?= SITE_URL.DS.'question'.DS ?>all">Manage Questions</a>
-                    </li>
-                    <li>
-                        <a href="<?= SITE_URL.DS.'question'.DS ?>model">Question Model</a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->

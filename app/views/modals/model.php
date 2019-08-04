@@ -1,33 +1,3 @@
-<div class="modal fade" id="addProgram" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Add Program</h3>
-            </div>
-            <div class="modal-body">
-                <form role="form">
-                    <div class="form-group">
-                        <label class="control-label">Program Name</label>
-                        <input id="programName" type="text" class="form-control" id="course_code" name="course_code">
-                        <span class="help-inline"></span>
-                    </div>
-                    <div class="form-group input-group">
-                        <span class="input-group-addon">Duration</span>
-                        <input id="programDuration" type="number" id="time" name="time" class="form-control" value="" required="" min="0">   
-                        <span class="input-group-addon">Min.</span>                 
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-              <a id="btn-save" class="btn btn-primary" onclick="save()">Submit</a>
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
 <!-- For model -->
 <div class="modal fade" id="addModel" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-md">
@@ -62,8 +32,9 @@
                 </form>
             </div>
             <div class="modal-footer">
-              <a id="btn-save" class="btn btn-primary" onclick="save()">Submit</a>
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" id="saveBtn">Add</button>
+                <button type="reset" class="btn btn-warning">Reset</button>
+                <button class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

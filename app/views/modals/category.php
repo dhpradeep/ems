@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
-                <h3><i class="fa fa-book"></i> Add Category</h3>
+                <h3><i class="fa fa-book"></i> Manage Category</h3>
             </div>
             <form method="post">
                 <div class="modal-body col-md-12">

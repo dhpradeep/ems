@@ -79,67 +79,6 @@
                                         </tr>
                                     </thead>
                                 </table>
-                                <!--<table id="categoryTable" class="table table-bordered table-striped paginated tablesorter"
-                                    style="margin-bottom:0;">
-                                    <thead>
-                                        <tr role="row">
-                                            <th class="sorting" width="15%">
-                                                S.N
-                                            </th>
-                                            <th class="sorting">
-                                                Category Name
-                                            </th>
-                                            <th class="sorting">
-                                                Category Description
-                                            </th>
-                                            <th width="10%"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="searchable">
-                                    <tr>
-                                            <td class="sorting">
-                                               1
-                                            </td>
-                                            <td class="sorting">
-                                                PHP
-                                            </td>
-                                            <td class="sorting">
-                                                PHP sample questions
-                                            </td>
-                                            <td width="10%">
-                                                <div class="text-right">
-                                                    <a class="edit-icon btn btn-success btn-xs" data-id="1">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
-                                                    <a class="remove-icon btn btn-danger btn-xs" data-id="1">
-                                                        <i class="fa fa-remove"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="sorting">
-                                               2
-                                            </td>
-                                            <td class="sorting">
-                                                JAVA
-                                            </td>
-                                            <td class="sorting">
-                                               JAVA sample questions
-                                            </td>
-                                            <td width="10%">
-                                                <div class="text-right">
-                                                    <a class="edit-icon btn btn-success btn-xs" data-id="1">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
-                                                    <a class="remove-icon btn btn-danger btn-xs" data-id="1">
-                                                        <i class="fa fa-remove"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>-->
                             </div>
                         </div>
                     </div>

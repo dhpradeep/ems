@@ -9,7 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><?= WEBSITE_TITLE ?> | Model</title>
+    <title>
+        <?= WEBSITE_TITLE ?> | Model</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?= BOWER_DIR ?>/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -31,143 +32,162 @@
 <body>
 
     <div id="wrapper">
-        <div id="target1"></div>
         <!-- Navigation -->
         <?php include(INCLUDES_DIR.DS.'nav-bar.php'); ?>
 
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="page-header">All Programs</h2>
+                    <h2 class="page-header">Program Details</h2>
                     <ol class="breadcrumb">
                         <li>
                             <i class="fa fa-dashboard"></i>
                             <a href="<?= SITE_URL.DS.'home'.DS ?>dashboard">Dashboard</a>
                         </li>
+                        <li>
+                            <a href="<?= SITE_URL.DS.'question'.DS ?>model">Program</a>
+                        </li>
                         <li class="active">
-                            Program
+                            Details
                         </li>
                     </ol>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="form-inline form-padding">
+                    <h1>Welcome Message: </h1><span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores ab possimus quia saepe aspernatur cum, neque omnis similique enim nulla. Nihil, dicta veniam. Rem dignissimos quod, enim adipisci commodi recusandae.</span>
+                    <h1>Program Name: <strong>BCA</strong></h1>
+                    <h1>Exam Duration: <strong>150 min</strong></h1>
+                </div>
+                <div class="col-lg-12">
+                    <div class="float-right">
                         <form id="frmSearch" role="form">
-                            <a onclick="create_program()" class="btn btn-primary">Add Program</a>
-                            <a onclick="refresh()" class="btn btn-info">Refresh</a>
+                        <a onclick="create_model()" class="btn btn-primary">Add Model</a>
                         </form>
                     </div>
                     <br>
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            List of Program
+                            List of Models
                         </div>
+                        <div id="target1"></div>
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
-                              <table id="programTable" class="table table-bordered table-striped paginated tablesorter" style="margin-bottom:0;" id="tbl_sched">
-                                  <thead>
-                                      <tr role="row">
-                                            <th class="sorting" width="15%">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting">
                                                 S.N
                                             </th>
-                                            <th class="sorting" >
-                                                Program Name
+                                            <th class="sorting">
+                                                Category
                                             </th>
                                             <th class="sorting">
-                                                Duration
+                                                Level
                                             </th>
-                                            <th width="20%"></th>
-                                      </tr>
-                                  </thead>
-                                  <tbody class="searchable">
+                                            <th class="sorting">
+                                                Number of Questions
+                                            </th>
+                                            <th width="10%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="searchable">
                                         <tr role="row">
-                                            <td class="sorting" >
+                                            <td class="sorting">
                                                 1
                                             </td>
-                                            <td class="sorting" >
-                                                BCA
+                                            <td class="sorting">
+                                                PHP
                                             </td>
                                             <td class="sorting">
-                                                150 min
+                                                Basic
                                             </td>
-                                            <td widtd="20%">
-                                                <div class="text-center">
-                                                    <a href="<?= SITE_URL.DS.'question/model/bca' ?>" class="details-program btn btn-default btn-xs">Details</a>
-                                                    <a class="edit-icon-program btn btn-success btn-xs" data-id="1">
+                                            <td class="sorting">
+                                                15
+                                            </td>
+                                            <td width="10%">
+                                                <div class="text-right">
+                                                    <a class="edit-model btn btn-success btn-xs" data-id="1">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
-                                                    <a class="remove-icon-program btn btn-danger btn-xs" data-id="1">
+                                                    <a class="remove-model btn btn-danger btn-xs" data-id="1">
                                                         <i class="fa fa-remove"></i>
                                                     </a>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr role="row">
-                                            <td class="sorting" >
+                                            <td class="sorting">
                                                 2
                                             </td>
-                                            <td class="sorting" >
-                                                BBA
+                                            <td class="sorting">
+                                                JAVA
                                             </td>
                                             <td class="sorting">
-                                                100 min
+                                                Intermediate
                                             </td>
-                                            <td widtd="20%">
-                                                <div class="text-center">
-                                                    <a href="<?= SITE_URL.DS.'question/model/bca' ?>" class="details-program btn btn-default btn-xs">Details</a>
-                                                    <a class="edit-icon-program btn btn-success btn-xs" data-id="1">
+                                            <td class="sorting">
+                                                10
+                                            </td>
+                                            <td width="10%">
+                                                <div class="text-right">
+                                                    <a class="edit-model btn btn-success btn-xs" data-id="1">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
-                                                    <a class="remove-icon-program btn btn-danger btn-xs" data-id="1">
+                                                    <a class="remove-model btn btn-danger btn-xs" data-id="1">
                                                         <i class="fa fa-remove"></i>
                                                     </a>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr role="row">
-                                            <td class="sorting" >
-                                                3
-                                            </td>
-                                            <td class="sorting" >
-                                                BPH
+                                            <td class="sorting">
+                                               3
                                             </td>
                                             <td class="sorting">
-                                                120 min
+                                                PYTHON
                                             </td>
-                                            <td widtd="20%">
-                                                <div class="text-center">
-                                                    <a href="<?= SITE_URL.DS.'question/model/bca' ?>" class="details-program btn btn-default btn-xs">Details</a>
-                                                    <a class="edit-icon-program btn btn-success btn-xs" data-id="1">
+                                            <td class="sorting">
+                                                Hard
+                                            </td>
+                                            <td class="sorting">
+                                                5
+                                            </td>
+                                            <td width="10%">
+                                                <div class="text-right">
+                                                    <a class="edit-model btn btn-success btn-xs" data-id="1">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
-                                                    <a class="remove-icon-program btn btn-danger btn-xs" data-id="1">
+                                                    <a class="remove-model btn btn-danger btn-xs" data-id="1">
                                                         <i class="fa fa-remove"></i>
                                                     </a>
                                                 </div>
                                             </td>
                                         </tr>
-                                  </tbody>
-                              </table>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-12">
+                    <h1>Thank you Message: </h1><span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores ab possimus quia saepe aspernatur cum, neque omnis similique enim nulla. Nihil, dicta veniam. Rem dignissimos quod, enim adipisci commodi recusandae.</span>
+                </div>
             </div>
+            <!-- /.row -->
         </div>
 
     </div>
     <!-- /#wrapper -->
 
-     <!-- modals -->
-     <?php include(MODALS_DIR.DS.'model.php'); ?>
+    <!-- modals -->
+    <?php include(MODALS_DIR.DS.'model.php'); ?>
 
     <!-- jQuery -->
     <script src="<?= BOWER_DIR ?>/jquery/dist/jquery.min.js"></script>
 
-     <!-- jQuery tablesorter-->
+    <!-- jQuery tablesorter-->
     <script src="<?= BOWER_DIR ?>/jquery.tablesorter/dist/js/jquery.tablesorter.js"></script>
     <script src="<?= BOWER_DIR ?>/jquery.tablesorter/dist/js/jquery.tablesorter.widgets.js"></script>
 
@@ -177,14 +197,14 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="<?= BOWER_DIR ?>/metisMenu/dist/metisMenu.min.js"></script>
 
-     <!-- DataTables JavaScript -->
+    <!-- DataTables JavaScript -->
     <script src="<?= BOWER_DIR ?>/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="<?= BOWER_DIR ?>/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 
     <!-- Notify -->
     <script src="<?= BOWER_DIR ?>/notifyjs/dist/notify.js"></script>
     <script src="<?= BOWER_DIR ?>/notifyjs/dist/styles/bootstrap/notify-bootstrap.js"></script>
-    
+
     <!-- Bootstrap Core JavaScript -->
     <script src="<?= BOWER_DIR ?>/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js"></script>
     <!-- spinJS -->

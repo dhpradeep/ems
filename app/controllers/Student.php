@@ -13,7 +13,7 @@ class Student extends Controller {
 	}
 	
 	public function add() {
-		$this->model->template = VIEWS_DIR.DS."students".DS."add_students.php";
+		$this->model->template = VIEWS_DIR.DS."students".DS."ae_students.php";
 		$this->view->render();
     }
     
