@@ -496,6 +496,8 @@ class Question extends Controller {
 		$arr = array();
 		for ($i = $startIndex; $i < $startIndex + $totalCount && $i < $total; $i++){
 			$arr[$index] = $res[$i];
+			$arr[$index]['welcome'] = html_entity_decode($arr[$index]['welcome']);
+			$arr[$index]['thanks'] = html_entity_decode($arr[$index]['thanks']);
 			$arr[$index]['url'] = urlencode(strtolower(trim(str_replace(' ', '', $arr[$index]['name']))));
 			$index++;
 		}
@@ -572,6 +574,7 @@ class Question extends Controller {
 				'max' => 1200
 			)
 		));
+		if(Input::get('duration') <= 0 ) $validate->addError("Duration isnot valid!");
 		if($validate->passed()){
 			$dataForSearch = array('id' => $data['id']);
 			$res = $this->model->searchQuestion($dataForSearch);
@@ -623,6 +626,7 @@ class Question extends Controller {
 				'max' => 1200
 			)
 		));
+		if(Input::get('duration') <= 0 ) $validate->addError("Duration isnot valid!");
 		if($validate->passed()){
 			$data = array();
 			$data['id'] = null;
@@ -769,6 +773,8 @@ class Question extends Controller {
 				'max' => 255
 			)
 		));
+		if(Input::get('level') <= 0 || Input::get('minLevel') > 3 ) $validate->addError("Level isnot valid!");
+		if(Input::get('categoryId') <= 0) $validate->addError("Category not valid!");
 		if($validate->passed()){
 			$dataForSearch = array('id' => $data['id']);
 			$res = $this->model->searchQuestion($dataForSearch);
@@ -808,7 +814,7 @@ class Question extends Controller {
 				'max' => 255
 			),
 			'answer' => array(
-				'name' => 'Question',
+				'name' => 'Answer',
 				'required' => true,
 				'min' => 1,
 				'max' => 255
@@ -832,6 +838,8 @@ class Question extends Controller {
 				'max' => 255
 			)
 		));
+		if(Input::get('level') <= 0 || Input::get('minLevel') > 3 ) $validate->addError("Level isnot valid!");
+		if(Input::get('categoryId') <= 0) $validate->addError("Category not valid!");
 		if($validate->passed()){
 			$data = array();
 			$data['id'] = null;

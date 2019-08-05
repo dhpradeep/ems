@@ -16,6 +16,7 @@ function resetFields() {
 
 function create_program(data = null) {
     if(data != null) {
+        console.log(data);
         CKEDITOR.instances['welcome'].setData(data.welcome);
         CKEDITOR.instances['thanks'].setData(data.thanks);
         $("#programId").data('id',data.id);

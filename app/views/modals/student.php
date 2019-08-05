@@ -41,6 +41,7 @@
                         <form role="form">
                             <div class="form-group col-md-6">
                                 <label for="fname">First Name</label>
+                                <input id="studentId" type="hidden"/>
                                 <input type="text" class="form-control" name="fname" id="fname" placeholder="First Name" />
                                 <span class="help-inline"></span>
                             </div>
@@ -54,11 +55,6 @@
                                 <input type="text" class="form-control" name="lname" id="lname" placeholder="Last Name" />
                                 <span class="help-inline"></span>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" name="email" id="email" placeholder="Email Address" />
-                                <span class="help-inline"></span>
-                            </div>
                             <div class="form-group col-md-12 text-right">
                                     <a href="#" class="btn btn-primary next">Next</a>
                             </div>
@@ -66,11 +62,15 @@
 
                     <div role="tabpanel" class="tab-pane" id="details">
                             <div class="form-group col-md-6">
-                                <label for="program">Program</label>
-                                <select class="form-control" id="program" name="program">
-                                    <option value="1">BBA</option>
-                                    <option value="2">BCA</option>
-                                    <option value="3">BPH</option>
+                                <label for="programId">Program</label>
+                                <select class="form-control" id="programId" name="programId">
+                                    <?php
+                                        foreach ($this->program as $value) {
+                                    ?>
+                                            <option value="<?= $value['id'] ?>" name="<?= $value['name'] ?>"><?= $value['name'] ?></option>
+                                    <?php
+                                         } 
+                                    ?>
                                 </select>
                             </div>
                             <div class="form-group col-md-6">
@@ -79,8 +79,8 @@
                                 <span class="help-inline"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="dob">Date of Birth</label>
-                                <input type="date" class="form-control" name="dob" id="dob" placeholder="Date of Birth" />
+                                <label for="dobAd">Date of Birth</label>
+                                <input type="date" class="form-control" name="dobAd" id="dobAd" placeholder="Date of Birth" />
                                 <span class="help-inline"></span>
                             </div>
                             <div class="form-group col-md-6">
@@ -201,7 +201,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="entranceNo">Entrance NO.</label>
-                                <input type="number" class="form-control" name="entranceNo" id="entranceNo" placeholder="Entrance NO." />
+                                <input type="number" class="form-control" name="entranceNo" id="entranceNo" placeholder="Entrance No." />
                                 <span class="help-inline"></span>
                             </div>
                             <div class="form-group col-md-6">
@@ -217,9 +217,9 @@
                             <div class="form-group col-md-6">
                                 <div class="has-success">
                                     <div class="checkbox">
-                                        <label for="marksheet">
-                                        <input type="checkbox" id="marksheet" name="marksheet" value="1">
-                                       Mark Sheet 
+                                        <label for="marksheet_see">
+                                        <input type="checkbox" id="marksheet_see" name="marksheet_see">
+                                       Mark Sheet (SEE/SLC) 
                                         </label>
                                     </div>
                                 </div>
@@ -227,9 +227,49 @@
                             <div class="form-group col-md-6">
                                 <div class="has-success">
                                     <div class="checkbox">
-                                        <label for="characterCertificate">
-                                        <input type="checkbox" id="characterCertificate" name="characterCertificate" value="1">
-                                       Character Certificate 
+                                        <label for="marksheet_11">
+                                        <input type="checkbox" id="marksheet_11" name="marksheet_11">
+                                       Mark Sheet (11 Class)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <div class="has-success">
+                                    <div class="checkbox">
+                                        <label for="marksheet_12">
+                                        <input type="checkbox" id="marksheet_12" name="marksheet_12">
+                                       Mark Sheet (12 Class)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <div class="has-success">
+                                    <div class="checkbox">
+                                        <label for="transcript">
+                                        <input type="checkbox" id="transcript" name="transcript" >
+                                       Transcript
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <div class="has-success">
+                                    <div class="checkbox">
+                                        <label for="characterCertificate_see">
+                                        <input type="checkbox" id="characterCertificate_see" name="characterCertificate_see">
+                                       Character Certificate (SEE/SLC)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <div class="has-success">
+                                    <div class="checkbox">
+                                        <label for="characterCertificate_12">
+                                        <input type="checkbox" id="characterCertificate_12" name="characterCertificate_12">
+                                       Character Certificate (+2)
                                         </label>
                                     </div>
                                 </div>
@@ -254,21 +294,15 @@
                                     </div>
                                     </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <div class="has-success">
-                                    <div class="checkbox">
-                                        <label for="minimumPercent">
-                                        <input type="checkbox" id="minimumPercent" name="minimumPercent" value="1">
-                                        Minimum Percent 
-                                        </label>
-                                    </div>
-                                    </div>
+                            <div class="form-group col col-md-12">
+                                <label for="remarks">Remarks:</label>
+                                <textarea class="form-control" id="remarks" name="remarks"></textarea>
                             </div>
                             <div class="form-group col-6 col-sm-6 text-left">
                                     <a href="#" class="btn btn-primary previous">Previous</a>
                             </div>
                             <div class="form-group col-6 col-sm-6 text-right">
-                                    <a href="#" class="btn btn-success">Submit</a>
+                                    <a id="saveBtn" href="#" class="btn btn-success">Add</a>
                                     <button class="btn btn-warning" data-dismiss="modal">Close</button>
                             </div>
                         </form>

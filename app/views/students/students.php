@@ -31,7 +31,22 @@
 
     <!-- Custom Fonts -->
     <link href="<?= BOWER_DIR ?>/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
+    <style type="text/css">
+        td.details-control {
+            background: url('<?= IMAGE_DIR ?>/details_open.png') no-repeat center center;
+            cursor: pointer;
+        }
+        tr.shown td.details-control {
+            background: url('<?= IMAGE_DIR ?>//details_close.png') no-repeat center center;
+        }
+        .choices {
+            padding: 5px 20px;
+            font-weight: bold;
+        }
+        .answers {
+            padding: 5px 20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -74,15 +89,15 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
-                                <table class="table table-striped table-bordered table-hover paginated tablesorter" id="tbl_students">
+                                <table class="table table-striped table-bordered table-hover paginated tablesorter" id="studentTable">
                                     <thead>
                                         <tr>
+                                            <th style="min-width: 60px">Details</th>
                                             <th>Fullname</th>
-                                            <th>Mobile No</th>
-                                            <th>Gender</th>
-                                            <th>Birthday</th>
-                                            <th>Pref. Course</th>
-                                            <th></th>
+                                            <th>Entrance No</th>
+                                            <th>Username</th>
+                                            <th>Email</th>
+                                            <th style="min-width: 30px">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class="searchable">
@@ -131,7 +146,8 @@
     <script src="<?= BOWER_DIR ?>/spin.js/spin.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="<?= JS_DIR ?>/sb-admin-2.js"></script>
+    <script src="<?= JS_DIR ?>/sb-admin-2.js"></script>    
+    <script src="<?= JS_DIR ?>/pages/student_modal.js"></script>
     <script src="<?= JS_DIR ?>/pages/student.js"></script>
 
 

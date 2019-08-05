@@ -4,7 +4,7 @@ class StudentModel extends Model{
 
 	public function __construct() {
 		// tablename for the model
-		$this->table = 'userDetails';
+		$this->table = 'personaldata';
 		// primary key for the table
 		$this->pk = 'id';
 		
@@ -71,6 +71,18 @@ class StudentModel extends Model{
 	*/
 	public function getAllStudent() {
 		return $this->all();
+	}
+
+	/**
+	* This method return whole table of student as array with conditions.
+	* @param $search : search keyword;
+	* @param $searchField : array of field names to be searched;
+	* @param $sort : sorting fieldname
+	* @param $sortType : 'ASC' or 'DSC'
+	* @return whole table as array.  
+	*/
+	public function getAllStudentConditions($search = null, $searchFields = null, $sort = null, $sortType = ''){
+		return $this->allConditions($search,$searchFields,$sort,$sortType);
 	}
 }
 
