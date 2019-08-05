@@ -39,6 +39,15 @@
                 </ul>
                 <!-- /.nav-second-level -->
             </li>
+            <li>
+                <a href="#"><i class="fa fa-files-o fa-fw"></i> Reports<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="<?= SITE_URL?>/test/result">View Result</a>
+                    </li>
+                </ul>
+                <!-- /.nav-second-level -->
+            </li>
 
         <!-- Student session -->
             <li>
@@ -47,11 +56,10 @@
                     <li>
                         <a href="<?= SITE_URL?>/test">Take Test</a>
                     </li>
-                    <li>
-                        <a href="<?= SITE_URL?>/test/result/username">View Result</a>
-                    </li>
                 </ul>
             </li>
+        <!-- end of student session -->
+        
         </ul>
     </div>
     <!-- /.sidebar-collapse -->

@@ -15,11 +15,20 @@
     <link href="<?= CSS_DIR ?>/timeline.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="<?= CSS_DIR ?>/sb-admin-2.css" rel="stylesheet">
+    <link href="<?= CSS_DIR ?>/style.css" rel="stylesheet">
     <!-- Morris Charts CSS -->
     <link href="<?= BOWER_DIR ?>/morrisjs/morris.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="<?= BOWER_DIR ?>/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
+
+<script>
+ $(window).scroll(function() {
+	if($(document).scrollTop() > 900){
+        $(".timer").css("display", "block");
+    }
+});
+</script>
 
 <body>
 
@@ -36,9 +45,17 @@
             <div class="row">
                 <div>
                     <span style="font-size:22px;">Category: <strong>PHP</strong></span>
-                    <span style="font-size:22px;float:right">Time: <strong>65:00</strong> min</span>
                 </div>
             </div>
+
+            <!-- div for timer -->
+            <div class='timer'>
+                <div class='time'>
+                <b>Time: 65:00 min</b>
+                </div>
+            </div>
+
+
                 <!-- /.row -->
                 <div class="row">
                     <div class="col md-12 main">
@@ -74,6 +91,206 @@
                                         <div class="radio radio-primary">
                                             <label>
                                                 <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Plain HTML processor<br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col md-12 main">
+                        <div id="div1" class="question">
+                            <div class="page-header">
+                                <span style="font-size: 25px"><strong>2.</strong> What is the full form of HTML ?</span>
+                            </div>
+                        <fieldset>
+                            <div class="form-group" style="font-size: 18px;">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="radio radio-primary">
+                                            <label>
+                                                <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hypertext Markup Language<br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="radio radio-primary">
+                                            <label>
+                                                <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hyperlink Language<br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="radio radio-primary">
+                                            <label>
+                                                <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hypertext Method<br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="radio radio-primary">
+                                            <label>
+                                                <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">I dont know<br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col md-12 main">
+                        <div id="div1" class="question">
+                            <div class="page-header">
+                                <span style="font-size: 25px"><strong>2.</strong> What is the full form of HTML ?</span>
+                            </div>
+                        <fieldset>
+                            <div class="form-group" style="font-size: 18px;">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="radio radio-primary">
+                                            <label>
+                                                <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hypertext Markup Language<br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="radio radio-primary">
+                                            <label>
+                                                <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hyperlink Language<br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="radio radio-primary">
+                                            <label>
+                                                <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hypertext Method<br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="radio radio-primary">
+                                            <label>
+                                                <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">I dont know<br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col md-12 main">
+                        <div id="div1" class="question">
+                            <div class="page-header">
+                                <span style="font-size: 25px"><strong>2.</strong> What is the full form of HTML ?</span>
+                            </div>
+                        <fieldset>
+                            <div class="form-group" style="font-size: 18px;">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="radio radio-primary">
+                                            <label>
+                                                <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hypertext Markup Language<br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="radio radio-primary">
+                                            <label>
+                                                <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hyperlink Language<br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="radio radio-primary">
+                                            <label>
+                                                <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hypertext Method<br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="radio radio-primary">
+                                            <label>
+                                                <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">I dont know<br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col md-12 main">
+                        <div id="div1" class="question">
+                            <div class="page-header">
+                                <span style="font-size: 25px"><strong>2.</strong> What is the full form of HTML ?</span>
+                            </div>
+                        <fieldset>
+                            <div class="form-group" style="font-size: 18px;">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="radio radio-primary">
+                                            <label>
+                                                <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hypertext Markup Language<br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="radio radio-primary">
+                                            <label>
+                                                <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hyperlink Language<br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="radio radio-primary">
+                                            <label>
+                                                <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hypertext Method<br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="radio radio-primary">
+                                            <label>
+                                                <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">I dont know<br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col md-12 main">
+                        <div id="div1" class="question">
+                            <div class="page-header">
+                                <span style="font-size: 25px"><strong>2.</strong> What is the full form of HTML ?</span>
+                            </div>
+                        <fieldset>
+                            <div class="form-group" style="font-size: 18px;">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="radio radio-primary">
+                                            <label>
+                                                <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hypertext Markup Language<br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="radio radio-primary">
+                                            <label>
+                                                <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hyperlink Language<br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="radio radio-primary">
+                                            <label>
+                                                <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hypertext Method<br>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="radio radio-primary">
+                                            <label>
+                                                <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">I dont know<br>
                                             </label>
                                         </div>
                                     </div>

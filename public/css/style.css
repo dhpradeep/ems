@@ -1,0 +1,14 @@
+.timer {
+    height: 100px;
+    width: 150px;
+    position: fixed;
+    top: 20%;
+    background: rgb(214, 214, 214);
+    right: 10%;
+}
+
+.time {
+    display: inline-block;
+    margin: 0 auto;
+    background-color: lavender;
+}

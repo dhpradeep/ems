@@ -12,7 +12,15 @@ class Test extends Controller {
 	}
 	
 	public function result($name="") {
-        $this->model->template = VIEWS_DIR.DS."test".DS."result.php";
+		if($name){
+			$this->model->data = array(
+				'message'=> array(
+				'content' => '<b>'.$name.'</b>',
+				));
+			$this->model->template = VIEWS_DIR.DS."test".DS."single_result.php";
+		}else{
+			$this->model->template = VIEWS_DIR.DS."test".DS."result.php";
+		}
         $this->view->render();	
     }
 }

@@ -44,52 +44,40 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+
             <div class="row">
                 <div class="col-lg-12">
                     <div class="form-inline form-padding">
-                        <a class="btn btn-success" download="passers.xls" onclick="exportToExcel(this, 'dataTables-example', 'Passers Data')">Export to Excel</a>
-                        <a onclick="printToPrinter()" class="btn btn-success">Print</a>
-                        <a onclick="refresh()" class="btn btn-info">Refresh</a>
+                        <form id="frmSearch" role="form">
+                            <a onclick="refresh()" class="btn btn-info">Refresh</a>
+                        </form>
                     </div>
                     <br>
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            Overall Results
+                            Result of <?= $this->message['content'] ?>
                         </div>
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
-                              <table id="resultTable" class="table table-bordered table-striped">
+                              <table id="resultTable" class="table table-bordered table-striped paginated tablesorter">
                                   <thead>
                                       <tr role="row">
                                             <th >
-                                                Student Name
+                                                Question
                                             </th>
                                             <th>
-                                                Total given answers
+                                                Given Answer
                                             </th>
                                             <th>
-                                                Percentage
-                                            </th>
-                                            <th width="15%">
+                                                Correct Answer
                                             </th>
                                       </tr>
                                   </thead>
                                   <tbody>
                                         <tr>
-                                            <td>Pradip Dhakal</td>
-                                            <td>45/50</td>
-                                            <td>60%</td>
-                                            <td>
-                                                <a href="<?= SITE_URL ?>/test/result/pradip" class="btn btn-default btn-xs">Details</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Saroj Tripathi</td>
-                                            <td>65/50</td>
-                                            <td>70%</td>
-                                            <td>
-                                                <a href="<?= SITE_URL ?>/test/result/saroj" class="btn btn-default btn-xs">Details</a>
-                                            </td>
+                                            <td>Full form of PHP ?</td>
+                                            <td>HTML parser</td>
+                                            <td>Hypertext Preprocessor</td>
                                         </tr>
                                   </tbody>
                               </table>
@@ -98,8 +86,6 @@
                     </div>
                 </div>
             </div>
-
-        
         <!-- /#page-wrapper -->
     </div>
     <!-- /#wrapper -->
