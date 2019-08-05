@@ -22,14 +22,6 @@
     <link href="<?= BOWER_DIR ?>/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
 
-<script>
- $(window).scroll(function() {
-	if($(document).scrollTop() > 900){
-        $(".timer").css("display", "block");
-    }
-});
-</script>
-
 <body>
 
 
@@ -49,9 +41,9 @@
             </div>
 
             <!-- div for timer -->
-            <div class='timer'>
-                <div class='time'>
-                <b>Time: 65:00 min</b>
+            <div class='timer rounded-circle'>
+                <div id="time" class='time'>
+                    
                 </div>
             </div>
 
@@ -358,6 +350,8 @@
     <script src="<?= BOWER_DIR ?>/metisMenu/dist/metisMenu.min.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="<?= JS_DIR ?>/sb-admin-2.js"></script>
+     <!-- Custom JavaScript -->
+     <script src="<?= JS_DIR ?>/pages/test.js"></script>
 </body>
 
 </html>

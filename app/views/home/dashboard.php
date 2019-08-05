@@ -42,7 +42,7 @@
                 <!-- /.row -->
 
     <!-- on admin session -->
-                <!-- <div class="row">
+                <div class="row">
                     <div class="col-lg-12">
                         <h4>About the system here</h4>
                         
@@ -55,7 +55,7 @@
                           proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                         </blockquote>
                     </div>
-                </div> -->
+                </div>
 
     <!-- on student session -->
                 <div class="row">
@@ -74,56 +74,10 @@
                         <a href="<?= SITE_URL ?>/test"><button class="btn btn-success" type="button">Take Test</button></a>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="form-inline form-padding">
-                            <form id="frmSearch" role="form">
-                                <a onclick="refresh()" class="btn btn-info">Refresh</a>
-                            </form>
-                        </div>
-                        <br>
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                Overall Results
-                            </div>
-                            <div class="panel-body">
-                                <div class="dataTable_wrapper">
-                                <table id="resultHomeTable" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr role="row">
-                                                <th >
-                                                    Student Name
-                                                </th>
-                                                <th>
-                                                    Total given answers
-                                                </th>
-                                                <th>
-                                                    Marks
-                                                </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                            <tr>
-                                                <td>Pradip Dhakal</td>
-                                                <td>45/50</td>
-                                                <td>60/100</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Saroj Tripathi</td>
-                                                <td>47/50</td>
-                                                <td>70/100</td>
-                                            </tr>
-                                    </tbody>
-                                </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
+            <br>
             </div>
-        
+        <br><br>
         <!-- /#page-wrapper -->
     </div>
     <!-- /#wrapper -->
