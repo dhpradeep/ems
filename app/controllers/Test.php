@@ -12,17 +12,21 @@ class Test extends Controller {
 	}
 	
 	public function result($name="") {
-		if($name){
-			$this->model->data = array(
-				'message'=> array(
-				'content' => '<b>'.$name.'</b>',
-				));
-			$this->model->template = VIEWS_DIR.DS."test".DS."single_result.php";
-		}else{
-			$this->model->template = VIEWS_DIR.DS."test".DS."result.php";
-		}
-        $this->view->render();	
-    }
+		if(Session::isLoggedIn(1)) {
+			if($name){
+				$this->model->data = array(
+					'message'=> array(
+					'content' => '<b>'.$name.'</b>',
+					));
+				$this->model->template = VIEWS_DIR.DS."test".DS."single_result.php";
+			}else{
+				$this->model->template = VIEWS_DIR.DS."test".DS."result.php";
+			}
+	        $this->view->render();
+		}else {
+			header("Location: ".SITE_URL."/home/dashboard");			
+    	}
+	}
 }
 
 ?>

@@ -331,7 +331,7 @@
                         </fieldset>
                     </div>
                 <section>
-                <div class="col col-md-12 text-center">
+                <div class="col col-md-12 text-center" style="margin-bottom: 20px">
                     <br><br>
                     <button type="button" id="prev" class="btn btn-success" disabled>Prev</button>
                     <button type="button" id="next" class="btn btn-success">Next</button>

@@ -4,6 +4,9 @@
             <li>
                 <a href="<?= SITE_URL.DS.'home'.DS ?>dashboard"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
             </li>
+            <?php
+                if(Session::isLoggedIn(1) || Session::isLoggedIn(2)) {
+            ?>
             <li>
                 <a href="#students"><i class="fa fa-table fa-fw"></i> Students<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
@@ -48,7 +51,9 @@
                 </ul>
                 <!-- /.nav-second-level -->
             </li>
-
+        <?php
+            }
+        ?>
         <!-- Student session -->
             <li>
                 <a href="#"><i class="fa fa-check fa-fw"></i> Test<span class="fa arrow"></span></a>

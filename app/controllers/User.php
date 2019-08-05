@@ -75,7 +75,7 @@ class User extends Controller
 
 	public function profile() 
 	{
-		if(!Session::isLoggedIn()) {
+		if(!Session::isLoggedIn(1)) {
 			header("Location: ".SITE_URL."/user/login");
 		}else {
 			$this->model->data['activeTab'] = "profile";
@@ -294,6 +294,7 @@ class User extends Controller
 			$dataToSearch = array('id' => $idToDel);
 			$res = $this->model->searchUser($dataToSearch);
 			if(count($res) >= 1) {
+				if($res[0]['role'] == 3) return $this->deleteStudent($result);
 				$out = $this->model->deleteUser($idToDel);
 				if($out == 1) {
 					$result['status'] = 1;
@@ -428,5 +429,49 @@ class User extends Controller
 		unset($_POST);
 		return print json_encode($result);			
 	}	
+
+	private function deleteStudent($result) {
+		if(!isset($_POST['id'])) {
+			$result['error'] = array("Invalid selection.");
+			$result['status'] = 0;
+		}else {
+			$idToDel = Input::get('id');
+			$dataToSearch = array('id' => $idToDel);
+			$res = $this->model->searchUser($dataToSearch);
+			if(count($res) >= 1) {
+				$out = $this->deleteDataFromTable("userlogin", $idToDel);
+				$pk = $this->getPKFromTable("personaldata",array('userId' => $idToDel));
+				if($pk != 0) $this->deleteDataFromTable("personaldata", $pk);
+				$pk = $this->getPKFromTable("documents",array('userId' => $idToDel));
+				if($pk != 0) $this->deleteDataFromTable("documents", $pk);
+				$pk = $this->getPKFromTable("contactdetails",array('userId' => $idToDel));
+				if($pk != 0) $this->deleteDataFromTable("contactdetails", $pk);
+				$pk = $this->getPKFromTable("education",array('userId' => $idToDel));
+				do {
+					if($pk != 0) $this->deleteDataFromTable("education", $pk);
+					$pk = $this->getPKFromTable("education",array('userId' => $idToDel));
+				}while($pk != 0);	
+				$result['status'] = 1;		
+			}else {
+				$result['error'] = array("No such student found.");
+				$result['status'] = 0;
+			}
+		}
+		$result['success'] = ($result['status'] == 1) ? true : false;
+		unset($_POST);
+		return print json_encode($result);
+	}
+
+	private function deleteDataFromTable($tableName, $id) {
+		$this->setForeignModel("StudentModel");
+		$this->foreignModel->setTable($tableName);
+		return $this->foreignModel->deleteStudent($id);
+	}
+
+	private function getPKFromTable($tableName, $data) {
+		$this->setForeignModel("StudentModel");
+		$this->foreignModel->setTable($tableName);
+		return $this->foreignModel->getStudentId($data);
+	} 
 }
  

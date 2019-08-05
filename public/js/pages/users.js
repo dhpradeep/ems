@@ -10,7 +10,7 @@ $(document).on("click", ".remove-icon", function(e) {
     var id = $(this).data('id');
     BootstrapDialog.show({
         title: 'Delete',
-        message: 'Are you sure to delete this record?',
+        message: 'Are you sure to delete this record?\n <strong>Deleting a student will delete all the Student related Data</strong>',
         buttons: [{
             label: 'Yes',
             cssClass: 'btn-primary',
@@ -180,38 +180,7 @@ function refresh() {
 }
 
 function getAllData(){
-   /* $.ajax({
-            url: '../user/users/get',
-            async: true,
-            type: 'GET',
-            success: function(response) {
-                var decode = JSON.parse(response);
-                if (decode.success == true) {
-                    data = decode.data;
-                    //for (var i = 0; i < decode.data.length; i++) {*/
-
-                        /*console.log(decode.data);
-                        var row = decode.data[i];
-                        var html = '<tr role="row">\
-                                        <td class="sorting">' + row.name +'</td>\
-                                        <td class="sorting">' + row.username + '</td>\
-                                        <td class="sorting">' + row.email + '</td>\
-                                        <td class="sorting">\
-                                            <select class="form-control change-role" data-id="6">'+
-                                                '<option'+(row.role == 1 ? ' selected' : '')+' value="1">Admin</option>'+
-                                                '<option'+(row.role == 2 ? ' selected' : '')+' value="2">Teacher</option>'+
-                                                '<option'+(row.role == 3 ? ' selected' : '')+' value="3">Student</option>'+
-                                            '</select></td>\
-                                        <td width="10%">\
-                                            <div class="text-right">\
-                                                <a class="remove-icon btn btn-danger btn-xs" data-id="'+row.id+'">\
-                                                        <i class="fa fa-remove"></i>\
-                                                </a>\
-                                            </div>\
-                                            </td>\
-                                    </tr>';
-                                    console.log(html);
-                        $("#userTable tbody").append(html);*/
+   
                             $("#userTable").dataTable().fnDestroy();
                              $('#userTable').DataTable( {
                                 "processing": true,
