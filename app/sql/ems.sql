@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 05. Aug 2019 um 03:11
+-- Erstellungszeit: 06. Aug 2019 um 01:23
 -- Server-Version: 10.1.38-MariaDB
 -- PHP-Version: 7.3.2
 
@@ -72,11 +72,17 @@ CREATE TABLE `contactdetails` (
   `mobileNo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `telephoneNo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `blockNo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `guardianName` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `guardianRelation` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `guardianContact` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Daten für Tabelle `contactdetails`
+--
+
+INSERT INTO `contactdetails` (`id`, `userId`, `municipality`, `wardNo`, `area`, `district`, `zone`, `mobileNo`, `telephoneNo`, `blockNo`, `guardianName`, `guardianRelation`, `guardianContact`) VALUES
+(17, 54, 'Lekhnath', NULL, '', 'Kaski', '', '98888886666', '', '', 'NO', '', '');
 
 -- --------------------------------------------------------
 
@@ -89,13 +95,24 @@ CREATE TABLE `documents` (
   `userId` int(11) NOT NULL,
   `formNo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `entranceNo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `eligible` tinyint(1) NOT NULL,
-  `minimumPercent` tinyint(1) NOT NULL,
-  `marksheet` tinyint(1) NOT NULL,
-  `characterCertificate` tinyint(1) NOT NULL,
-  `citizenship` tinyint(1) NOT NULL,
-  `photo` tinyint(1) NOT NULL
+  `eligible` varchar(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'false',
+  `remarks` varchar(1200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `marksheet_see` varchar(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'false',
+  `marksheet_11` varchar(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'false',
+  `marksheet_12` varchar(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'false',
+  `transcript` varchar(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'false',
+  `characterCertificate_see` varchar(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'false',
+  `characterCertificate_12` varchar(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'false',
+  `citizenship` varchar(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'false',
+  `photo` varchar(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'false'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Daten für Tabelle `documents`
+--
+
+INSERT INTO `documents` (`id`, `userId`, `formNo`, `entranceNo`, `eligible`, `remarks`, `marksheet_see`, `marksheet_11`, `marksheet_12`, `transcript`, `characterCertificate_see`, `characterCertificate_12`, `citizenship`, `photo`) VALUES
+(16, 54, '22344', '22322', 'true', 'Transcript to submit.', 'true', 'true', 'true', 'false', 'true', 'true', 'true', 'true');
 
 -- --------------------------------------------------------
 
@@ -107,11 +124,20 @@ CREATE TABLE `education` (
   `id` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
   `level` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `faculty` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `institution` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `board` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `yearOfCompletion` int(11) NOT NULL,
   `percent` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Daten für Tabelle `education`
+--
+
+INSERT INTO `education` (`id`, `userId`, `level`, `faculty`, `institution`, `board`, `yearOfCompletion`, `percent`) VALUES
+(13, 54, '1', '', 'AMHSS', 'Nepal', 2015, '91'),
+(14, 54, '2', 'Science', 'AMHSS', 'HSEB', 2017, '83');
 
 -- --------------------------------------------------------
 
@@ -122,14 +148,22 @@ CREATE TABLE `education` (
 CREATE TABLE `personaldata` (
   `id` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
-  `program` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `doa` datetime NOT NULL,
-  `dobAd` datetime NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `programId` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `doa` date NOT NULL,
+  `dobAd` date NOT NULL,
   `dobBs` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `gender` tinyint(11) NOT NULL,
   `nationality` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Nepali',
   `fatherName` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Daten für Tabelle `personaldata`
+--
+
+INSERT INTO `personaldata` (`id`, `userId`, `password`, `programId`, `doa`, `dobAd`, `dobBs`, `gender`, `nationality`, `fatherName`) VALUES
+(18, 54, 'eversoft22322', '2', '2019-07-30', '2019-08-11', '2019-08-11', 1, 'Nepal', 'Danu');
 
 -- --------------------------------------------------------
 
@@ -151,8 +185,9 @@ CREATE TABLE `program` (
 
 INSERT INTO `program` (`id`, `name`, `duration`, `welcome`, `thanks`) VALUES
 (2, 'BBA', 120, 'Welcome to BBA section.', 'Thank you for your test.'),
-(8, 'BCA', 90, '&lt;p&gt;&amp;lt;p&amp;gt;&amp;lt;strong&amp;gt;Welcome to BCA Entrance Exam.&amp;lt;/strong&amp;gt;&amp;lt;/p&amp;gt;&lt;/p&gt;\n', '&lt;p&gt;&amp;lt;p&amp;gt;&amp;lt;strong&amp;gt;Thank you.&amp;lt;/strong&amp;gt;&amp;lt;/p&amp;gt;&lt;/p&gt;\n'),
-(9, 'BPH', 120, '&lt;p&gt;Welcome to BPH section.&lt;/p&gt;\n', '&lt;p&gt;Thank you for your test for BPH.&lt;/p&gt;\n');
+(8, 'BCA', 90, '&lt;p&gt;&lt;strong&gt;Welcome to BCA Entrance Exam.&lt;/strong&gt;&lt;/p&gt;\n', '&lt;p&gt;&lt;strong&gt;Thank you&lt;/strong&gt;&lt;/p&gt;\n'),
+(9, 'BPH', 120, '&lt;p&gt;Welcome to BPH section.&lt;/p&gt;\n', '&lt;p&gt;Thank you for your test for BPH.&lt;/p&gt;\n'),
+(14, 'Test', 60, '&lt;p&gt;&lt;br /&gt;\nWelcome to Test&lt;/p&gt;\n', '&lt;p&gt;&lt;br /&gt;\nTesting Exit.&lt;/p&gt;\n');
 
 -- --------------------------------------------------------
 
@@ -204,7 +239,7 @@ CREATE TABLE `questions` (
 INSERT INTO `questions` (`id`, `categoryId`, `question`, `level`, `answer`, `choice2`, `choice3`, `choice4`) VALUES
 (4, 4, '&lt;p&gt;Who is famous for formula to calculate hypotenuse for right angle traingle?&lt;/p&gt;\n', 2, 'Pythagorus', 'Niels Bohr', 'Einstein', 'Newton'),
 (5, 11, '&lt;p&gt;Which is not a programming language?&lt;/p&gt;\n', 3, 'Lotus', 'C', 'R', 'Java'),
-(6, 12, '&lt;p&gt;Is debit good?&lt;/p&gt;\n', 1, 'No', 'I dont know.', 'Yes', 'Depends');
+(6, 12, '&lt;p&gt;Is debit&lt;strong&gt; good&lt;/strong&gt;?&lt;/p&gt;\n', 1, 'No', 'I dont know.', 'Yes', 'Depends');
 
 -- --------------------------------------------------------
 
@@ -261,10 +296,11 @@ INSERT INTO `userlogin` (`id`, `username`, `fname`, `mname`, `lname`, `email`, `
 (14, 'admin2', 'Pradip', '', 'Dhakal', 'admin2@admin.com', 'c84258e9c39059a89ab77d846ddab909', 1),
 (28, 'thaxaina', 'Saroj', '', 'Tripathi', 'ademin@admin.com', 'e00cf25ad42683b3df678c61f42c6bda', 1),
 (31, 'admin1', 'Arjun', 'Prasad', 'Subedi', 'admin1@admin.com', 'e00cf25ad42683b3df678c61f42c6bda', 1),
-(32, 'student', 'Saroj', '', 'Tripathi', 'student@student.com', 'cd73502828457d15655bbd7a63fb0bc8', 3),
+(32, 'student', 'Saroj', '', 'Tripathi', 'student@student.com', 'cd73502828457d15655bbd7a63fb0bc8', 1),
 (33, 'pravhu', 'Pravhu', '', 'Gurung', 'admin44@admin.com', 'e00cf25ad42683b3df678c61f42c6bda', 1),
 (34, 'teacher', 'Raju', 'Prasad', 'Lamsal', 'teacher@teacher.com', '41c8949aa55b8cb5dbec662f34b62df3', 2),
-(35, 'test1', 'Test', '', 'User', 'test@test.com', 'e00cf25ad42683b3df678c61f42c6bda', 1);
+(35, 'test1', 'Test', '', 'User', 'test@test.com', 'e00cf25ad42683b3df678c61f42c6bda', 1),
+(54, 'saroj22322', 'Saroj', '', 'Tripathi', 'saroj@admin.com', '11d3d3a67cd34bfc05ca02bff3fd55de', 3);
 
 --
 -- Indizes der exportierten Tabellen
@@ -362,31 +398,31 @@ ALTER TABLE `connection`
 -- AUTO_INCREMENT für Tabelle `contactdetails`
 --
 ALTER TABLE `contactdetails`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT für Tabelle `documents`
 --
 ALTER TABLE `documents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT für Tabelle `education`
 --
 ALTER TABLE `education`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT für Tabelle `personaldata`
 --
 ALTER TABLE `personaldata`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT für Tabelle `program`
 --
 ALTER TABLE `program`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT für Tabelle `questionmodel`
@@ -416,7 +452,7 @@ ALTER TABLE `timetrack`
 -- AUTO_INCREMENT für Tabelle `userlogin`
 --
 ALTER TABLE `userlogin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
