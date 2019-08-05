@@ -9,7 +9,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            Update Student
+                            Manage Student
                         </div>
                         <div class="panel-body">
                             <div class="row">
@@ -101,8 +101,10 @@
                                 <input type="text" class="form-control" name="fatherName" id="fatherName" placeholder="Father's Name" />
                                 <span class="help-inline"></span>
                             </div>
-                            <div class="form-group col-md-12 text-right">
+                            <div class="form-group col-sm-6 text-left">
                                     <a href="#" class="btn btn-primary previous">Previous</a>
+                            </div>
+                            <div class="form-group col-sm-6 text-right">
                                     <a href="#" class="btn btn-primary next">Next</a>
                             </div>
                     </div>
@@ -114,8 +116,10 @@
                         </div>
                         <div id="nestedForm">
                         </div>
-                            <div class="form-group col-md-12 text-right">
+                            <div class="form-group col-sm-6 text-left">
                                     <a href="#" class="btn btn-primary previous">Previous</a>
+                            </div>
+                            <div class="form-group col-sm-6 text-right">
                                     <a href="#" class="btn btn-primary next">Next</a>
                             </div>
                     </div>
@@ -181,8 +185,10 @@
                                 <input type="text" class="form-control" name="guardianContact" id="guardianContact" placeholder="Gurdian Contact" />
                                 <span class="help-inline"></span>
                             </div>
-                            <div class="form-group col-md-12 text-right">
+                            <div class="form-group col-sm-6 text-left">
                                     <a href="#" class="btn btn-primary previous">Previous</a>
+                            </div>
+                            <div class="form-group col-sm-6 text-right">
                                     <a href="#" class="btn btn-primary next">Next</a>
                             </div>
                     </div>
@@ -258,9 +264,12 @@
                                     </div>
                                     </div>
                             </div>
-                            <div class="form-group col-md-12 text-right">
+                            <div class="form-group col-6 col-sm-6 text-left">
                                     <a href="#" class="btn btn-primary previous">Previous</a>
-                                    <a href="#" class="btn btn-warning">Submit</a>
+                            </div>
+                            <div class="form-group col-6 col-sm-6 text-right">
+                                    <a href="#" class="btn btn-success">Submit</a>
+                                    <button class="btn btn-warning" data-dismiss="modal">Close</button>
                             </div>
                         </form>
                     </div>

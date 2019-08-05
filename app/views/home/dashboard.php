@@ -34,7 +34,7 @@
                     <div class="col-lg-12">
                                               
                         <h1 class="page-header">
-                            Welcome to <small class="text-primary">AttandanceManagementApp</small>
+                            Welcome to <small class="text-primary"><?= WEBSITE_TITLE ?></small>
                            
                         </h1>                
                     </div>

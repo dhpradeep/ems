@@ -109,28 +109,31 @@ class Question extends Controller {
 
 	public function model($name=''){
 		if($name != ""){
-			$this->setForeignModel("QuestionModel");
-			$this->foreignModel->setTable("program");
-			$allPrograms = $this->foreignModel->getAllQuestion();
-			$program = null;
-			$allInfo = null;
-			foreach ($allPrograms as $value) {
-				if($name == strtolower(trim(str_replace(' ', '', $value['name'])))) {
-					$program = $value['name'];
-					$allInfo = $value;
+			if(Session::isLoggedIn(1)) {
+				$this->setForeignModel("QuestionModel");
+				$this->foreignModel->setTable("program");
+				$allPrograms = $this->foreignModel->getAllQuestion();
+				$program = null;
+				$allInfo = null;
+				foreach ($allPrograms as $value) {
+					if($name == strtolower(trim(str_replace(' ', '', $value['name'])))) {
+						$program = $value['name'];
+						$allInfo = $value;
+					}
 				}
-			}
-			if(!is_null($program)) {
-				$this->model->setTable("category");
-				$allCategories = $this->model->getAllQuestion();
-				$this->model->data['program'] = $allInfo;
-				$this->model->data['category'] = $allCategories;
-				$this->model->template = VIEWS_DIR.DS."questions".DS."model.php";
-				$this->view->render();
+				if(!is_null($program)) {
+					$this->model->setTable("category");
+					$allCategories = $this->model->getAllQuestion();
+					$this->model->data['program'] = $allInfo;
+					$this->model->data['category'] = $allCategories;
+					$this->model->template = VIEWS_DIR.DS."questions".DS."model.php";
+					$this->view->render();
+				}else {
+					header("Location: ".SITE_URL."/home/message");
+				}
 			}else {
-				header("Location: ".SITE_URL."/home/message");
-			}
-			
+				header("Location: ".SITE_URL."/home/dashboard");
+			}	
 		}else{
 			header("Location: ".SITE_URL."/home/message");
 		}
@@ -257,6 +260,8 @@ class Question extends Controller {
 		$validate = new Validator();
 		$validation = $validate->check($_POST, array());
 		if($data['noOfQuestions'] <= 0) $validate->addError("No of Questions must be greater than 0!");
+		if($data['minLevel'] <= 0 || $data['minLevel'] > 3 ) $validate->addError("Level isnot valid!");
+		if($data['categoryId'] <= 0) $validate->addError("Category not valid!");
 		if($validate->passed()){
 			$dataForSearch = array('id' => $data['id']);
 			$res = $this->model->searchQuestion($dataForSearch);
@@ -290,6 +295,8 @@ class Question extends Controller {
 		$validate = new Validator();
 		$validation = $validate->check($_POST, array());
 		if(Input::get('noOfQuestions') <= 0) $validate->addError("No of Questions must be greater than 0!");
+		if(Input::get('minLevel') <= 0 || Input::get('minLevel') > 3 ) $validate->addError("Level isnot valid!");
+		if(Input::get('categoryId') <= 0) $validate->addError("Category not valid!");
 		if($validate->passed()){
 			$data = array();
 			$data['id'] = null;

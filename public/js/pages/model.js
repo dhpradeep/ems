@@ -4,22 +4,16 @@ function create_model(data = null) {
         $('#noOfQuestions').val(data.noOfQuestions);
         $("#saveBtn")[0].innerHTML = "Update";
 
-        $('#categoryId > option').each(function () { 
-            if(this.value == data.categoryId) {
-                $(this).attr("selected","selected");
-            }
-         });
+        $('#categoryId').val(data.categoryId);
 
-        $('#minLevel > option').each(function () { 
-            if(this.value == data.minLevel) {
-                $(this).attr("selected","selected");
-            }
-         });
+        $('#minLevel').val(data.minLevel);
 
         $('#addModel').modal('show');
     }else{
         $("#modelId").data('id','-1');
         $("#saveBtn")[0].innerHTML = "Add";
+        $('#categoryId').val('');
+        $('#minLevel').val('');
         $('#noOfQuestions').val("");
         $('#addModel').modal('show');
     }

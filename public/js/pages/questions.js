@@ -2,38 +2,47 @@ jQuery.fn.CKEditorValFor = function(element_id) {
     return CKEDITOR.instances[element_id].getData();
 }
 
+$('#addQuestion').on('hidden.bs.modal', function(e) {
+    resetFields();
+});
+
+function resetFields() {
+    CKEDITOR.instances['question'].setData("");
+    $("#questionId").data('id','-1');
+    $('#answer').val('');
+    $('#choice2').val('');
+    $('#choice3').val('');
+    $('#choice4').val('');
+    $('#level').val('');
+    $('#categoryId').val('');
+}
+
 function create_question(data = null) {
     if(data != null) {
-        CKEDITOR.instances['question'].setData(data.question);
-        $("#questionId").data('id',data.id);
-        $("#saveBtn")[0].innerHTML = "Update";
-        $('#answer').val(data.answer);
-        $('#choice2').val(data.choice2);
-        $('#choice3').val(data.choice3);
-        $('#choice4').val(data.choice4);
+        if(data != undefined) {
+            CKEDITOR.instances['question'].setData(data.question);
+            $("#questionId").data('id',data.id);
+            $("#saveBtn")[0].innerHTML = "Update";
+            $('#answer').val(data.answer);
+            $('#choice2').val(data.choice2);
+            $('#choice3').val(data.choice3);
+            $('#choice4').val(data.choice4);
 
-        $('#level > option').each(function () { 
-            if(this.value == data.level) {
-                $(this).attr("selected","selected");
-            }
-         });
+            $('#level').val(data.level);
 
-        $('#categoryId > option').each(function () { 
-            if(this.value == data.categoryId) {
-                $(this).attr("selected","selected");
-            }
-         });
+            $('#categoryId').val(data.categoryId);
 
-        $('#addQuestion').modal('show');
+            $('#addQuestion').modal('show');
+        }        
     }else{
-        $("#questionId").data('id','-1');
-        $("#saveBtn")[0].innerHTML = "Add";
-               
-        $('#addQuestion').modal('show');
+            $("#saveBtn")[0].innerHTML = "Add";
+                   
+            $('#addQuestion').modal('show');
     }
 }
  
 $(document).ready(function() {
+    CKEDITOR.replace('question');
     refresh();
 });
 
@@ -221,6 +230,7 @@ function animate(sec) {
 
 function refresh() {
    getAllData();
+    resetFields();
    animate(500);
 }
 

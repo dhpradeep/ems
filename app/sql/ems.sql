@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 04. Aug 2019 um 04:02
+-- Erstellungszeit: 05. Aug 2019 um 03:11
 -- Server-Version: 10.1.38-MariaDB
 -- PHP-Version: 7.3.2
 
@@ -39,7 +39,9 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `name`, `description`) VALUES
-(4, 'Basic Mathematics', 'Basic Mathematics for BBA');
+(4, 'Basic Mathematics', 'Basic Mathematics for BBA and BCA'),
+(11, 'Programming', 'PHP, Javascript and HTML'),
+(12, 'Account', 'Account for BBA');
 
 -- --------------------------------------------------------
 
@@ -138,17 +140,19 @@ CREATE TABLE `personaldata` (
 CREATE TABLE `program` (
   `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `duration` int(11) NOT NULL
+  `duration` int(11) NOT NULL,
+  `welcome` varchar(1200) COLLATE utf8_unicode_ci NOT NULL,
+  `thanks` varchar(1200) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Daten für Tabelle `program`
 --
 
-INSERT INTO `program` (`id`, `name`, `duration`) VALUES
-(2, 'BBA', 120),
-(3, 'BPH', 90),
-(6, 'Bachelor in Computer Science', 60);
+INSERT INTO `program` (`id`, `name`, `duration`, `welcome`, `thanks`) VALUES
+(2, 'BBA', 120, 'Welcome to BBA section.', 'Thank you for your test.'),
+(8, 'BCA', 90, '&lt;p&gt;&amp;lt;p&amp;gt;&amp;lt;strong&amp;gt;Welcome to BCA Entrance Exam.&amp;lt;/strong&amp;gt;&amp;lt;/p&amp;gt;&lt;/p&gt;\n', '&lt;p&gt;&amp;lt;p&amp;gt;&amp;lt;strong&amp;gt;Thank you.&amp;lt;/strong&amp;gt;&amp;lt;/p&amp;gt;&lt;/p&gt;\n'),
+(9, 'BPH', 120, '&lt;p&gt;Welcome to BPH section.&lt;/p&gt;\n', '&lt;p&gt;Thank you for your test for BPH.&lt;/p&gt;\n');
 
 -- --------------------------------------------------------
 
@@ -165,6 +169,17 @@ CREATE TABLE `questionmodel` (
   `noOfQuestions` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Daten für Tabelle `questionmodel`
+--
+
+INSERT INTO `questionmodel` (`id`, `programId`, `categoryId`, `minLevel`, `maxLevel`, `noOfQuestions`) VALUES
+(6, 2, 4, 2, 2, 20),
+(9, 8, 4, 3, 3, 20),
+(10, 8, 11, 2, 2, 30),
+(11, 2, 12, 3, 3, 30),
+(13, 2, 11, 1, 1, 10);
+
 -- --------------------------------------------------------
 
 --
@@ -174,7 +189,7 @@ CREATE TABLE `questionmodel` (
 CREATE TABLE `questions` (
   `id` int(11) NOT NULL,
   `categoryId` int(11) NOT NULL,
-  `question` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `question` varchar(1200) COLLATE utf8_unicode_ci NOT NULL,
   `level` tinyint(4) NOT NULL,
   `answer` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `choice2` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -187,7 +202,9 @@ CREATE TABLE `questions` (
 --
 
 INSERT INTO `questions` (`id`, `categoryId`, `question`, `level`, `answer`, `choice2`, `choice3`, `choice4`) VALUES
-(4, 4, '&lt;p&gt;Who is famous for formula to calculate hypotenuse for right angle traingle?&lt;/p&gt;\n', 3, 'Pythagorus', 'Niels Bohr', 'Einstein', 'Newton');
+(4, 4, '&lt;p&gt;Who is famous for formula to calculate hypotenuse for right angle traingle?&lt;/p&gt;\n', 2, 'Pythagorus', 'Niels Bohr', 'Einstein', 'Newton'),
+(5, 11, '&lt;p&gt;Which is not a programming language?&lt;/p&gt;\n', 3, 'Lotus', 'C', 'R', 'Java'),
+(6, 12, '&lt;p&gt;Is debit good?&lt;/p&gt;\n', 1, 'No', 'I dont know.', 'Yes', 'Depends');
 
 -- --------------------------------------------------------
 
@@ -240,14 +257,14 @@ CREATE TABLE `userlogin` (
 --
 
 INSERT INTO `userlogin` (`id`, `username`, `fname`, `mname`, `lname`, `email`, `passwordHash`, `role`) VALUES
-(13, 'admin', 'Saroj', '', 'Tripathi', 'admin@admin.com', '8e87a82e2ef8273a64ec7f2bf770a178', 1),
-(14, 'admin2^', 'Pradip', '', 'Dhakal', 'admin2@admin.com', 'c84258e9c39059a89ab77d846ddab909', 1),
-(26, 'admin5dasf', 'djkaj', NULL, 'fdasfas', 'gasgas@daf.cad', 'dfsjfkahjkh2jkhjhrkjhdakcjs', 3),
-(27, 'jkdjfakj', 'Sar', 'kdaf', 'jkdjafksj', 'kjkjdfka@dhfa.fakj', 'e10adc3949ba59abbe56e057f20f883e', 1),
+(13, 'admin', 'Saroj', '', 'Tripathi', 'admin@admin.com', 'e00cf25ad42683b3df678c61f42c6bda', 1),
+(14, 'admin2', 'Pradip', '', 'Dhakal', 'admin2@admin.com', 'c84258e9c39059a89ab77d846ddab909', 1),
 (28, 'thaxaina', 'Saroj', '', 'Tripathi', 'ademin@admin.com', 'e00cf25ad42683b3df678c61f42c6bda', 1),
-(29, 'hkjdafdfa', 'khkkjh', 'hkj', 'hjk', 'hjk@daf.dfas', 'e10adc3949ba59abbe56e057f20f883e', 2),
 (31, 'admin1', 'Arjun', 'Prasad', 'Subedi', 'admin1@admin.com', 'e00cf25ad42683b3df678c61f42c6bda', 1),
-(32, 'student', 'Saroj', '', 'Tripathi', 'student@student.com', 'cd73502828457d15655bbd7a63fb0bc8', 3);
+(32, 'student', 'Saroj', '', 'Tripathi', 'student@student.com', 'cd73502828457d15655bbd7a63fb0bc8', 3),
+(33, 'pravhu', 'Pravhu', '', 'Gurung', 'admin44@admin.com', 'e00cf25ad42683b3df678c61f42c6bda', 1),
+(34, 'teacher', 'Raju', 'Prasad', 'Lamsal', 'teacher@teacher.com', '41c8949aa55b8cb5dbec662f34b62df3', 2),
+(35, 'test1', 'Test', '', 'User', 'test@test.com', 'e00cf25ad42683b3df678c61f42c6bda', 1);
 
 --
 -- Indizes der exportierten Tabellen
@@ -333,7 +350,7 @@ ALTER TABLE `userlogin`
 -- AUTO_INCREMENT für Tabelle `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT für Tabelle `connection`
@@ -369,19 +386,19 @@ ALTER TABLE `personaldata`
 -- AUTO_INCREMENT für Tabelle `program`
 --
 ALTER TABLE `program`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT für Tabelle `questionmodel`
 --
 ALTER TABLE `questionmodel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT für Tabelle `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT für Tabelle `record`
@@ -399,7 +416,7 @@ ALTER TABLE `timetrack`
 -- AUTO_INCREMENT für Tabelle `userlogin`
 --
 ALTER TABLE `userlogin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

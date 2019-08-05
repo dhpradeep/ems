@@ -7,15 +7,8 @@ class Student extends Controller {
 	}
 
 	public function index() {
-		// header("Location: ".SITE_URL."/student/all");
-		$this->model->template = VIEWS_DIR.DS."students".DS."students.php";
-		$this->view->render();
+		header("Location: ".SITE_URL."/student/all");
 	}
-	
-	public function add() {
-		$this->model->template = VIEWS_DIR.DS."students".DS."add_students.php";
-		$this->view->render();
-    }
     
     public function all() {
 		$this->model->template = VIEWS_DIR.DS."students".DS."students.php";

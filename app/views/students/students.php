@@ -62,13 +62,8 @@
                 <div class="col-lg-12">
                     <div class="form-inline form-padding">
                         <form id="frmSearch" role="form">
-                            <a href="<?= SITE_URL ?>/student/add" class="btn btn-primary">Add Student</a>
-                            <!-- <a onclick="create_student_bulk()" class="btn btn-primary">Add Student in Bulk</a> -->
-                            <!-- <a class="btn btn-primary" disabled="true">Add Student in Bulk</a> -->
+                            <a onclick="create_student()" class="btn btn-primary">Add Student</a>
                             <a onclick="refresh()" class="btn btn-info">Refresh</a>
-                            <div class="input-group"> <span class="input-group-addon">Search: </span>
-                                <input id="filter" type="text" class="form-control" placeholder="Type here...">
-                            </div>
                         </form>
                     </div>
                     <br>

@@ -25,7 +25,7 @@
                     <label>Question Level </label>
                         <select class="form-control" id="minLevel" name="minLevel">
                             <option value="1" name="Basic">Basic</option>
-                            <option value="2" name="Intermediate">Intermediate</option>
+                            <option value="2" name="Medium">Medium</option>
                             <option value="3" name="Hard">Hard</option>
                         </select>
                         <p class="help-inline"></p>

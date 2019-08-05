@@ -2,6 +2,18 @@ jQuery.fn.CKEditorValFor = function(element_id) {
     return CKEDITOR.instances[element_id].getData();
 }
 
+$('#addProgram').on('hidden.bs.modal', function(e) {
+    resetFields();
+});
+
+function resetFields() {
+    CKEDITOR.instances['welcome'].setData("");
+    CKEDITOR.instances['thanks'].setData("");
+    $("#programId").data('id','-1');
+    $('#name').val('');
+    $('#duration').val('');
+}
+
 function create_program(data = null) {
     if(data != null) {
         CKEDITOR.instances['welcome'].setData(data.welcome);
@@ -12,7 +24,6 @@ function create_program(data = null) {
         $("#saveBtn")[0].innerHTML = "Update";
         $('#addProgram').modal('show');
     }else{
-        $("#programId").data('id','-1');
         $("#saveBtn")[0].innerHTML = "Add";
                
         $('#addProgram').modal('show');
@@ -20,6 +31,8 @@ function create_program(data = null) {
 }
  
 $(document).ready(function() {
+    CKEDITOR.replace('welcome');
+    CKEDITOR.replace('thanks');
     refresh();
 });
 
@@ -201,6 +214,7 @@ function animate(sec) {
 
 function refresh() {
    getAllData();
+   resetFields();
    animate(500);
 }
 
