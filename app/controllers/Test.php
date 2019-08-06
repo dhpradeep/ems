@@ -11,12 +11,120 @@ class Test extends Controller {
 			header("Location: ".SITE_URL."/user/login");	
 		}
 		$this->model->data['errors'] = array();	
-		$this->checkForValidProgram();
+		$userProgram = $this->checkForValidProgram();
 		if(count($this->model->data['errors']) == 0) {
-			//check for previous exam.
+			$examId = $this->checkForValidExam($userProgram);
+			if(count($this->model->data['errors']) == 0 && $examId != 0) {
+				$this->model->data['categories'] = $this->sortForId($this->searchDataFromTable("category", array()));
+				//for new exam
+				//generate questions and categories and save to records.
+				$records = $this->searchDataFromTable("record", array("userId" => Session::getSession('uid'),
+					"examId" => $examId));
+				if(count($records) <= 0) {
+					$allModels = $this->searchDataFromTable("questionmodel", array("programId" => $userProgram));
+					foreach ($allModels as $model) {
+						$toSearch = array(
+							"categoryId" => $model['categoryId'],
+							"level" => $model['minLevel']
+						);
+						$matchingQuestions = $this->searchDataFromTable("questions", $toSearch);
+						$length = count($matchingQuestions);
+						$toRemove = $length - $model['noOfQuestions'];
+						for($toRemove; $toRemove > 0; $toRemove--) {
+							$randomVal = rand(0,count($matchingQuestions)-1);
+							array_splice($matchingQuestions, $randomVal, 1);
+						}
+						foreach ($matchingQuestions as $question) {
+							$toRecord = array(
+								"examId" => $examId,
+								"userId" => Session::getSession('uid'),
+								"categoryId" => $model['categoryId'],
+								"questionId" => $question['id'],
+								"question" => $question['question'],
+								"userAnswer" => null,
+								"answer" => $question['answer'],
+								"choice2" => $question['choice2'],
+								"choice3" => $question['choice3'],
+								"choice4" => $question['choice4'],
+								"result" => 0
+							);
+							$this->setDataToTable("record", $toRecord);
+						}
+
+					}
+					$records = $this->searchDataFromTable("record", array("userId" => Session::getSession('uid'),
+					"examId" => $examId));
+				}else {
+					$records = $records;
+				}
+				$this->model->data['questions'] = $this->sortForCategoryId($records);
+			}
 		}
 		$this->model->template = VIEWS_DIR.DS."test".DS."test.php";
 		$this->view->render();
+	}
+
+	private function sortForCategoryId($records) {
+		$categories = array();
+		$finalOutput = array();
+		foreach ($records as $value) {
+			if(!(in_array($value['categoryId'], $categories))) {
+				array_push($categories, $value['categoryId']);
+				$finalOutput[$value['categoryId']] = array();
+				array_push($finalOutput[$value['categoryId']], $value);
+			} else {
+				array_push($finalOutput[$value['categoryId']], $value);
+			}
+			
+		}
+		return $finalOutput;
+	}
+
+	private function sortForId($records) {
+		$categories = array();
+		$finalOutput = array();
+		foreach ($records as $value) {
+			if(!(in_array($value['id'], $categories))) {
+				array_push($categories, $value['id']);
+				$finalOutput[$value['id']] = array();
+				array_push($finalOutput[$value['id']], $value);
+			} else {
+				array_push($finalOutput[$value['id']], $value);
+			}
+			
+		}
+		return $finalOutput;
+	}
+
+	private function checkForValidExam($userProgram) {
+			$examId = 0;
+			$previousExam = $this->searchDataFromTable("timetrack",array("userId" => Session::getSession('uid'), "programId" => $userProgram));
+			if(count($previousExam) > 0) {
+				if($previousExam[0]['isSubmitted'] == "true" || $previousExam[0]['remainingTime'] <= 0) {
+					array_push($this->model->data['errors'], "Exam already submitted");
+				}else {
+					$examId = $previousExam[0]['id'];
+				}
+			}else {
+				$programs = $this->searchDataFromTable("program", array("id" => $userProgram));
+				if(count($programs) > 0) {
+					$totalTime = $programs[0]['duration'];
+					if($totalTime <= 0) {
+						array_push($this->model->data['errors'], "Invalid time set");
+					}else {
+						$toTable = array(
+							"userId" => Session::getSession('uid'),
+							"programId" => $userProgram,
+							"remainingTime" => $totalTime * 60,
+							"isSubmitted" => "false"
+						);
+						$examId = $this->setDataToTable("timetrack", $toTable);
+					}
+				}else {
+					array_push($this->model->data['errors'], "No such program registered!");
+				}
+			}
+			return $examId;
 	}
 
 	private function checkForValidProgram() {
@@ -55,6 +163,8 @@ class Test extends Controller {
 						$allQues = $this->searchDataFromTable("questions", $dataToSearch);
 						if(count($allQues) < $value['noOfQuestions']) {
 							array_push($this->model->data['errors'], "Model with id: ".$value['id']." error. Questions needed: ".$value['noOfQuestions']." but available : ".count($allQues));
+						}else {
+							return $userProgram;
 						}
 					}					
 				}else {

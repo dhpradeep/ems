@@ -123,7 +123,9 @@ class Student extends Controller {
 			$this->setForeignModel("QuestionModel");
 			$this->foreignModel->setTable("program");
 			$programs = $this->foreignModel->searchQuestion($toSearch);
-			$arr[$index]['programName'] = $programs[0]['name'];
+			if(count($programs) > 0) {
+				$arr[$index]['programName'] = $programs[0]['name'];
+			}
 			$index++;
 		}
 

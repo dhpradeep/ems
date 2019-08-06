@@ -61,6 +61,10 @@
                 </div>
             </div>
 
+           <?php var_dump($this->questions); ?>
+           <br><br>
+           <?php var_dump($this->categories); ?>
+
 
                 <!-- /.row -->
                 <div class="row">
