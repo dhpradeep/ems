@@ -34,6 +34,20 @@
             <div class="row">
                 <br><br>
             </div>
+
+            <?php 
+                if(!is_null($this->errors) && count($this->errors) > 0) {
+                    foreach ($this->errors as $value) {
+                        ?>
+                        <div class="row">
+                            <div>
+                                <span style="font-size:22px;"><strong><?= $value ?></strong></span>
+                            </div>
+                        </div>
+                    <?php
+                    }
+                }else {
+            ?>
             <div class="row">
                 <div>
                     <span style="font-size:22px;">Category: <strong>PHP</strong></span>
@@ -338,6 +352,7 @@
                     <button type="submit" class="btn btn-warning" name="submit">Submit Answer</button>
                 </div>
                 </section>
+            <?php } ?>
             </div>
         <!-- /#page-wrapper -->
     </div>
@@ -350,8 +365,11 @@
     <script src="<?= BOWER_DIR ?>/metisMenu/dist/metisMenu.min.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="<?= JS_DIR ?>/sb-admin-2.js"></script>
+    <?php if(!(!is_null($this->errors) && count($this->errors) > 0))
+    { ?>
      <!-- Custom JavaScript -->
      <script src="<?= JS_DIR ?>/pages/test.js"></script>
+    <?php } ?>
 </body>
 
 </html>

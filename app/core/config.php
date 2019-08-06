@@ -81,4 +81,8 @@ defined("BRAND_NAME")
 defined("BRAND_WEBSITE")
 	|| define("BRAND_WEBSITE", "http://www.eversoftgroup.com");
 
+// App Version
+defined("VERSION")
+	|| define("VERSION", "1.0");
+
 ?>

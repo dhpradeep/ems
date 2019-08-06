@@ -14,8 +14,35 @@ class Home extends Controller {
 		if(!Session::isloggedIn()) {
 			header("Location: ".SITE_URL."/user/login");
 		}else {
-			$this->model->template = VIEWS_DIR.DS."home".DS."dashboard.php";
-			$this->view->render();
+			$this->model->data['errors'] = array();
+			$userId = Session::getSession('uid');
+			$userRole = Session::getSession('role');
+			$userProgram = null;
+			if(!is_null($userId) && !is_null($userRole)) {
+				$allPrograms = $this->searchDataFromTable("program", array());
+				if($userRole == 1 || $userRole == 2) {
+					array_push($this->model->data['errors'], "Admin / Teacher View is under Construction");
+				}else if($userRole == 3) {
+					$programForUser = $this->searchDataFromTable("personaldata", array('userId' => $userId));
+					if(count($programForUser) > 0 && $programForUser[0]['programId'] > 0) {
+						$userProgram = $programForUser[0]['programId'];
+						$checkProgram = $this->searchDataFromTable("program", array("id" => $userProgram));
+						if(count($checkProgram) <= 0) {
+							array_push($this->model->data['errors'], "No such program registered!");
+						}else {
+							$this->model->data = array_merge($this->model->data, $checkProgram[0]);
+						}
+					}else {
+						array_push($this->model->data['errors'], "No Program set for User!");
+					}
+				}else {
+					array_push($this->model->data['errors'], "No valid role for User!");
+				}
+				$this->model->template = VIEWS_DIR.DS."home".DS."dashboard.php";
+				$this->view->render();
+			}else {
+				header("Location: ".SITE_URL."/user/login");
+			}
 		}		
 	}
 
@@ -32,6 +59,36 @@ class Home extends Controller {
 		}
 		$this->model->template = VIEWS_DIR.DS."error.php";
 		$this->view->render();
+	}
+
+	private function setDataToTable($tableName, $data) {
+		$this->setForeignModel("StudentModel");
+		$this->foreignModel->setTable($tableName);
+		return $this->foreignModel->registerStudent($data);
+	}
+
+	private function updateDataToTable($tableName, $id, $data) {
+		$this->setForeignModel("StudentModel");
+		$this->foreignModel->setTable($tableName);
+		return $this->foreignModel->updateStudent($id, $data);
+	}
+
+	private function deleteDataFromTable($tableName, $id) {
+		$this->setForeignModel("StudentModel");
+		$this->foreignModel->setTable($tableName);
+		return $this->foreignModel->deleteStudent($id);
+	}
+
+	private function searchDataFromTable($tableName, $data) {
+		$this->setForeignModel("StudentModel");
+		$this->foreignModel->setTable($tableName);
+		return $this->foreignModel->searchStudent($data);
+	} 
+
+	private function getPKFromTable($tableName, $data) {
+		$this->setForeignModel("StudentModel");
+		$this->foreignModel->setTable($tableName);
+		return $this->foreignModel->getStudentId($data);
 	}
 }
 

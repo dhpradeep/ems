@@ -4,7 +4,7 @@ class TestModel extends Model{
 
 	public function __construct() {
 		// tablename for the model
-		$this->table = 'userDetails';
+		$this->table = 'record';
 		// primary key for the table
 		$this->pk = 'id';
 		

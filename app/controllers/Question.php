@@ -266,15 +266,24 @@ class Question extends Controller {
 			$dataForSearch = array('id' => $data['id']);
 			$res = $this->model->searchQuestion($dataForSearch);
 			if(count($res) >= 1) {
-				$idToChange = $data['id'];
-				unset($data['id']);
-				$ret = $this->model->updateQuestion($idToChange, $data);
-				if($ret == 1) {
-					$result['status'] = 1;
-					$result['success'] = true;
-				} else {
-					$result['status'] = -1;
-					$result['errors'] = $validate->addError("Nothing updated!");
+				$searchForQuestions = $this->setForeignModel("QuestionModel");
+				$this->foreignModel->setTable("questions");
+				$dataToSearch = array("categoryId" => $data['categoryId'], "level" => $data['minLevel']);
+				$resultOfSearch = $this->foreignModel->searchQuestion($dataToSearch);
+				if(count($resultOfSearch) >= $data["noOfQuestions"]) {
+					$idToChange = $data['id'];
+					unset($data['id']);
+					$ret = $this->model->updateQuestion($idToChange, $data);
+					if($ret == 1) {
+						$result['status'] = 1;
+						$result['success'] = true;
+					} else {
+						$result['status'] = -1;
+						$result['errors'] = $validate->addError("Nothing updated!");
+					}
+				}else {
+					$result['status'] = 0;
+					$validate->addError("Not sufficient Questions of this level and category in Database!");
 				}							
 			} else {
 				$result['errors'] = $validate->addError("No such model found.");
@@ -303,14 +312,24 @@ class Question extends Controller {
 			foreach ($_POST as $key => $value) {
 				$data[$key] = Input::get($key);
 			}
-			$id = $this->model->registerQuestion($data);
-			if($id != 0){
-				$result['status'] = 1;
-				$result['success'] = true;
-			}else{
-				$result['status'] = -1;
-				$result['errors'] = $validate->addError("Problem with connection to server!");
+			$searchForQuestions = $this->setForeignModel("QuestionModel");
+			$this->foreignModel->setTable("questions");
+			$dataToSearch = array("categoryId" => $data['categoryId'], "level" => $data['minLevel']);
+			$resultOfSearch = $this->foreignModel->searchQuestion($dataToSearch);
+			if(count($resultOfSearch) >= $data["noOfQuestions"]) {
+				$id = $this->model->registerQuestion($data);
+				if($id != 0){
+					$result['status'] = 1;
+					$result['success'] = true;
+				}else{
+					$result['status'] = -1;
+					$validate->addError("Problem with connection to server!");
+				}
+			}else {
+				$result['status'] = 0;
+				$validate->addError("Not sufficient Questions of this level and category in Database!");
 			}
+			
 		} else {
 			$result['status'] = 0;
 		}
@@ -375,6 +394,12 @@ class Question extends Controller {
 					$result['status'] = 1;
 					$this->setForeignModel("QuestionModel");
 					$this->foreignModel->setTable("questions");
+					$toDelete = array('categoryId' => $idToDel);
+					$questionsToDelete = $this->foreignModel->searchQuestion($toDelete);
+					foreach ($questionsToDelete as $value) {
+						$this->foreignModel->deleteQuestion($value['id']);
+					}
+					$this->foreignModel->setTable("questionmodel");
 					$toDelete = array('categoryId' => $idToDel);
 					$questionsToDelete = $this->foreignModel->searchQuestion($toDelete);
 					foreach ($questionsToDelete as $value) {

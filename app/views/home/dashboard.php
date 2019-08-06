@@ -47,35 +47,41 @@
                         <h4>About the system here</h4>
                         
                         <blockquote>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                            This is <?= WEBSITE_TITLE." Version : ".VERSION ?><br><br>
+                          <p>Developed by <strong><a target="blank" href = "<?= BRAND_WEBSITE ?>" ><?= BRAND_NAME ?></a></strong></p>
                         </blockquote>
                     </div>
                 </div>
 
     <!-- on student session -->
+                <?php 
+                    if(!is_null($this->errors) &&count($this->errors) > 0) {
+                        foreach ($this->errors as $value) {
+                            ?>
+                            <div class="row">
+                                <div>
+                                    <span style="font-size:14px;"><strong><?= $value ?></strong></span>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                    }else {
+                ?>
+                <div class="row">
+                    <div>
+                        <span style="font-size:20px;">Program : <strong><?= $this->name ?></strong></span>
+                    </div>
+                    </div>
                 <div class="row">
                     <div class="col md-12">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, quisquam eaque. Quis culpa blanditiis veritatis repellat aut! Totam quas praesentium atque earum porro, nisi eos inventore. Ea voluptatem dolor neque. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum exercitationem aliquam velit dolorem! Porro blanditiis eligendi reiciendis, quaerat iure voluptatem, alias, minima reprehenderit maxime facere harum animi dolorem id rem! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore odit perspiciatis, nemo unde sit perferendis placeat itaque aperiam beatae non omnis earum numquam soluta sint eos porro ipsa alias. Aspernatur. Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci alias, hic aperiam eligendi assumenda facere eum earum quisquam provident aliquam expedita ea non eius perferendis voluptatibus, numquam ab unde atque. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse aut delectus illum corporis commodi eligendi iusto asperiores quaerat expedita quae aperiam omnis culpa placeat ipsa ipsum, similique ullam modi vitae?</p>
-                    <p>&nbsp;</p>
-                    <p><strong>Rules:</strong></p>
-                    <ul>
-                        <li>You can use pen and pencil only.</li>
-                        <li>User don&#39;t have permission to use calculator.</li>
-                        <li>user has only 30 min time for this test.</li>
-                    </ul>
-                    <p>&nbsp;</p>
-
-                    <div class="col col-md-12 text-center">
+                    <p><?= htmlspecialchars_decode($this->welcome) ?></p><br><br>
+                    <div class="col col-md-12 text-left">
                         <a href="<?= SITE_URL ?>/test"><button class="btn btn-success" type="button">Take Test</button></a>
                     </div>
                 </div>
             </div>
             <br>
+            <?php } ?>
             </div>
         <br><br>
         <!-- /#page-wrapper -->
