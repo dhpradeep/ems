@@ -45,6 +45,15 @@
                             </div>
                         </div>
                     <?php
+                    } 
+                    if(!is_null($this->thanks)) {
+                    ?>
+                    <div class="row">
+                        <div>
+                            <span style="font-size:22px;"><strong><?= $this->thanks ?></strong></span>
+                        </div>
+                    </div>
+            <?php
                     }
                 }else {
             ?>
@@ -56,14 +65,17 @@
 
             <!-- div for timer -->
             <div class='timer rounded-circle'>
-                <div id="time" class='time'>
-                    
-                </div>
+                <div id="time" class='time'></div>
             </div>
+            <div id="timeTrack" data-time="<?= $this->remainingTime ?>" data-exam = "<?= $this->examId ?>"></div>
 
            <?php var_dump($this->questions); ?>
            <br><br>
            <?php var_dump($this->categories); ?>
+           <br><br>
+           <?php var_dump($this->remainingTime); ?>
+           <br><br>
+           <?php var_dump($this->examId); ?>
 
 
                 <!-- /.row -->

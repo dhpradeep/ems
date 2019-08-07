@@ -16,6 +16,7 @@ class Test extends Controller {
 			$examId = $this->checkForValidExam($userProgram);
 			if(count($this->model->data['errors']) == 0 && $examId != 0) {
 				$this->model->data['categories'] = $this->sortForId($this->searchDataFromTable("category", array()));
+				$this->model->data['examId'] = $examId;
 				//for new exam
 				//generate questions and categories and save to records.
 				$records = $this->searchDataFromTable("record", array("userId" => Session::getSession('uid'),
@@ -102,8 +103,13 @@ class Test extends Controller {
 			if(count($previousExam) > 0) {
 				if($previousExam[0]['isSubmitted'] == "true" || $previousExam[0]['remainingTime'] <= 0) {
 					array_push($this->model->data['errors'], "Exam already submitted");
+					$programT =$this->searchDataFromTable("program", array("id" => $userProgram));
+					if(count($programT) > 0) {
+						$this->model->data['thanks'] = htmlspecialchars_decode($programT[0]['thanks']);
+					}
 				}else {
 					$examId = $previousExam[0]['id'];
+					$this->model->data['remainingTime'] = $previousExam[0]['remainingTime'];
 				}
 			}else {
 				$programs = $this->searchDataFromTable("program", array("id" => $userProgram));
@@ -119,6 +125,7 @@ class Test extends Controller {
 							"isSubmitted" => "false"
 						);
 						$examId = $this->setDataToTable("timetrack", $toTable);
+						$this->model->data['remainingTime'] = $totalTime * 60;
 					}
 				}else {
 					array_push($this->model->data['errors'], "No such program registered!");
@@ -191,6 +198,33 @@ class Test extends Controller {
 		}else {
 			header("Location: ".SITE_URL."/home/dashboard");			
     	}
+	}
+
+	public function update($name = "") {
+		if(Session::isLoggedIn() && isset($_POST) && $name == "status") {
+			return $this->updateExamStatus();
+		}else {
+			header("Location: ".SITE_URL."/home/message");			
+		}
+	}
+
+	private function updateExamStatus() {
+		$data = array();
+		foreach ($_POST as $key => $value) {
+			$data[$key] = Input::get($key);
+		}
+		if($data['remainingTime'] < 5 || $data['isSubmitted'] == "true") {
+			$toTable = array(
+				"isSubmitted" => "true",
+				"remainingTime" => 0
+			);
+			$this->updateDataToTable("timetrack", $data['examId'], $toTable);
+		} else {
+			$toTable = array(
+				"remainingTime" => $data['remainingTime']
+			);
+			$this->updateDataToTable("timetrack", $data['examId'], $toTable);
+		}
 	}
 
 	private function setDataToTable($tableName, $data) {
