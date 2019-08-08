@@ -8,10 +8,10 @@ function startTimer(sec) {
     var interval = setInterval(function() {
         --seconds;
         minutes = (seconds < 0) ? --minutes : minutes;
-        if (minutes <= 0 && seconds <= 0){
+        if (minutes <= 0 && seconds <= 0) {
             clearInterval(interval);
-            alert("Time Over");
-        } 
+            //alert("Time Over");
+        }
         seconds = (seconds < 0 && minutes != 0) ? 59 : seconds;
         seconds = (seconds < 10) ? '0' + seconds : seconds;
 
