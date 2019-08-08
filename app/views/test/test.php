@@ -66,14 +66,14 @@
                     <span style="font-size:22px;"><strong><?= $value ?></strong></span>
                 </div>
             </div>
-            <?php
-                    }
-                }else {
-            ?>
-                <!-- div for timer -->
-                <div class='timer rounded-circle'>
-                    <div id="time" class='time'></div>
-                </div>
+            <?php }}else{ ?>
+
+            <!-- div for timer -->
+            <div class='timer rounded-circle'>
+                <div id="time" class='time'></div>
+            </div>
+            <div id="timeTrack" data-time="<?= $this->remainingTime ?>" data-exam = "<?= $this->examId ?>"></div>
+
 
                 <?php // var_dump($this->questions); ?>
                 <br><br>
