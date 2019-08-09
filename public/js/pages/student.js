@@ -11,10 +11,10 @@ function resetFields() {
     $('#mname').val('');
     $('#lname').val('');
     $('#programId').val('');
-    $('#doa').val('');
+    //$('#doa').val('2019-08-09');
     $('#dobAd').val('');
     $('#gender').val('');
-    $('#nationality').val('');
+    //$('#nationality').val('');
     $('#fatherName').val('');
     $('#municipality').val('');
     $('#wardNo').val('');

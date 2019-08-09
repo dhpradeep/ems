@@ -12,6 +12,9 @@
                             Manage Student
                         </div>
                         <div class="panel-body">
+                            <div class="row text-right">
+                                <span style="color:red;">field(*) are required.</span>
+                            </div>
                             <div class="row">
                             <div role="tabpanel">
                 <ul class="nav nav-tabs" role="tablist" id="tabList">
@@ -35,12 +38,52 @@
                     </li>
                 </ul>
 
+                <!-- required field list -->
+            <!-- First Name : required
+                Middle name: not-required
+                Last name: required
+                -------
+                Program: required
+                Doa : required
+                Dob: not-required
+                Gender: required
+                Nationality: not-required
+                Fathers name: not-required
+                -------
+                #Edu
+                level: required
+                board: required
+                y.o.c: required
+                percentage: required
+                institute: required
+                -------
+                Municipality: not-required
+                Ward. no: not-required
+                Area: required
+                District: required
+                Zone: required
+                Mobile no: required
+                tel-no : not-required
+                block no: not-required
+                email: required
+                gurdian name: not-required
+                gurdian contact: not-required
+                gurdian relationship: not-required
+                -------
+                form no: required
+                Registration no: required (Autofill or hide)
+                
+
+             -->
+
+                <!-- end of required field list -->
+
                 <div class="tab-content">
                 <br>
                     <div role="tabpanel" class=" tab-pane active" id="home">
                         <form role="form">
                             <div class="form-group col-md-6">
-                                <label for="fname">First Name</label>
+                                <label for="fname">First Name *</label>
                                 <input id="studentId" type="hidden"/>
                                 <input type="text" class="form-control" name="fname" id="fname" placeholder="First Name" />
                                 <span class="help-inline"></span>
@@ -51,7 +94,7 @@
                                 <span class="help-inline"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="lname">Last Name</label>
+                                <label for="lname">Last Name *</label>
                                 <input type="text" class="form-control" name="lname" id="lname" placeholder="Last Name" />
                                 <span class="help-inline"></span>
                             </div>
@@ -62,7 +105,7 @@
 
                     <div role="tabpanel" class="tab-pane" id="details">
                             <div class="form-group col-md-6">
-                                <label for="programId">Program</label>
+                                <label for="programId">Program *</label>
                                 <select class="form-control" id="programId" name="programId">
                                     <?php
                                         foreach ($this->program as $value) {
@@ -74,17 +117,17 @@
                                 </select>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="doa">Date of Application</label>
-                                <input type="date" class="form-control" name="doa" id="doa" placeholder="Date of Application" />
+                                <label for="doa">Date of Application (A.D) *</label>
+                                <input type="date" class="form-control" name="doa" value="<?= date('Y-m-d'); ?>" id="doa" placeholder="Date of Application" />
                                 <span class="help-inline"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="dobAd">Date of Birth</label>
+                                <label for="dobAd">Date of Birth (A.D)</label>
                                 <input type="date" class="form-control" name="dobAd" id="dobAd" placeholder="Date of Birth" />
                                 <span class="help-inline"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="gender">Gender</label>
+                                <label for="gender">Gender *</label>
                                 <select class="form-control" id="gender" name="gender">
                                     <option value="1">Male</option>
                                     <option value="2">Female</option>
@@ -93,7 +136,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="nationality">Nationality</label>
-                                <input type="text" class="form-control" name="nationality" id="nationality" placeholder="Nationality" />
+                                <input type="text" class="form-control" value="Nepali" name="nationality" id="nationality" placeholder="Nationality" />
                                 <span class="help-inline"></span>
                             </div>
                             <div class="form-group col-md-6">
@@ -136,22 +179,22 @@
                                 <span class="help-inline"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="area">Area</label>
+                                <label for="area">Area *</label>
                                 <input type="text" class="form-control" name="area" id="area" placeholder="Area" />
                                 <span class="help-inline"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="district">District</label>
+                                <label for="district">District *</label>
                                 <input type="text" class="form-control" name="district" id="district" placeholder="District" />
                                 <span class="help-inline"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="zone">Zone</label>
+                                <label for="zone">Zone *</label>
                                 <input type="text" class="form-control" name="zone" id="zone" placeholder="Zone" />
                                 <span class="help-inline"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="mobileNo">Mobile No</label>
+                                <label for="mobileNo">Mobile No *</label>
                                 <input type="text" class="form-control" name="mobileNo" id="mobileNo" placeholder="Mobile No" />
                                 <span class="help-inline"></span>
                             </div>
@@ -166,7 +209,7 @@
                                 <span class="help-inline"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="email">Email</label>
+                                <label for="email">Email *</label>
                                 <input type="text" class="form-control" name="email" id="email" placeholder="Email" />
                                 <span class="help-inline"></span>
                             </div>
@@ -195,12 +238,12 @@
 
                     <div role="tabpanel" class="tab-pane" id="doc">
                             <div class="form-group col-md-6">
-                                <label for="formNo">Form No.</label>
+                                <label for="formNo">Form No. *</label>
                                 <input type="number" class="form-control" name="formNo" id="formNo" placeholder="Form No." />
                                 <span class="help-inline"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="entranceNo">Entrance NO.</label>
+                                <label for="entranceNo">Registration NO. *</label>
                                 <input type="number" class="form-control" name="entranceNo" id="entranceNo" placeholder="Entrance No." />
                                 <span class="help-inline"></span>
                             </div>
