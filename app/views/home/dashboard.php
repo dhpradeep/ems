@@ -69,14 +69,19 @@
                 ?>
                 <div class="row">
                     <div>
+                        <span style="font-size:16px;">Name of Student : <strong><?= Session::getSession('uname'); ?></strong></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
                         <span style="font-size:20px;">Program : <strong><?= $this->name ?></strong></span>
                     </div>
-                    </div>
+                </div>
                 <div class="row">
                     <div class="col md-12">
                     <p><?= htmlspecialchars_decode($this->welcome) ?></p><br><br>
                     <div class="col col-md-12 text-left">
-                        <a href="<?= SITE_URL ?>/test"><button class="btn btn-success" type="button">Take Test</button></a>
+                        <a href="<?= SITE_URL ?>/test/start"><button class="btn btn-success" type="button">Take Test</button></a>
                     </div>
                 </div>
             </div>

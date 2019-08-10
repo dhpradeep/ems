@@ -26,9 +26,20 @@ function startTimer(sec, id) {
         if (minutes <= 0 && seconds <= 0 && sec <= 0) {
             sendStatus(0, id, true);
             clearInterval(interval);
-            alert("Time Over");
+            BootstrapDialog.show({
+                title: 'Thank you.',
+                message: 'You test/exam is submitted. Time Over!',
+                buttons: [{
+                    label: 'Ok',
+                    cssClass: 'btn-primary',
+                    action: function(dialog) {
+                        dialog.close();
+                    }
+                }]
+            });
+            document.location.reload();
         }
-        seconds = (seconds < 0 && minutes != 0) ? 59 : seconds;
+        seconds = (seconds < 0) ? 59 : seconds;
         seconds = (seconds < 10) ? '0' + seconds : seconds;
 
         $('#time').html(minutes + ':' + seconds);
@@ -38,7 +49,7 @@ function startTimer(sec, id) {
 
 function sendStatus(time, id, isSubmitted = false) {
     $.ajax({
-        url: './test/update/status',
+        url: '../test/update/status',
         async: true,
         type: 'POST',
         data: {
@@ -47,4 +58,62 @@ function sendStatus(time, id, isSubmitted = false) {
             isSubmitted: isSubmitted
         }
     });
+}
+
+$(document).on("click", ".answerRadio", function(e) {
+    var target = e.target;
+    var answer = target.dataset.choice;
+    var qid = target.dataset.qid;
+    var id = $("#timeTrack").data('exam');
+    $.ajax({
+        url: '../test/update/answer',
+        async: true,
+        type: 'POST',
+        data: {
+            examId: id,
+            questionId: qid,
+            userAnswer: answer,
+        }
+    });
+});
+
+
+$(document).on("click", "#submitBtn", function(e) {
+    BootstrapDialog.show({
+        title: 'Confirm',
+        message: 'Are you sure to to submit ?<b> You can\'t retake the test/exam.</b>',
+        buttons: [{
+            label: 'Yes',
+            cssClass: 'btn-primary',
+            action: function(dialog) {
+                dialog.close();
+                submitTest();
+            }
+        }, {
+            label: 'No',
+            cssClass: 'btn-warning',
+            action: function(dialog) {
+                dialog.close();
+            }
+        }]
+    });
+});
+
+function submitTest() {
+    var id = $("#timeTrack").data('exam');
+    var time = $("#timeTrack").data('time');
+    time = (time < 0) ? 0 : time;
+    sendStatus(time , id, true);
+    BootstrapDialog.show({
+        title: 'Thank you.',
+        message: 'You test/exam is submitted.',
+        buttons: [{
+            label: 'Ok',
+            cssClass: 'btn-primary',
+            action: function(dialog) {
+                dialog.close();
+            }
+        }]
+    });
+    document.location.reload();
 }

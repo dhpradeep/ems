@@ -7,8 +7,50 @@ class Test extends Controller {
 	}
 
 	public function index() {
+		if(!Session::isloggedIn()) {
+			header("Location: ".SITE_URL."/user/login");
+		}else {
+			$this->model->data['errors'] = array();
+			$userId = Session::getSession('uid');
+			$userRole = Session::getSession('role');
+			$userProgram = null;
+			if(!is_null($userId) && !is_null($userRole)) {
+				$allPrograms = $this->searchDataFromTable("program", array());
+				if($userRole == 1 || $userRole == 2) {
+					header("Location: ".SITE_URL."/home/dashboard");
+				}else if($userRole == 3) {
+					$programForUser = $this->searchDataFromTable("personaldata", array('userId' => $userId));
+					if(count($programForUser) > 0 && $programForUser[0]['programId'] > 0) {
+						$userProgram = $programForUser[0]['programId'];
+						$checkProgram = $this->searchDataFromTable("program", array("id" => $userProgram));
+						if(count($checkProgram) <= 0) {
+							array_push($this->model->data['errors'], "No such program registered!");
+						}else {
+							if(Session::getSession("examStarted") == true) {
+								header("Location: ".SITE_URL."/test/start");
+							}
+							$this->model->data = array_merge($this->model->data, $checkProgram[0]);
+						}
+					}else {
+						array_push($this->model->data['errors'], "No Program set for User!");
+					}
+				}else {
+					array_push($this->model->data['errors'], "No valid role for User!");
+				}
+				$this->model->template = VIEWS_DIR.DS."home".DS."dashboard.php";
+				$this->view->render();
+			}else {
+				header("Location: ".SITE_URL."/user/login");
+			}
+		}
+	}
+
+	public function start() {
 		if(!Session::isLoggedIn() || is_null(Session::getSession('role'))) {
 			header("Location: ".SITE_URL."/user/login");	
+		}
+		if(is_null(Session::getSession("examStarted"))) {
+			Session::setSession("examStarted", true);
 		}
 		$this->model->data['errors'] = array();	
 		$userProgram = $this->checkForValidProgram();
@@ -203,7 +245,9 @@ class Test extends Controller {
 	public function update($name = "") {
 		if(Session::isLoggedIn() && isset($_POST) && $name == "status") {
 			return $this->updateExamStatus();
-		}else {
+		}else if(Session::isLoggedIn() && isset($_POST) && $name == "answer") {
+			return $this->updateExamAnswer();
+		}else{
 			header("Location: ".SITE_URL."/home/message");			
 		}
 	}
@@ -225,6 +269,32 @@ class Test extends Controller {
 			);
 			$this->updateDataToTable("timetrack", $data['examId'], $toTable);
 		}
+		unset($_POST);
+	}
+
+	private function updateExamAnswer() {
+		$data = array();
+		foreach ($_POST as $key => $value) {
+			$data[$key] = Input::get($key);
+		}
+		$primKey = $this->searchDataFromTable("record", array(
+			"examId" => $data['examId'],
+			"questionId" => $data['questionId']
+		));
+		if(count($primKey) > 0) {
+			if(strtolower(trim(str_replace(' ', '', $primKey[0]['answer']))) == strtolower(trim(str_replace(' ', '', $data['userAnswer'])))) {
+				$data['result'] = 1;
+			} else {
+				$data['result'] = 0;
+			}
+			$this->updateDataToTable("record", $primKey[0]['id'], array(
+				"examId" => $data['examId'],
+				"questionId" => $data['questionId'],
+				"userAnswer" => $data['userAnswer'],
+				"result" => $data['result']
+			));
+		}
+		unset($_POST);
 	}
 
 	private function setDataToTable($tableName, $data) {

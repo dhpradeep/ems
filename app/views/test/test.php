@@ -41,300 +41,179 @@
             </div>
             <?php include(INCLUDES_DIR.DS.'navbar-top-links.php') ?>
 
+            <?php
+                if(!is_null($this->questions) && !is_null($this->categories) && count($this->errors) == 0) {
+            ?>
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="myTabs" role="tablist">
-                        <li role="presentation" class="active">
-                            <a href="#testid1" aria-controls="testid1" role="tab" data-toggle="tab">{PHP}</a>
+                        <?php
+                            $i = 0;
+                            foreach ($this->questions as $key => $value) {
+                        ?>
+                        <li role="presentation" class="<?php echo ($i==0) ? "active" : ""; $i++ ?>">
+                            <a href="#category<?= $key ?>" aria-controls="category<?= $key ?>" role="tab" data-toggle="tab">
+                                <?php  echo (isset($this->categories[$key])) ? $this->categories[$key][0]['name'] : "Unknown"; ?>
+                            </a>
                         </li>
-                        <li role="presentation" class="">
-                            <a href="#testid2" aria-controls="testid2" role="tab" data-toggle="tab">{Basic Mathmatics}</a>
-                        </li>
+                        <?php
+                            }
+                        ?>
                     </ul>
                 </div>
             </div>
+            <?php
+                }
+            ?>
         </nav>
 
         <div id="page-wrapper">
             <!-- /.row -->
             <?php 
                 if(!is_null($this->errors) && count($this->errors) > 0) {
+                    echo "<br><br><br>";
                     foreach ($this->errors as $value) {
-                        ?>
-            <div class="row">
-                <div>
-                    <span style="font-size:22px;"><strong><?= $value ?></strong></span>
-                </div>
-            </div>
-            <?php }}else{ ?>
+                                ?>
+                    <div class="row">
+                        <div>
+                            <span style="font-size:22px;"><strong><?= $value ?></strong></span>
+                        </div>
+                    </div>
+                    <?php }?>
+                    <div class="row">
+                        <div>
+                            <span style="font-size:22px;"><strong><?= (!is_null($this->thanks)) ? $this->thanks : "" ?></strong></span>
+                        </div>
+                    </div>
+
+               <?php }else{ ?>
 
             <!-- div for timer -->
             <div class='timer rounded-circle'>
                 <div id="time" class='time'></div>
             </div>
+
             <div id="timeTrack" data-time="<?= $this->remainingTime ?>" data-exam = "<?= $this->examId ?>"></div>
 
-
-                <?php // var_dump($this->questions); ?>
-                <br><br>
-                <?php // var_dump($this->categories); ?>
-
                 <div class="row">
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="testid1">
+                    <div class="tab-content">                        
+                        <?php
+                        if(!is_null($this->questions) && !is_null($this->categories) && count($this->errors) == 0) {
+                            $i = 0;
+                            $questionNumber = 1;
+                            foreach ($this->questions as $key => $value) { 
+                        ?>
+
+                        <div role="tabpanel" class="tab-pane <?php echo ($i==0) ? "active" : ""; $i++ ?>" id="category<?= $key ?>">
                             <br><br>
-                            <div class="col md-12 main">
-                                <div class="page-header">
-                                    <span style="font-size: 25px"><strong>1.</strong> What is the full form of PHP ?</span>
-                                </div>
-                                <fieldset>
-                                    <div class="form-group" style="font-size: 18px;">
-                                        <div class="col-lg-12">
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <div class="radio radio-primary">
-                                                    <label>
-                                                    <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hypertext PreProcessor<br>
-                                                </label>
+                            <?php 
+                                foreach ($value as $question) { 
+                            ?>
+                                <div class="col md-12 main">
+                                    <div class="page-header">
+                                        <span style="font-size: 25px"><strong>
+                                            <?php echo $questionNumber; $questionNumber++;?>
+                                        </strong><?= htmlspecialchars_decode($question['question']) ?></span>
+                                    </div>
+                                    <fieldset>
+                                        <div class="form-group" style="font-size: 18px;">
+                                            <div class="col-lg-12">
+                                                <?php
+                                                    $answerArr = array(
+                                                        $question['answer'],
+                                                        $question['choice2'],
+                                                        $question['choice3'],
+                                                        $question['choice4']
+                                                    );
+                                                    shuffle($answerArr);
+                                                    $question['choice1'] = $answerArr[0];
+                                                    $question['choice2'] = $answerArr[1];
+                                                    $question['choice3'] = $answerArr[2];
+                                                    $question['choice4'] = $answerArr[3];
+                                                ?>
+                                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                                    <div class="radio radio-primary">
+                                                        <label>
+                                                        <input class="answerRadio" type="radio"
+                                                         data-qid="<?= $question['questionId'] ?>" data-choice="<?= $question['choice1'] ?>" name="<?= $question['id'] ?>"<?php
+                                                            echo ($question['choice1'] == $question['userAnswer']) ? " checked" : "";
+                                                         ?>><?= $question['choice1'] ?><br>
+                                                    </label>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <div class="radio radio-primary">
-                                                    <label>
-                                                    <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hypertext processor<br>
-                                                </label>
+                                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                                    <div class="radio radio-primary">
+                                                        <label>
+                                                        <input class="answerRadio" type="radio" 
+                                                        data-qid="<?= $question['questionId'] ?>" data-choice="<?= $question['choice2'] ?>" name="<?= $question['id'] ?>"<?php
+                                                            echo ($question['choice2'] == $question['userAnswer']) ? " checked" : "";
+                                                         ?>><?= $question['choice2'] ?><br>
+                                                    </label>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <div class="radio radio-primary">
-                                                    <label>
-                                                    <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Html Parser<br>
-                                                </label>
+
+                                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                                    <div class="radio radio-primary">
+                                                        <label>
+                                                        <input class="answerRadio" type="radio" 
+                                                        data-qid="<?= $question['questionId'] ?>" data-choice="<?= $question['choice3'] ?>" name="<?= $question['id'] ?>"<?php
+                                                            echo ($question['choice3'] == $question['userAnswer']) ? " checked" : "";
+                                                         ?>><?= $question['choice3'] ?><br>
+                                                    </label>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <div class="radio radio-primary">
-                                                    <label>
-                                                    <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Plain HTML processor<br>
-                                                </label>
+
+                                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                                    <div class="radio radio-primary">
+                                                        <label>
+                                                        <input class="answerRadio" type="radio" 
+                                                        data-qid="<?= $question['questionId'] ?>" data-choice="<?= $question['choice4'] ?>" name="<?= $question['id'] ?>"<?php
+                                                            echo ($question['choice4'] == $question['userAnswer']) ? " checked" : "";
+                                                         ?>><?= $question['choice4'] ?><br>
+                                                    </label>
+                                                    </div>
                                                 </div>
+
+                                                
                                             </div>
                                         </div>
-                                    </div>
-                                </fieldset>
-                            </div>
-                            <div class="col md-12 main">
-                                <div class="page-header">
-                                    <span style="font-size: 25px"><strong>1.</strong> What is the full form of PHP ?</span>
+                                    </fieldset>
                                 </div>
-                                <fieldset>
-                                    <div class="form-group" style="font-size: 18px;">
-                                        <div class="col-lg-12">
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <div class="radio radio-primary">
-                                                    <label>
-                                                    <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hypertext PreProcessor<br>
-                                                </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <div class="radio radio-primary">
-                                                    <label>
-                                                    <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hypertext processor<br>
-                                                </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <div class="radio radio-primary">
-                                                    <label>
-                                                    <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Html Parser<br>
-                                                </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <div class="radio radio-primary">
-                                                    <label>
-                                                    <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Plain HTML processor<br>
-                                                </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </div>
-                            <div class="col md-12 main">
-                                <div class="page-header">
-                                    <span style="font-size: 25px"><strong>1.</strong> What is the full form of PHP ?</span>
-                                </div>
-                                <fieldset>
-                                    <div class="form-group" style="font-size: 18px;">
-                                        <div class="col-lg-12">
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <div class="radio radio-primary">
-                                                    <label>
-                                                    <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hypertext PreProcessor<br>
-                                                </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <div class="radio radio-primary">
-                                                    <label>
-                                                    <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hypertext processor<br>
-                                                </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <div class="radio radio-primary">
-                                                    <label>
-                                                    <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Html Parser<br>
-                                                </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <div class="radio radio-primary">
-                                                    <label>
-                                                    <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Plain HTML processor<br>
-                                                </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </div>
-                            <div class="col md-12 main">
-                                <div class="page-header">
-                                    <span style="font-size: 25px"><strong>1.</strong> What is the full form of PHP ?</span>
-                                </div>
-                                <fieldset>
-                                    <div class="form-group" style="font-size: 18px;">
-                                        <div class="col-lg-12">
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <div class="radio radio-primary">
-                                                    <label>
-                                                    <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hypertext PreProcessor<br>
-                                                </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <div class="radio radio-primary">
-                                                    <label>
-                                                    <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hypertext processor<br>
-                                                </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <div class="radio radio-primary">
-                                                    <label>
-                                                    <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Html Parser<br>
-                                                </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <div class="radio radio-primary">
-                                                    <label>
-                                                    <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Plain HTML processor<br>
-                                                </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </div>
-                            <div class="col md-12 main">
-                                <div class="page-header">
-                                    <span style="font-size: 25px"><strong>1.</strong> What is the full form of PHP ?</span>
-                                </div>
-                                <fieldset>
-                                    <div class="form-group" style="font-size: 18px;">
-                                        <div class="col-lg-12">
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <div class="radio radio-primary">
-                                                    <label>
-                                                    <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hypertext PreProcessor<br>
-                                                </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <div class="radio radio-primary">
-                                                    <label>
-                                                    <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hypertext processor<br>
-                                                </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <div class="radio radio-primary">
-                                                    <label>
-                                                    <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Html Parser<br>
-                                                </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <div class="radio radio-primary">
-                                                    <label>
-                                                    <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Plain HTML processor<br>
-                                                </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </div>
+                            <?php
+                                }
+                            ?>
                             <br>
-                            <div class="form-group col-sm-6 text-left">
-                                <a href="#" class="btn btn-primary previous">Previous</a>
-                            </div>
-                            <div class="form-group col-sm-6 text-right">
-                                <a href="#" class="btn btn-primary next">Next</a>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="testid2">
-                            <br><br>
-                            <div class="col md-12 main">
-                                <div class="page-header">
-                                    <span style="font-size: 25px"><strong>2.</strong> Math question 2</span>
+
+                            <?php
+                            $arrKeys = array_keys($this->questions); 
+                            if($i >= count($arrKeys)) { ?>
+                                <div class="form-group col-sm-6 text-left">
+                                <button type="submit" id="submitBtn" name="test_submit" class="btn btn-success">Submit</button>
                                 </div>
-                                <fieldset>
-                                    <div class="form-group" style="font-size: 18px;">
-                                        <div class="col-lg-12">
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <div class="radio radio-primary">
-                                                    <label>
-                                                    <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hypertext PreProcessor<br>
-                                                </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <div class="radio radio-primary">
-                                                    <label>
-                                                    <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Hypertext processor<br>
-                                                </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <div class="radio radio-primary">
-                                                    <label>
-                                                    <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Html Parser<br>
-                                                </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <div class="radio radio-primary">
-                                                    <label>
-                                                    <input type="radio" name="ans1" data-id="1" data-choice="1"  value="1">Plain HTML processor<br>
-                                                </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
+                            <?php } ?>
+
+
+                            <!--<?php
+                            $arrKeys = array_keys($this->questions); 
+                             if($i > 1) { ?>
+                                <div class="form-group col-sm-6 text-left">
+                                <a href="#category<?=
+                                    $arrKeys[$i-2]
+                                ?>" class="btn btn-primary previous">Previous</a>
+                                </div>
+                            <?php } ?>
+                            <?php if($i < count($arrKeys)) { ?>
+                            <div class="form-group col-sm-6 <?= ($i > 1) ? "text-center" : "text-right" ?>">
+                                <a href="#category<?=
+                                    $arrKeys[$i]
+                                ?>" class="btn btn-primary next">Next</a>
                             </div>
-                            <br>
-                            <div class="form-group col-sm-6 text-left">
-                                <a href="#" class="btn btn-primary previous">Previous</a>
-                            </div>
-                            <div class="form-group col-sm-6 text-right">
-                                <a href="#" class="btn btn-primary next">Next</a>
-                            </div>
+                            <?php } ?>-->
                         </div>
+                        <?php
+                                }
+                            }
+                        ?>
                     </div>
                 </div>
                 <br><br>
@@ -348,6 +227,8 @@
         <script src="<?= BOWER_DIR ?>/bootstrap/dist/js/bootstrap.min.js"></script>
         <!-- Metis Menu Plugin JavaScript -->
         <script src="<?= BOWER_DIR ?>/metisMenu/dist/metisMenu.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="<?= BOWER_DIR ?>/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js"></script>
         <!-- Custom Theme JavaScript -->
         <script src="<?= JS_DIR ?>/sb-admin-2.js"></script>
         <?php if(!(!is_null($this->errors) && count($this->errors) > 0))

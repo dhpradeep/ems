@@ -19,22 +19,10 @@ class Home extends Controller {
 			$userRole = Session::getSession('role');
 			$userProgram = null;
 			if(!is_null($userId) && !is_null($userRole)) {
-				$allPrograms = $this->searchDataFromTable("program", array());
 				if($userRole == 1 || $userRole == 2) {
 					array_push($this->model->data['errors'], "Admin / Teacher View is under Construction");
 				}else if($userRole == 3) {
-					$programForUser = $this->searchDataFromTable("personaldata", array('userId' => $userId));
-					if(count($programForUser) > 0 && $programForUser[0]['programId'] > 0) {
-						$userProgram = $programForUser[0]['programId'];
-						$checkProgram = $this->searchDataFromTable("program", array("id" => $userProgram));
-						if(count($checkProgram) <= 0) {
-							array_push($this->model->data['errors'], "No such program registered!");
-						}else {
-							$this->model->data = array_merge($this->model->data, $checkProgram[0]);
-						}
-					}else {
-						array_push($this->model->data['errors'], "No Program set for User!");
-					}
+					header("Location: ".SITE_URL."/test");
 				}else {
 					array_push($this->model->data['errors'], "No valid role for User!");
 				}
