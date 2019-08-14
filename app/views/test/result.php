@@ -25,6 +25,7 @@
 
 
     <div id="wrapper">
+        <div id="target1"></div>
         <!-- Navigation -->
         <?php  include(INCLUDES_DIR.DS.'nav-bar.php'); ?>
 
@@ -105,14 +106,34 @@
     <!-- /#wrapper -->
     <!-- jQuery -->
     <script src="<?= BOWER_DIR ?>/jquery/dist/jquery.min.js"></script>
+
+    <!-- jQuery tablesorter-->
+    <script src="<?= BOWER_DIR ?>/jquery.tablesorter/dist/js/jquery.tablesorter.js"></script>
+    <script src="<?= BOWER_DIR ?>/jquery.tablesorter/dist/js/jquery.tablesorter.widgets.js"></script>
+
     <!-- Bootstrap Core JavaScript -->
     <script src="<?= BOWER_DIR ?>/bootstrap/dist/js/bootstrap.min.js"></script>
+
     <!-- Metis Menu Plugin JavaScript -->
     <script src="<?= BOWER_DIR ?>/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- DataTables JavaScript -->
+    <script src="<?= BOWER_DIR ?>/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="<?= BOWER_DIR ?>/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+
+    <!-- Notify -->
+    <script src="<?= BOWER_DIR ?>/notifyjs/dist/notify.js"></script>
+    <script src="<?= BOWER_DIR ?>/notifyjs/dist/styles/bootstrap/notify-bootstrap.js"></script>
+    
+    <!-- Bootstrap Core JavaScript -->
+    <script src="<?= BOWER_DIR ?>/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js"></script>
+
+    <!-- spinJS -->
+    <script src="<?= BOWER_DIR ?>/spin.js/spin.js"></script>
+
     <!-- Custom Theme JavaScript -->
-    <script src="<?= JS_DIR ?>/sb-admin-2.js"></script>
-     <!-- Custom JS -->
-     <script src="<?= JS_DIR ?>/pages/result.js"></script>
+    <script src="<?= JS_DIR ?>/sb-admin-2.js"></script> 
+    <script src="<?= JS_DIR ?>/pages/result.js"></script>
 </body>
 
 </html>

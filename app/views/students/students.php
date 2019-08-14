@@ -28,6 +28,7 @@
 
     <!-- Custom CSS -->
     <link href="<?= CSS_DIR ?>/sb-admin-2.css" rel="stylesheet">
+    <link href="<?= CSS_DIR ?>/style.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="<?= BOWER_DIR ?>/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -79,6 +80,7 @@
                         <form id="frmSearch" role="form">
                             <a onclick="create_student()" class="btn btn-primary">Add Student</a>
                             <a onclick="refresh()" class="btn btn-info">Refresh</a>
+                            <a onclick="export_to_excel()" class="btn btn-success text-right">Export to excel</a>
                         </form>
                     </div>
                     <br>

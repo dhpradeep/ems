@@ -24,6 +24,16 @@
     top: 0;
     width: 100%;
 }
-#page-wrapper{
+
+#page-wrapper {
     margin-top: 20px;
+}
+
+table.myTable {
+    display: block !important;
+}
+
+table.myTable tbody {
+    display: block !important;
+    overflow-x: scroll !important;
 }

@@ -12,7 +12,7 @@ class Student extends Controller {
 
 	public function all($name = "") {
 		$this->model->setTable('userlogin');
-		if(($name == "add" || $name == "update" || $name == "delete" || $name == "get") && Session::isLoggedIn(1)) {
+		if(($name == "export" || $name == "add" || $name == "update" || $name == "delete" || $name == "get") && Session::isLoggedIn(1)) {
 			$result = array('status' => 0);	
 			if(isset($_POST)) {
 				if($name == "get") {
@@ -26,6 +26,9 @@ class Student extends Controller {
 				}
 				if($name == "add") {
 					return $this->addStudent($result);
+				}
+				if($name == "export") {
+					return $this->exportStudent($result);
 				}
 			}		
 
@@ -359,7 +362,77 @@ class Student extends Controller {
 
 	private function addStudent($result){
 		$validate = new Validator();
-		$validation = $validate->check($_POST, array());
+		$validation = $validate->check($_POST, array(
+			'fname' => array(
+				'name' => 'First Name',
+				'required' => true,
+				'min' => 1,
+				'max' => 255
+			),
+			'lname' => array(
+				'name' => 'Last Name',
+				'required' => true,
+				'min' => 1,
+				'max' => 255
+			),
+			'programId' => array(
+				'name' => 'Program',
+				'required' => true
+			),
+			'doa' => array(
+				'name' => 'Date of Application',
+				'required' => true
+			),
+			'dobAd' => array(
+				'name' => 'Date of Birth(A.D)',
+				'required' => true
+			),
+			'gender' => array(
+				'name' => 'Gender',
+				'required' => true
+			),
+			'area' => array(
+				'name' => 'Area',
+				'required' => true,
+				'min' => 1,
+				'max' => 255
+			),
+			'district' => array(
+				'name' => 'District',
+				'required' => true,
+				'min' => 1,
+				'max' => 255
+			),
+			'zone' => array(
+				'name' => 'Zone',
+				'required' => true,
+				'min' => 1,
+				'max' => 255
+			),
+			'mobileNo' => array(
+				'name' => 'Mobile No.',
+				'required' => true,
+				'min' => 1,
+				'max' => 255
+			),
+			'email' => array(
+				'name' => 'Email',
+				'required' => true,
+				'type' => 'email'
+			),
+			'formNo' => array(
+				'name' => 'Form No.',
+				'required' => true,
+				'min' => 1,
+				'max' => 255
+			),
+			'entranceNo' => array(
+				'name' => 'Entrance No.',
+				'required' => true,
+				'min' => 1,
+				'max' => 255
+			)
+		));
 		if($validate->passed()){
 			$data = array();
 			$data['id'] = null;
@@ -504,9 +577,13 @@ class Student extends Controller {
 			
 		} else {
 			$result['status'] = 0;
+			if(count($validate->errors()) >= 5){
+				$result['errors'] = array("Field(*) are required.");
+			}else{
+				$result['errors'] = $validate->errors();
+			}
 		}
 		if($result['status'] == 0 || $result['status'] == -1) {
-			$result['errors'] = $validate->errors();
 			$result['success'] = false;
 		} 
 		unset($_POST);
@@ -542,6 +619,10 @@ class Student extends Controller {
 		$this->foreignModel->setTable($tableName);
 		return $this->foreignModel->getStudentId($data);
 	} 
+
+	private function exportStudent($result) {
+		var_dump($this->model->searchStudent(array("role" => 3)));
+	}
 }
 
 ?>

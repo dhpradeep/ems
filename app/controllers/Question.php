@@ -861,10 +861,17 @@ class Question extends Controller {
 				'required' => true,
 				'min' => 1,
 				'max' => 255
+			),
+			'level' => array(
+				'name' => 'Level',
+				'minLevel' => 0,
+				'maxLevel' => 3
+			),
+			'categoryId' => array(
+				'name' => 'Category',
+				'minLevel' => 0
 			)
 		));
-		if(Input::get('level') <= 0 || Input::get('minLevel') > 3 ) $validate->addError("Level isnot valid!");
-		if(Input::get('categoryId') <= 0) $validate->addError("Category not valid!");
 		if($validate->passed()){
 			$data = array();
 			$data['id'] = null;

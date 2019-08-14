@@ -51,8 +51,8 @@
                             $i = 0;
                             foreach ($this->questions as $key => $value) {
                         ?>
-                        <li role="presentation" class="<?php echo ($i==0) ? "active" : ""; $i++ ?>">
-                            <a href="#category<?= $key ?>" aria-controls="category<?= $key ?>" role="tab" data-toggle="tab">
+                        <li role="presentation" class="<?php echo ($i==0) ? "active" : ""; ?>">
+                            <a href="#category<?= $key ?>" class="<?php echo ($i==0) ? "" : ""; $i++ ?>"  aria-controls="category<?= $key ?>" role="tab" data-toggle="tab">
                                 <?php  echo (isset($this->categories[$key])) ? $this->categories[$key][0]['name'] : "Unknown"; ?>
                             </a>
                         </li>
@@ -193,22 +193,18 @@
                             <?php } ?>
 
 
-                            <!--<?php
+                            <?php
                             $arrKeys = array_keys($this->questions); 
                              if($i > 1) { ?>
                                 <div class="form-group col-sm-6 text-left">
-                                <a href="#category<?=
-                                    $arrKeys[$i-2]
-                                ?>" class="btn btn-primary previous">Previous</a>
+                                <a href="#" class="btn btn-primary previous">Previous</a>
                                 </div>
                             <?php } ?>
                             <?php if($i < count($arrKeys)) { ?>
                             <div class="form-group col-sm-6 <?= ($i > 1) ? "text-center" : "text-right" ?>">
-                                <a href="#category<?=
-                                    $arrKeys[$i]
-                                ?>" class="btn btn-primary next">Next</a>
+                                <a href="#" class="btn btn-primary next">Next</a>
                             </div>
-                            <?php } ?>-->
+                            <?php } ?>
                         </div>
                         <?php
                                 }
