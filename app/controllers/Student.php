@@ -83,6 +83,18 @@ class Student extends Controller {
 		}
 
 		$res = $this->getAllStudentRecords($userIdArray);
+
+		if(isset($_POST['filterData']) && $_POST['filterData'] > 0) {
+			$i = 0;
+			foreach ($res as $value) {
+				if($value['programId'] != $_POST['filterData']) {
+					array_splice($res, $i, 1);
+					$i--;
+				}
+				$i++;
+			}
+		}
+		
 		$total = count($res);
 		$index = 0;
 		$arr = array();
@@ -127,6 +139,16 @@ class Student extends Controller {
 				$arr[$index]['programName'] = $programs[0]['name'];
 			}
 			$index++;
+		}
+
+		$name  = array_column($arr, 'name');
+		$username = array_column($arr, 'username');
+		$toSort = (isset($_POST["order"][0]["column"])) ? $_POST["columns"][$_POST["order"][0]["column"]]["data"] : $name;
+		if(isset($_POST["order"][0]["dir"]) && ($toSort == "name" || $toSort == "username")) {
+			if($_POST["order"][0]["dir"] == "asc")
+				array_multisort($$toSort, SORT_ASC, $arr);
+			else
+				array_multisort($$toSort, SORT_DESC, $arr);
 		}
 
 		if(count($arr) >= 1){

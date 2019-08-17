@@ -224,23 +224,7 @@ class Test extends Controller {
 			header("Location: ".SITE_URL."/user/login");
 		}
 	}
-	
-	public function result($name="") {
-		if(Session::isLoggedIn(1)) {
-			if($name){
-				$this->model->data = array(
-					'message'=> array(
-					'content' => '<b>'.$name.'</b>',
-					));
-				$this->model->template = VIEWS_DIR.DS."test".DS."single_result.php";
-			}else{
-				$this->model->template = VIEWS_DIR.DS."test".DS."result.php";
-			}
-	        $this->view->render();
-		}else {
-			header("Location: ".SITE_URL."/home/dashboard");			
-    	}
-	}
+
 
 	public function update($name = "") {
 		if(Session::isLoggedIn() && isset($_POST) && $name == "status") {

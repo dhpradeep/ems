@@ -43,6 +43,7 @@ function create_question(data = null) {
  
 $(document).ready(function() {
     CKEDITOR.replace('question');
+    CKEDITOR.config.autoParagraph = false;
     refresh();
 });
 
@@ -208,6 +209,11 @@ function deletedata(id) {
     });
 }
 
+$(document).on("change", "#filterData", function(e) {
+    e.preventDefault();
+    getAllData();
+});
+
 function sleep (time) {
     return new Promise((resolve) => setTimeout(resolve, time));
 }
@@ -222,7 +228,7 @@ function animate(sec) {
     }).spin(target);
 
     sleep(sec).then(() => {
-        $.notify("All records display", "info");
+        //$.notify("All records display", "info");
         spinner.stop();
     });
     return;
@@ -267,7 +273,10 @@ function getAllData(){
         "serverSide": true,
         "ajax": {
             "url": "../question/all/get",
-            "type": "POST"
+            "type": "POST",
+            "data": {
+                filterData : $("#filterData").val()
+            }
         },
         "columns": [
             {

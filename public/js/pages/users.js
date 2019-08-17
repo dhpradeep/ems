@@ -168,7 +168,7 @@ function animate(sec) {
     }).spin(target);
 
     sleep(sec).then(() => {
-        $.notify("All records display", "info");
+       // $.notify("All records display", "info");
         spinner.stop();
     });
     return;

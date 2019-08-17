@@ -112,7 +112,7 @@
                                 <div class="col md-12 main">
                                     <div class="page-header">
                                         <span style="font-size: 25px"><strong>
-                                            <?php echo $questionNumber; $questionNumber++;?>
+                                            <?php echo $questionNumber; $questionNumber++;?>) 
                                         </strong><?= htmlspecialchars_decode($question['question']) ?></span>
                                     </div>
                                     <fieldset>
@@ -191,24 +191,6 @@
                                 <button type="submit" id="submitBtn" name="test_submit" class="btn btn-success">Submit</button>
                                 </div>
                             <?php } ?>
-
-
-                            <!--<?php
-                            $arrKeys = array_keys($this->questions); 
-                             if($i > 1) { ?>
-                                <div class="form-group col-sm-6 text-left">
-                                <a href="#category<?=
-                                    $arrKeys[$i-2]
-                                ?>" class="btn btn-primary previous">Previous</a>
-                                </div>
-                            <?php } ?>
-                            <?php if($i < count($arrKeys)) { ?>
-                            <div class="form-group col-sm-6 <?= ($i > 1) ? "text-center" : "text-right" ?>">
-                                <a href="#category<?=
-                                    $arrKeys[$i]
-                                ?>" class="btn btn-primary next">Next</a>
-                            </div>
-                            <?php } ?>-->
                         </div>
                         <?php
                                 }

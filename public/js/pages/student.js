@@ -334,11 +334,16 @@ function animate(sec) {
     }).spin(target);
 
     sleep(sec).then(() => {
-        $.notify("All records display", "info");
+       // $.notify("All records display", "info");
         spinner.stop();
     });
     return;
 }
+
+$(document).on("change", "#filterData", function(e) {
+    e.preventDefault();
+    getAllData();
+});
 
 function refresh() {
    getAllData();
@@ -377,6 +382,10 @@ function format ( d ) {
                 '<td class = "answers">'+d.edu[i].percent+'</td>'+
                 '<td class = "choices">Institute:</td>'+
                 '<td class = "answers">'+d.edu[i].institution+'</td>'+
+            '</tr>'+
+            '<tr>'+
+            '<td class = "choices"></td>'+
+            '<td class = "answers"></td>'+
             '</tr>';
     }
     var education = start + end;
@@ -388,29 +397,29 @@ function format ( d ) {
             '<td class = "answers">'+returnIcon(d.marksheet_see)+'</td>'+
             '<td class = "choices">Marksheet 11:</td>'+
             '<td class = "answers">'+returnIcon(d.marksheet_11)+'</td>'+
-            '<td class = "choices">Marksheet 12:</td>'+
-            '<td class = "answers">'+returnIcon(d.marksheet_12)+'</td>'+
         '</tr>'+
         '<tr>'+
+            '<td class = "choices">Marksheet 12:</td>'+
+            '<td class = "answers">'+returnIcon(d.marksheet_12)+'</td>'+
             '<td class = "choices">Transcript:</td>'+
             '<td class = "answers">'+returnIcon(d.transcript)+'</td>'+
             '<td class = "choices">Character Certificate SEE/SLC:</td>'+
             '<td class = "answers">'+returnIcon(d.characterCertificate_see)+'</td>'+
+        '</tr>'+
+        '<tr>'+
             '<td class = "choices">Character Certificate (+2):</td>'+
             '<td class = "answers">'+returnIcon(d.characterCertificate_12)+'</td>'+
             '<td class = "choices">Citizenship:</td>'+
             '<td class = "answers">'+returnIcon(d.citizenship)+'</td>'+
-        '</tr>'+
-        '<tr>'+
             '<td class = "choices">Photo:</td>'+
             '<td class = "answers">'+returnIcon(d.photo)+'</td>'+
         '</tr>';
+
+
     return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
         '<tr>'+
             '<td class = "choices">Password:</td>'+
             '<td class = "answers"><i>'+d.password+'</i></td>'+
-            '<td class = "choices"></td>'+
-            '<td class = "answers"></td>'+
             '<td class = "choices">Form Number:</td>'+
             '<td class = "answers"><i>'+d.formNo+'</i></td>'+
             '<td class = "choices">Program:</td>'+
@@ -427,22 +436,24 @@ function format ( d ) {
             '<td class = "answers">'+d.dobAd+'</td>'+
             '<td class = "choices">Date of Birth (BS):</td>'+
             '<td class = "answers">'+d.dobBs+'</td>'+
-            '<td class = "choices">Gender:</td>'+
-            '<td class = "answers">'+d.genderName+'</td>'+
         '</tr>'+
-        '<tr>'+            
+        '<tr>'+  
+            '<td class = "choices">Gender:</td>'+
+            '<td class = "answers">'+d.genderName+'</td>'+          
             '<td class = "choices">Nationality:</td>'+
             '<td class = "answers">'+d.nationality+'</td>'+
             '<td class = "choices">Father\'s name:</td>'+
             '<td class = "answers">'+d.fatherName+'</td>'+
+        '</tr>'+
+        '<tr>'+         
             '<td class = "choices">Municipality:</td>'+
             '<td class = "answers">'+d.municipality+'</td>'+
             '<td class = "choices">Ward No:</td>'+
-            '<td class = "answers">'+d.wardNo+'</td>'+
-        '</tr>'+
-        '<tr>'+            
+            '<td class = "answers">'+d.wardNo+'</td>'+   
             '<td class = "choices">Area:</td>'+
             '<td class = "answers">'+d.area+'</td>'+
+        '</tr>'+
+        '<tr>'+ 
             '<td class = "choices">District:</td>'+
             '<td class = "answers">'+d.district+'</td>'+
             '<td class = "choices">Zone:</td>'+
@@ -457,10 +468,10 @@ function format ( d ) {
             '<td class = "answers">'+d.blockNo+'</td>'+
             '<td class = "choices">Guardian Name:</td>'+
             '<td class = "answers">'+d.guardianName+'</td>'+
-            '<td class = "choices">Guardian Relation:</td>'+
-            '<td class = "answers">'+d.guardianRelation+'</td>'+
         '</tr>'+
-        '<tr>'+            
+        '<tr>'+
+            '<td class = "choices">Guardian Relation:</td>'+
+            '<td class = "answers">'+d.guardianRelation+'</td>'+            
             '<td class = "choices">Guardian Contact:</td>'+
             '<td class = "answers">'+d.guardianContact+'</td>'+
         '</tr>'+ education +
@@ -479,7 +490,10 @@ function getAllData(){
         "serverSide": true,
         "ajax": {
             "url": "../student/all/get",
-            "type": "POST"
+            "type": "POST",
+            "data": {
+                filterData : $("#filterData").val()
+            }
         },
         "columns": [
             {
@@ -491,9 +505,11 @@ function getAllData(){
             { 
                 "data" : "name"
             },
-            {"data" : "entranceNo"},
+            {"data" : "entranceNo" ,
+                sortable: false },
             { "data": "username" },
-            { "data": "email" },
+            { "data": "email" ,
+                sortable: false },
             {   
                  sortable: false,
                  "render": function ( data, type, row, meta ) {

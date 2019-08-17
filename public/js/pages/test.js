@@ -79,6 +79,7 @@ $(document).on("click", ".answerRadio", function(e) {
 
 
 $(document).on("click", "#submitBtn", function(e) {
+    e.preventDefault();
     BootstrapDialog.show({
         title: 'Confirm',
         message: 'Are you sure to to submit ?<b> You can\'t retake the test/exam.</b>',
