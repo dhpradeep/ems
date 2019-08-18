@@ -14,7 +14,7 @@ class Student extends Controller {
 		$this->model->setTable('userlogin');
 		if(($name == "export" || $name == "add" || $name == "update" || $name == "delete" || $name == "get") && Session::isLoggedIn(1)) {
 			$result = array('status' => 0);	
-			if(isset($_POST)) {
+			if(isset($_POST) && count($_POST) > 0) {
 				if($name == "get") {
 					return $this->getStudent($result);
 				}
@@ -30,6 +30,8 @@ class Student extends Controller {
 				if($name == "export") {
 					return $this->exportStudent($result);
 				}
+			}else{
+				header("Location: ".SITE_URL."/home/dashboard");
 			}		
 
 		} else if($name == ''){	
@@ -107,6 +109,9 @@ class Student extends Controller {
 			$arr[$index] = $res[$i];
 			$arr[$index]['id'] = $arr[$index]['userId'];
 			$arr[$index]['name'] = $arr[$index]['fname']." ".$arr[$index]['mname']." ".$arr[$index]['lname'];
+			unset($arr[$index]['passwordHash']);
+			unset($arr[$index]['role']);
+
 			if(count($arr[$index]['edu']) > 0) {
 				$co = 0;
 				foreach ($arr[$index]['edu'] as $value) {
@@ -411,7 +416,8 @@ class Student extends Controller {
 			),
 			'programId' => array(
 				'name' => 'Program',
-				'required' => true
+				'required' => true,
+				'minLevel' => 1
 			),
 			'doa' => array(
 				'name' => 'Date of Application',
@@ -423,7 +429,9 @@ class Student extends Controller {
 			),
 			'gender' => array(
 				'name' => 'Gender',
-				'required' => true
+				'required' => true,
+				'minLevel' => 1,
+				'maxLevel' => 4
 			),
 			'area' => array(
 				'name' => 'Area',
@@ -461,7 +469,7 @@ class Student extends Controller {
 				'max' => 255
 			),
 			'entranceNo' => array(
-				'name' => 'Entrance No.',
+				'name' => 'Registration No.',
 				'required' => true,
 				'min' => 1,
 				'max' => 255

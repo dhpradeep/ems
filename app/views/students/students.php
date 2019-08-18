@@ -80,7 +80,7 @@
                         <form id="frmSearch" role="form">
                             <a onclick="create_student()" class="btn btn-primary">Add Student</a>
                             <a onclick="refresh()" class="btn btn-info">Refresh</a>
-                            <a onclick="export_to_excel()" class="btn btn-success text-right">Export to excel</a>
+                            <a onclick="getAllData(2)" class="btn btn-success text-right">Export to excel</a>
                             <div class="input-group"> <span class="input-group-addon">Filter by Program: </span>
                                 <select class="form-control" id="filterData" name="filterResult">
                                     <option value="0" name="None"> None </option>
@@ -129,6 +129,8 @@
         </div>
         <!-- /#page-wrapper -->
 
+        <div id="mytable"></div>
+
         <!-- modals -->
      <?php include(MODALS_DIR.DS.'student.php'); ?>
 
@@ -162,7 +164,7 @@
     <!-- Custom Theme JavaScript -->
     <script src="<?= JS_DIR ?>/sb-admin-2.js"></script>    
     <script src="<?= JS_DIR ?>/pages/student_modal.js"></script>
-    <script src="<?= JS_DIR ?>/pages/student.js"></script>
+    <script src="<?= JS_DIR ?>/pages/student.js?v=1"></script>
 
 
 </body>

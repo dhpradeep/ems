@@ -50,8 +50,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="form-inline form-padding">
-                        <a class="btn btn-success" download="passers.xls" onclick="exportToExcel(this, 'dataTables-example', 'Passers Data')">Export to Excel</a>
-                        <a onclick="printToPrinter()" class="btn btn-success">Print</a>
+                        <a class="btn btn-success" onclick="getAllData(1)">Export to Excel</a>
                         <a onclick="refresh()" class="btn btn-info">Refresh</a>
                         <div class="input-group"> <span class="input-group-addon">Filter by Program: </span>
                             <select class="form-control" id="filterData" name="filterResult">

@@ -1,22 +1,9 @@
-.timer {
-    display: inline-block;
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
-    background: rgb(71, 196, 71);
-    position: fixed;
-    top: 11%;
-    right: 5%;
-    z-index: 100;
-}
-
-.time {
+#time {
     font-size: 20px;
-    color: rgb(252, 252, 252);
+    color: black;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-align: center;
     position: relative;
-    top: 30%;
     font-weight: bolder;
 }
 
@@ -30,9 +17,61 @@
     margin-top: 40px;
 }
 
+.mySticky {
+    height: 50px;
+    width: 50%;
+    top: 50px;
+    margin: 0px auto;
+    position: sticky;
+    position: -webkit-sticky;
+    background: #f8f8f8;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    opacity: 0.6;
+    padding-top: 10px;
+}
+
+.cur {
+    cursor: pointer;
+    user-select: none;
+}
+
+.navbtn {
+    background-image: linear-gradient(to right, #337ab7 0%, #47a0ee 51%, #337ab7 100%);
+    color: black;
+    height: 100%;
+    text-align: center;
+    font-size: 1.4em;
+    padding-top: 7px;
+}
+
+.prevbtn {
+    border-bottom-left-radius: 50%;
+}
+
+.submitbtn {
+    border-radius: 20%;
+    padding: 5px 20px;
+}
+
+.navbtn:hover {
+    background-image: linear-gradient(to right, #193650 0%, #1b476d 51%, #337ab7 100%);
+    color: white;
+}
+
+.nextbtn {
+    border-bottom-right-radius: 50%;
+}
+
+.mydiv {
+    float: left;
+    position: relative;
+    width: 33.32%;
+}
+
 @media screen and (max-width: 767px) {
     /* start of medium tablet styles */
-    .timer {
-        top: 50%;
+    .mySticky {
+        top: 100px;
     }
 }

@@ -14,7 +14,7 @@ class Question extends Controller {
 		$this->model->setTable('category');
 		if(($name == "add" || $name == "update" || $name == "delete" || $name == "get") && Session::isLoggedIn(1)) {
 			$result = array('status' => 0);	
-			if(isset($_POST)) {
+			if(isset($_POST) && count($_POST) > 0) {
 				if($name == "get") {
 					return $this->getCategory($result);
 				}
@@ -27,7 +27,9 @@ class Question extends Controller {
 				if($name == "add") {
 					return $this->addCategory($result);
 				}
-			}		
+			}else{
+				header("Location: ".SITE_URL."/home/dashboard");
+			}	
 
 		} else if($name == ''){	
 			if(Session::isLoggedIn(1)) {
@@ -45,7 +47,7 @@ class Question extends Controller {
 		$this->model->setTable('questions');
 		if(($name == "add" || $name == "update" || $name == "delete" || $name == "get") && Session::isLoggedIn(1)) {
 			$result = array('status' => 0);	
-			if(isset($_POST)) {
+			if(isset($_POST) && count($_POST) > 0) {
 				if($name == "get") {
 					return $this->getQuestion($result);
 				}
@@ -58,7 +60,9 @@ class Question extends Controller {
 				if($name == "add") {
 					return $this->addQuestion($result);
 				}
-			}		
+			}else{
+				header("Location: ".SITE_URL."/home/dashboard");
+			}	
 
 		} else if($name == ''){	
 			if(Session::isLoggedIn(1)) {
@@ -79,7 +83,7 @@ class Question extends Controller {
     	$this->model->setTable('program');
 		if(($name == "add" || $name == "update" || $name == "delete" || $name == "get") && Session::isLoggedIn(1)) {
 			$result = array('status' => 0);	
-			if(isset($_POST)) {
+			if(isset($_POST) && count($_POST) > 0) {
 				if($name == "get") {
 					return $this->getProgram($result);
 				}
@@ -92,7 +96,9 @@ class Question extends Controller {
 				if($name == "add") {
 					return $this->addProgram($result);
 				}
-			}		
+			}else{
+				header("Location: ".SITE_URL."/home/dashboard");
+			}	
 
 		} else if($name == ''){	
 			if(Session::isLoggedIn(1)) {
@@ -143,7 +149,7 @@ class Question extends Controller {
 		$this->model->setTable('questionmodel');
 		if(($name == "add" || $name == "update" || $name == "delete" || $name == "get") && Session::isLoggedIn(1)) {
 			$result = array('status' => 0);	
-			if(isset($_POST)) {
+			if(isset($_POST) && count($_POST) > 0) {
 				if($name == "get" && isset($_POST['programId'])) {
 					return $this->getModel($result);
 				}
@@ -156,7 +162,9 @@ class Question extends Controller {
 				if($name == "add") {
 					return $this->addModel($result);
 				}
-			}		
+			}else{
+				header("Location: ".SITE_URL."/home/dashboard");
+			}	
 
 		} else if($name == ''){
 			header("Location: ".SITE_URL."/home/dashboard");	

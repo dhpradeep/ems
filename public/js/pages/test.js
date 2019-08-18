@@ -104,7 +104,7 @@ function submitTest() {
     var id = $("#timeTrack").data('exam');
     var time = $("#timeTrack").data('time');
     time = (time < 0) ? 0 : time;
-    sendStatus(time , id, true);
+    sendStatus(time, id, true);
     BootstrapDialog.show({
         title: 'Thank you.',
         message: 'You test/exam is submitted.',
@@ -118,3 +118,6 @@ function submitTest() {
     });
     document.location.reload();
 }
+
+$(".next").click(function() { $('#myTabs li.active').next('li').find('a').trigger('click') });
+$(".previous").click(function() { $('#myTabs li.active').prev('li').find('a').trigger('click') });

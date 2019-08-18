@@ -483,7 +483,157 @@ function format(d) {
         '</table>';
 }
 
-function getAllData() {
+function get_keys(data, mode = 0) {
+    var arr = [];
+    if (mode == 1) {
+        for (var i in data) {
+            var key = i;
+            var val = data[i];
+            if (key == 'edu') {
+                for (var j in val[0]) {
+                    var sub_key = j;
+                    // var sub_val = val[0][j];
+                    arr.push(sub_key);
+                }
+            } else {
+                arr.push(key);
+            }
+        }
+    } else {
+        for (var i in data) {
+            var key = i;
+            var val = data[i];
+            if (key != 'edu') {
+                arr.push(key);
+            }
+        }
+    }
+    return arr;
+}
+
+function export_format(data) {
+    var found = false;
+    var index;
+
+    if (data.length <= 0) {
+        $.notify("No data to export!");
+        return;
+    }
+
+    for (var i = 0; i < data.length; i++) {
+        if (data[i].edu.length > 0) {
+            index = get_keys(data[i], 1);
+            found = true;
+            break;
+        }
+    }
+    if (found == false && data.length > 0) {
+        index = get_keys(data[0], 0);
+    }
+
+    var doc = "<table border='1'><tr>";
+    for (i = 0; i < index.length; i++) {
+        doc += "<th>" + index[i] + "</th>";
+    }
+
+
+    doc += "</tr>";
+    for (i = 0; i < data.length; i++) {
+        var edulength = data[i].edu.length;
+
+        if (edulength < 1) {
+            doc += "<tr>";
+            for (j = 0; j < index.length; j++) {
+                if (data[i][index[j]] == undefined) {
+                    doc += "<td></td>";
+                } else {
+                    doc += "<td>" + data[i][index[j]] + "</td>";
+                }
+            }
+            doc += "</tr>";
+        } else if (edulength >= 1) {
+            doc += "<tr>";
+            for (j = 0; j < index.length; j++) {
+                if (index[j] in data[i]['edu'][0]) {
+                    if (data[i]['edu'][0][index[j]] == undefined) {
+                        doc += "<td></td>"
+                    } else {
+                        doc += "<td>" + data[i]['edu'][0][index[j]] + "</td>";
+                    }
+                } else {
+                    if (data[i][index[j]] == undefined) {
+                        doc += "<td></td>"
+                    } else {
+                        doc += "<td>" + data[i][index[j]] + "</td>";
+                    }
+                }
+            }
+            doc += "</tr>";
+            if (edulength > 1) {
+                for (k = 1; k < edulength; k++) {
+                    doc += "<tr>";
+                    for (j = 0; j < index.length; j++) {
+                        if (index[j] in data[i].edu[k]) {
+                            if (data[i]['edu'][k][index[j]] == undefined) {
+                                doc += "<td></td>"
+                            } else {
+                                doc += "<td>" + data[i]['edu'][k][index[j]] + "</td>";
+                            }
+                        } else {
+                            doc += "<td></td>";
+                        }
+                    }
+                    doc += "</tr>";
+                }
+            }
+        }
+    }
+
+    doc += "</table>";
+
+    // $("#mytable").append(doc);
+
+    exportTableToExcel(doc, "student_data");
+
+}
+
+
+function exportTableToExcel(doc, filename = null) {
+    var downloadLink;
+    var dataType = 'application/vnd.ms-excel';
+    var tableHTML = doc.replace(/ /g, '%20');
+
+    // Specify file name
+    filename = filename ? filename + '.xls' : 'excel_data.xls';
+
+    // Create download link element
+    downloadLink = document.createElement("a");
+
+    document.body.appendChild(downloadLink);
+
+    if (navigator.msSaveOrOpenBlob) {
+        var blob = new Blob(['\ufeff', tableHTML], {
+            type: dataType
+        });
+        navigator.msSaveOrOpenBlob(blob, filename);
+    } else {
+        // Create a link to the file
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+
+        // Setting the file name
+        downloadLink.download = filename;
+
+        //triggering the function
+        downloadLink.click();
+    }
+}
+
+function print_to_excel(data) {
+    var data = data.json.data;
+    export_format(data);
+}
+
+function getAllData(trigger = null) {
     $("#studentTable").dataTable().fnDestroy();
     var table = $('#studentTable').DataTable({
         "processing": true,
@@ -493,6 +643,11 @@ function getAllData() {
             "type": "POST",
             "data": {
                 filterData: $("#filterData").val()
+            }
+        },
+        "drawCallback": function(data) {
+            if (trigger != null) {
+                print_to_excel(data);
             }
         },
         "lengthMenu": [
@@ -539,7 +694,6 @@ function getAllData() {
                 row.child.hide();
                 tr.removeClass('shown');
             } else {
-                $("#mytable").parent().css("color", "red");
                 // Open this row
                 row.child(format(row.data())).show();
                 tr.addClass('shown');
@@ -552,12 +706,4 @@ function getAllData() {
         var row = table.row(tr);
         create_student(row.data());
     });
-}
-
-function export_to_excel() {
-    $.post("../student/all/export", {})
-        .done(function(data) {
-            console.log(data);
-            // alert("Data Loaded: " + data);
-        });
 }

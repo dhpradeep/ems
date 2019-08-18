@@ -89,10 +89,84 @@ function deletedata(id) {
     });
 }
 
+function get_keys(data) {
+    var arr = [];
+    for (var i in data) {
+        arr.push(i);
+    }
+    return arr;
+}
+
+function export_format(data) {
+    var index;
+    if (data.length > 0) {
+        index = get_keys(data[0]);
+    } else {
+        $.notify("No data to export!");
+        return;
+    }
+    var doc = "<table border='1'><tr>";
+    for (i = 0; i < index.length; i++) {
+        doc += "<th>" + index[i] + "</th>";
+    }
+    doc += "</tr>";
+    for (i = 0; i < data.length; i++) {
+        doc += "<tr>";
+        for (j = 0; j < index.length; j++) {
+            if (data[i][index[j]] == undefined) {
+                doc += "<td></td>";
+            } else {
+                doc += "<td>" + data[i][index[j]] + "</td>";
+            }
+        }
+        doc += "</tr>";
+    }
+
+    doc += "</table>";
+
+    exportTableToExcel(doc, "result_data");
+
+}
+
+
+function exportTableToExcel(doc, filename = null) {
+    var downloadLink;
+    var dataType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+    var tableHTML = doc.replace(/ /g, '%20');
+
+    // Specify file name
+    filename = filename ? filename + '.xls' : 'excel_data.xls';
+
+    // Create download link element
+    downloadLink = document.createElement("a");
+
+    document.body.appendChild(downloadLink);
+
+    if (navigator.msSaveOrOpenBlob) {
+        var blob = new Blob(['\ufeff', tableHTML], {
+            type: dataType
+        });
+        navigator.msSaveOrOpenBlob(blob, filename);
+    } else {
+        // Create a link to the file
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+
+        // Setting the file name
+        downloadLink.download = filename;
+
+        //triggering the function
+        downloadLink.click();
+    }
+}
+
+function print_to_excel(data) {
+    var data = data.json.data;
+    export_format(data);
+}
 
 
 
-function getAllData() {
+function getAllData(trigger = null) {
     $("#resultTable").dataTable().fnDestroy();
     var table = $('#resultTable').DataTable({
         "processing": true,
@@ -106,6 +180,11 @@ function getAllData() {
             "type": "POST",
             "data": {
                 filterData: $("#filterData").val()
+            }
+        },
+        "drawCallback": function(data) {
+            if (trigger != null) {
+                print_to_excel(data);
             }
         },
         "lengthMenu": [

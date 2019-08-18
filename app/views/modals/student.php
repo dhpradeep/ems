@@ -244,7 +244,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="entranceNo">Registration NO. *</label>
-                                <input type="number" class="form-control" name="entranceNo" id="entranceNo" placeholder="Entrance No." />
+                                <input type="number" class="form-control" name="entranceNo" id="entranceNo" placeholder="Registration No." />
                                 <span class="help-inline"></span>
                             </div>
                             <div class="form-group col-md-6">

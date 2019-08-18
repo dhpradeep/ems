@@ -18,7 +18,7 @@ class Result extends Controller {
 				$this->model->data['program'] = $all;
 				$this->model->template = VIEWS_DIR.DS."result".DS."result.php";
 				$this->view->render();
-			}else if($name == "get" && isset($_POST)){
+			}else if($name == "get" && isset($_POST) && count($_POST) > 0){
 				$result = array("status" => 0);
 				return $this->getResult($result);
 			}else if($name == "delete" && isset($_POST['id'])) {

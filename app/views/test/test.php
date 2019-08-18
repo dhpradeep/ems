@@ -68,6 +68,21 @@
         </nav>
 
         <div id="page-wrapper">
+
+                <div class="row mySticky">
+                    <div class="mydiv navbtn prevbtn">
+                        <div class="cur previous">Previous</div>
+                    </div>
+                        <!-- <button type="submit"  name="test_submit" class="btn btn-success">Previous</button> -->
+                    <div class="mydiv">
+                        <div id="time"></div>
+                    </div>    
+                    <div class="mydiv text-right navbtn nextbtn">
+                        <div class="cur next">Next</div>
+                        <!-- <button type="button" class="btn btn-success">Next</button>
+                        <button type="button" class="btn btn-success">Submit</button> -->
+                    </div>
+                </div>
             <!-- /.row -->
             <?php 
                 if(!is_null($this->errors) && count($this->errors) > 0) {
@@ -89,9 +104,9 @@
                <?php }else{ ?>
 
             <!-- div for timer -->
-            <div class='timer rounded-circle'>
+            <!-- <div class='timer rounded-circle'>
                 <div id="time" class='time'></div>
-            </div>
+            </div> -->
 
             <div id="timeTrack" data-time="<?= $this->remainingTime ?>" data-exam = "<?= $this->examId ?>"></div>
 
@@ -187,23 +202,9 @@
                             <?php
                             $arrKeys = array_keys($this->questions); 
                             if($i >= count($arrKeys)) { ?>
-                                <div class="form-group col-sm-6 text-left">
-                                <button type="submit" id="submitBtn" name="test_submit" class="btn btn-success">Submit</button>
+                                <div class="form-group col-sm-6">
+                                <button type="submit" id="submitBtn" name="test_submit" class="navbtn submitbtn">Submit</button>
                                 </div>
-                            <?php } ?>
-
-
-                            <?php
-                            $arrKeys = array_keys($this->questions); 
-                             if($i > 1) { ?>
-                                <div class="form-group col-sm-6 text-left">
-                                <a href="#" class="btn btn-primary previous">Previous</a>
-                                </div>
-                            <?php } ?>
-                            <?php if($i < count($arrKeys)) { ?>
-                            <div class="form-group col-sm-6 <?= ($i > 1) ? "text-center" : "text-right" ?>">
-                                <a href="#" class="btn btn-primary next">Next</a>
-                            </div>
                             <?php } ?>
                         </div>
                         <?php
