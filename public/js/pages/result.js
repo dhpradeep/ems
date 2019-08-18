@@ -184,6 +184,7 @@ function getAllData(trigger = null) {
         },
         "drawCallback": function(data) {
             if (trigger != null) {
+                trigger = null;
                 print_to_excel(data);
             }
         },
