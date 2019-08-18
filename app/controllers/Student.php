@@ -94,7 +94,7 @@ class Student extends Controller {
 				$i++;
 			}
 		}
-		
+
 		$total = count($res);
 		$index = 0;
 		$arr = array();
@@ -158,7 +158,7 @@ class Student extends Controller {
 		$result['success'] = ($result['status'] == 1) ? true : false;
 		$result['draw'] = $_POST['draw'];
 		$result['recordsTotal'] = $total;
-		$result['recordsFiltered'] = $index;
+		$result['recordsFiltered'] = $total;
 		unset($_POST);
 		return print json_encode($result);
 	}
@@ -209,6 +209,16 @@ class Student extends Controller {
 				do {
 					if($pk != 0) $this->deleteDataFromTable("education", $pk);
 					$pk = $this->getPKFromTable("education",array('userId' => $idToDel));
+				}while($pk != 0);
+				$pk = $this->getPKFromTable("timetrack",array('userId' => $idToDel));
+				do {
+					if($pk != 0) $this->deleteDataFromTable("timetrack", $pk);
+					$pk = $this->getPKFromTable("timetrack",array('userId' => $idToDel));
+				}while($pk != 0);
+				$pk = $this->getPKFromTable("record",array('userId' => $idToDel));
+				do {
+					if($pk != 0) $this->deleteDataFromTable("record", $pk);
+					$pk = $this->getPKFromTable("record",array('userId' => $idToDel));
 				}while($pk != 0);	
 				$result['status'] = 1;		
 			}else {

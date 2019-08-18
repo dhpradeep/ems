@@ -260,6 +260,18 @@ class User extends Controller
 				$res[$countA++] = $value;
 			}
 		}
+
+		if(isset($_POST['filterData']) && $_POST['filterData'] > 0) {
+			$i = 0;
+			foreach ($res as $value) {
+				if($value['role'] != $_POST['filterData']) {
+					array_splice($res, $i, 1);
+					$i--;
+				}
+				$i++;
+			}
+		}
+
 		$total = count($res);
 		$index = 0;
 		$arr = array();
@@ -450,6 +462,16 @@ class User extends Controller
 				do {
 					if($pk != 0) $this->deleteDataFromTable("education", $pk);
 					$pk = $this->getPKFromTable("education",array('userId' => $idToDel));
+				}while($pk != 0);
+				$pk = $this->getPKFromTable("timetrack",array('userId' => $idToDel));
+				do {
+					if($pk != 0) $this->deleteDataFromTable("timetrack", $pk);
+					$pk = $this->getPKFromTable("timetrack",array('userId' => $idToDel));
+				}while($pk != 0);
+				$pk = $this->getPKFromTable("record",array('userId' => $idToDel));
+				do {
+					if($pk != 0) $this->deleteDataFromTable("record", $pk);
+					$pk = $this->getPKFromTable("record",array('userId' => $idToDel));
 				}while($pk != 0);	
 				$result['status'] = 1;		
 			}else {

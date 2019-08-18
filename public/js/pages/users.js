@@ -154,6 +154,11 @@ function deletedata(id) {
     });
 }
 
+$(document).on("change", "#filterData", function(e) {
+    e.preventDefault();
+    getAllData();
+});
+
 function sleep (time) {
     return new Promise((resolve) => setTimeout(resolve, time));
 }
@@ -187,7 +192,10 @@ function getAllData(){
                                 "serverSide": true,
                                 "ajax": {
                                     "url": "../user/users/get",
-                                    "type": "POST"
+                                    "type": "POST",
+                                    "data": {
+                                        filterData : $("#filterData").val()
+                                    }
                                 },
                                 "columns": [
                                     { "data": "name" },
