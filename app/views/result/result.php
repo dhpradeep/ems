@@ -19,6 +19,8 @@
     <link href="<?= BOWER_DIR ?>/morrisjs/morris.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="<?= BOWER_DIR ?>/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">-->
 </head>
 
 <body>
@@ -51,6 +53,18 @@
                         <a class="btn btn-success" download="passers.xls" onclick="exportToExcel(this, 'dataTables-example', 'Passers Data')">Export to Excel</a>
                         <a onclick="printToPrinter()" class="btn btn-success">Print</a>
                         <a onclick="refresh()" class="btn btn-info">Refresh</a>
+                        <div class="input-group"> <span class="input-group-addon">Filter by Program: </span>
+                            <select class="form-control" id="filterData" name="filterResult">
+                                <option value="0" name="None"> None </option>
+                                <?php
+                                    foreach ($this->program as $value) {
+                                ?>
+                                        <option value="<?= $value['id'] ?>" name="<?= $value['name'] ?>"><?= $value['name'] ?></option>
+                                <?php
+                                     } 
+                                ?>
+                            </select>
+                        </div>
                     </div>
                     <br>
                     <div class="panel panel-primary">
@@ -65,34 +79,20 @@
                                             <th >
                                                 Student Name
                                             </th>
+                                            <th >
+                                                Program
+                                            </th>
                                             <th>
-                                                Total given answers
+                                                Right Answers
                                             </th>
                                             <th>
                                                 Percentage
                                             </th>
-                                            <th width="15%">
+                                            <th style="min-width: 100px">
+                                                Action
                                             </th>
                                       </tr>
                                   </thead>
-                                  <tbody>
-                                        <tr>
-                                            <td>Pradip Dhakal</td>
-                                            <td>45/50</td>
-                                            <td>60%</td>
-                                            <td>
-                                                <a href="<?= SITE_URL ?>/test/result/pradip" class="btn btn-default btn-xs">Details</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Saroj Tripathi</td>
-                                            <td>65/50</td>
-                                            <td>70%</td>
-                                            <td>
-                                                <a href="<?= SITE_URL ?>/test/result/saroj" class="btn btn-default btn-xs">Details</a>
-                                            </td>
-                                        </tr>
-                                  </tbody>
                               </table>
                             </div>
                         </div>
@@ -134,6 +134,33 @@
     <!-- Custom Theme JavaScript -->
     <script src="<?= JS_DIR ?>/sb-admin-2.js"></script> 
     <script src="<?= JS_DIR ?>/pages/result.js"></script>
+     <!-- DataTables JavaScript -->
+    <script src="<?= BOWER_DIR ?>/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="<?= BOWER_DIR ?>/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+    <!-- spinJS -->
+    <script src="<?= BOWER_DIR ?>/spin.js/spin.js"></script>
+    <!-- Notify -->
+    <script src="<?= BOWER_DIR ?>/notifyjs/dist/notify.js"></script>
+    <script src="<?= BOWER_DIR ?>/notifyjs/dist/styles/bootstrap/notify-bootstrap.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="<?= BOWER_DIR ?>/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="<?= JS_DIR ?>/sb-admin-2.js"></script>
+
+
+    <!--<script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>-->
+
+
+     <!-- Custom JS -->
+     <script src="<?= JS_DIR ?>/pages/result.js"></script>
 </body>
 
 </html>

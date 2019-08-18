@@ -194,7 +194,7 @@ function animate(sec) {
     }).spin(target);
 
     sleep(sec).then(() => {
-        $.notify("All records display", "info");
+       // $.notify("All records display", "info");
         spinner.stop();
     });
     return;
@@ -214,6 +214,7 @@ function getAllData(){
             "url": "../question/category/get",
             "type": "POST"
         },
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
         "columns": [
             { "data": "name" },
             { "data": "description" },

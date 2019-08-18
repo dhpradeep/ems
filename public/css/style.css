@@ -5,8 +5,9 @@
     height: 80px;
     background: rgb(71, 196, 71);
     position: fixed;
-    top: 10%;
+    top: 11%;
     right: 5%;
+    z-index: 100;
 }
 
 .time {
@@ -26,14 +27,12 @@
 }
 
 #page-wrapper {
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
-table.myTable {
-    display: block !important;
-}
-
-table.myTable tbody {
-    display: block !important;
-    overflow-x: scroll !important;
+@media screen and (max-width: 767px) {
+    /* start of medium tablet styles */
+    .timer {
+        top: 50%;
+    }
 }

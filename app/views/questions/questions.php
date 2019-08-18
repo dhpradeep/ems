@@ -83,6 +83,18 @@
                         <form id="frmSearch" role="form">                               
                             <a onclick="create_question()" class="btn btn-primary">Add Question</a>
                             <a onclick="refresh()" class="btn btn-info">Refresh</a>
+                            <div class="input-group"> <span class="input-group-addon">Filter by Category: </span>
+                                <select class="form-control" id="filterData" name="filterResult">
+                                    <option value="0" name="None"> None </option>
+                                    <?php
+                                        foreach ($this->category as $value) {
+                                    ?>
+                                            <option value="<?= $value['id'] ?>" name="<?= $value['name'] ?>"><?= $value['name'] ?></option>
+                                    <?php
+                                         } 
+                                    ?>
+                                </select>
+                            </div>
                         </form>
                     </div>
                     <br>
@@ -96,7 +108,7 @@
                                     class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th style="min-width: 60px">Extension</th>
+                                            <th style="min-width: 60px">Details</th>
                                             <th>Question</th>
                                             <th style="min-width: 100px">Categories</th>
                                             <th style="min-width: 50px">Level</th>

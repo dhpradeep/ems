@@ -46,7 +46,7 @@
                 <a href="#"><i class="fa fa-files-o fa-fw"></i> Reports<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="<?= SITE_URL?>/test/result">View Result</a>
+                        <a href="<?= SITE_URL?>/result/all">View Result</a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->

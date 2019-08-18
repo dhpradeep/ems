@@ -81,6 +81,18 @@
                             <a onclick="create_student()" class="btn btn-primary">Add Student</a>
                             <a onclick="refresh()" class="btn btn-info">Refresh</a>
                             <a onclick="export_to_excel()" class="btn btn-success text-right">Export to excel</a>
+                            <div class="input-group"> <span class="input-group-addon">Filter by Program: </span>
+                                <select class="form-control" id="filterData" name="filterResult">
+                                    <option value="0" name="None"> None </option>
+                                    <?php
+                                        foreach ($this->program as $value) {
+                                    ?>
+                                            <option value="<?= $value['id'] ?>" name="<?= $value['name'] ?>"><?= $value['name'] ?></option>
+                                    <?php
+                                         } 
+                                    ?>
+                                </select>
+                            </div>
                         </form>
                     </div>
                     <br>

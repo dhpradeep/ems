@@ -112,7 +112,7 @@
                                 <div class="col md-12 main">
                                     <div class="page-header">
                                         <span style="font-size: 25px"><strong>
-                                            <?php echo $questionNumber; $questionNumber++;?>
+                                            <?php echo $questionNumber; $questionNumber++;?>) 
                                         </strong><?= htmlspecialchars_decode($question['question']) ?></span>
                                     </div>
                                     <fieldset>

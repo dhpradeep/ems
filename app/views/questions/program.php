@@ -76,7 +76,7 @@
                                             <th>
                                                 Duration
                                             </th>
-                                            <th style="min-width: 150px"></th>
+                                            <th style="min-width: 150px">Action</th>
                                       </tr>
                                   </thead>
                               </table>

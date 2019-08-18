@@ -237,6 +237,7 @@ class User extends Controller
 	private function getUser($result) {
 		$startIndex = $_POST['start'];
 		$totalCount = $_POST['length'];
+		$startIndex = ($totalCount == -1) ? 0 : $startIndex;
 		$columnToSort = null;
 		$sortDir = null;
 		$stringToSearch = null;
@@ -260,9 +261,22 @@ class User extends Controller
 				$res[$countA++] = $value;
 			}
 		}
+
+		if(isset($_POST['filterData']) && $_POST['filterData'] > 0) {
+			$i = 0;
+			foreach ($res as $value) {
+				if($value['role'] != $_POST['filterData']) {
+					array_splice($res, $i, 1);
+					$i--;
+				}
+				$i++;
+			}
+		}
+
 		$total = count($res);
 		$index = 0;
 		$arr = array();
+		$totalCount = ($totalCount == -1) ? $total : $totalCount;
 		for ($i = $startIndex; $i < $startIndex + $totalCount && $i < $total; $i++){			
 			$res[$i]['name'] = $res[$i]['fname']." ".$res[$i]['mname']. " " .$res[$i]['lname'];
 			unset($res[$i]['passwordHash']);
@@ -450,6 +464,16 @@ class User extends Controller
 				do {
 					if($pk != 0) $this->deleteDataFromTable("education", $pk);
 					$pk = $this->getPKFromTable("education",array('userId' => $idToDel));
+				}while($pk != 0);
+				$pk = $this->getPKFromTable("timetrack",array('userId' => $idToDel));
+				do {
+					if($pk != 0) $this->deleteDataFromTable("timetrack", $pk);
+					$pk = $this->getPKFromTable("timetrack",array('userId' => $idToDel));
+				}while($pk != 0);
+				$pk = $this->getPKFromTable("record",array('userId' => $idToDel));
+				do {
+					if($pk != 0) $this->deleteDataFromTable("record", $pk);
+					$pk = $this->getPKFromTable("record",array('userId' => $idToDel));
 				}while($pk != 0);	
 				$result['status'] = 1;		
 			}else {

@@ -50,6 +50,7 @@ class Student extends Controller {
     private function getStudent($result) {
 		$startIndex = $_POST['start'];
 		$totalCount = $_POST['length'];
+		$startIndex = ($totalCount == -1) ? 0 : $startIndex;
 		$columnToSort = null;
 		$sortDir = null;
 		$stringToSearch = null;
@@ -86,9 +87,22 @@ class Student extends Controller {
 		}
 
 		$res = $this->getAllStudentRecords($userIdArray);
+
+		if(isset($_POST['filterData']) && $_POST['filterData'] > 0) {
+			$i = 0;
+			foreach ($res as $value) {
+				if($value['programId'] != $_POST['filterData']) {
+					array_splice($res, $i, 1);
+					$i--;
+				}
+				$i++;
+			}
+		}
+
 		$total = count($res);
 		$index = 0;
 		$arr = array();
+		$totalCount = ($totalCount == -1) ? $total : $totalCount;
 		for ($i = $startIndex; $i < $startIndex + $totalCount && $i < $total; $i++){
 			$arr[$index] = $res[$i];
 			$arr[$index]['id'] = $arr[$index]['userId'];
@@ -132,6 +146,16 @@ class Student extends Controller {
 			$index++;
 		}
 
+		$name  = array_column($arr, 'name');
+		$username = array_column($arr, 'username');
+		$toSort = (isset($_POST["order"][0]["column"])) ? $_POST["columns"][$_POST["order"][0]["column"]]["data"] : $name;
+		if(isset($_POST["order"][0]["dir"]) && ($toSort == "name" || $toSort == "username")) {
+			if($_POST["order"][0]["dir"] == "asc")
+				array_multisort($$toSort, SORT_ASC, $arr);
+			else
+				array_multisort($$toSort, SORT_DESC, $arr);
+		}
+
 		if(count($arr) >= 1){
 			$result['status'] = 1;
 		}
@@ -139,7 +163,7 @@ class Student extends Controller {
 		$result['success'] = ($result['status'] == 1) ? true : false;
 		$result['draw'] = $_POST['draw'];
 		$result['recordsTotal'] = $total;
-		$result['recordsFiltered'] = $index;
+		$result['recordsFiltered'] = $total;
 		unset($_POST);
 		return print json_encode($result);
 	}
@@ -190,6 +214,16 @@ class Student extends Controller {
 				do {
 					if($pk != 0) $this->deleteDataFromTable("education", $pk);
 					$pk = $this->getPKFromTable("education",array('userId' => $idToDel));
+				}while($pk != 0);
+				$pk = $this->getPKFromTable("timetrack",array('userId' => $idToDel));
+				do {
+					if($pk != 0) $this->deleteDataFromTable("timetrack", $pk);
+					$pk = $this->getPKFromTable("timetrack",array('userId' => $idToDel));
+				}while($pk != 0);
+				$pk = $this->getPKFromTable("record",array('userId' => $idToDel));
+				do {
+					if($pk != 0) $this->deleteDataFromTable("record", $pk);
+					$pk = $this->getPKFromTable("record",array('userId' => $idToDel));
 				}while($pk != 0);	
 				$result['status'] = 1;		
 			}else {

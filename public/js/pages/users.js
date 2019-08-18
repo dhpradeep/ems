@@ -154,6 +154,11 @@ function deletedata(id) {
     });
 }
 
+$(document).on("change", "#filterData", function(e) {
+    e.preventDefault();
+    getAllData();
+});
+
 function sleep (time) {
     return new Promise((resolve) => setTimeout(resolve, time));
 }
@@ -168,7 +173,7 @@ function animate(sec) {
     }).spin(target);
 
     sleep(sec).then(() => {
-        $.notify("All records display", "info");
+       // $.notify("All records display", "info");
         spinner.stop();
     });
     return;
@@ -187,8 +192,12 @@ function getAllData(){
                                 "serverSide": true,
                                 "ajax": {
                                     "url": "../user/users/get",
-                                    "type": "POST"
+                                    "type": "POST",
+                                    "data": {
+                                        filterData : $("#filterData").val()
+                                    }
                                 },
+                                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                                 "columns": [
                                     { "data": "name" },
                                     { "data": "username" },
