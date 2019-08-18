@@ -495,6 +495,7 @@ function getAllData(){
                 filterData : $("#filterData").val()
             }
         },
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
         "columns": [
             {
                 "className":      'details-control',

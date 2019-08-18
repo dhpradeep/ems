@@ -47,6 +47,7 @@ class Student extends Controller {
     private function getStudent($result) {
 		$startIndex = $_POST['start'];
 		$totalCount = $_POST['length'];
+		$startIndex = ($totalCount == -1) ? 0 : $startIndex;
 		$columnToSort = null;
 		$sortDir = null;
 		$stringToSearch = null;
@@ -98,6 +99,7 @@ class Student extends Controller {
 		$total = count($res);
 		$index = 0;
 		$arr = array();
+		$totalCount = ($totalCount == -1) ? $total : $totalCount;
 		for ($i = $startIndex; $i < $startIndex + $totalCount && $i < $total; $i++){
 			$arr[$index] = $res[$i];
 			$arr[$index]['id'] = $arr[$index]['userId'];

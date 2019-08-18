@@ -55,6 +55,7 @@ function getAllData(){
                     id : examId
                 }
             },
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             "columns": [
                 { "data": "question" },
                 { "data": "userAnswer" ,

@@ -168,6 +168,7 @@ class Question extends Controller {
 	private function getModel($result) {
 		$startIndex = $_POST['start'];
 		$totalCount = $_POST['length'];
+		$startIndex = ($totalCount == -1) ? 0 : $startIndex;
 		$columnToSort = null;
 		$sortDir = null;
 		$stringToSearch = null;
@@ -193,6 +194,7 @@ class Question extends Controller {
 		$total = count($res);
 		$index = 0;
 		$arr = array();
+		$totalCount = ($totalCount == -1) ? $total : $totalCount;
 		for ($i = $startIndex; $i < $startIndex + $totalCount && $i < $total; $i++){
 			$toSearch = array("id" => $res[$i]['categoryId']);
 			$this->setForeignModel("QuestionModel");
@@ -344,6 +346,7 @@ class Question extends Controller {
 	private function getCategory($result) {
 		$startIndex = $_POST['start'];
 		$totalCount = $_POST['length'];
+		$startIndex = ($totalCount == -1) ? 0 : $startIndex;
 		$columnToSort = null;
 		$sortDir = null;
 		$stringToSearch = null;
@@ -363,6 +366,7 @@ class Question extends Controller {
 		$total = count($res);
 		$index = 0;
 		$arr = array();
+		$totalCount = ($totalCount == -1) ? $total : $totalCount;
 		for ($i = $startIndex; $i < $startIndex + $totalCount && $i < $total; $i++){
 			$arr[$index++] = $res[$i];
 		}
@@ -500,6 +504,7 @@ class Question extends Controller {
 	private function getProgram($result) {
 		$startIndex = $_POST['start'];
 		$totalCount = $_POST['length'];
+		$startIndex = ($totalCount == -1) ? 0 : $startIndex;
 		$columnToSort = null;
 		$sortDir = null;
 		$stringToSearch = null;
@@ -519,6 +524,7 @@ class Question extends Controller {
 		$total = count($res);
 		$index = 0;
 		$arr = array();
+		$totalCount = ($totalCount == -1) ? $total : $totalCount;
 		for ($i = $startIndex; $i < $startIndex + $totalCount && $i < $total; $i++){
 			$arr[$index] = $res[$i];
 			$arr[$index]['welcome'] = html_entity_decode($arr[$index]['welcome']);
@@ -680,6 +686,7 @@ class Question extends Controller {
 	private function getQuestion($result) {
 		$startIndex = $_POST['start'];
 		$totalCount = $_POST['length'];
+		$startIndex = ($totalCount == -1) ? 0 : $startIndex; 
 		$columnToSort = null;
 		$sortDir = null;
 		$stringToSearch = null;
@@ -715,6 +722,9 @@ class Question extends Controller {
 
 		$index = 0;
 		$arr = array();
+
+		$totalCount = ($totalCount == -1) ? $total : $totalCount;
+
 		for ($i = $startIndex; $i < $startIndex + $totalCount && $i < $total; $i++){
 			$toSearch = array("id" => $res[$i]['categoryId']);
 			$this->setForeignModel("QuestionModel");

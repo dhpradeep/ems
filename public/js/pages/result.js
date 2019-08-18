@@ -97,6 +97,10 @@ function getAllData(){
     var table = $('#resultTable').DataTable( {
         "processing": true,
         "serverSide": true,
+        /*dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],*/
         "ajax": {
             "url": "../result/all/get",
             "type": "POST",
@@ -104,6 +108,7 @@ function getAllData(){
             	filterData : $("#filterData").val()
             }
         },
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
         "columns": [
             { "data": "name" },
             { "data": "programName" },

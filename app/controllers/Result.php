@@ -35,6 +35,7 @@ class Result extends Controller {
 	private function getResult($result) {
 		$startIndex = $_POST['start'];
 		$totalCount = $_POST['length'];
+		$startIndex = ($totalCount == -1) ? 0 : $startIndex;
 		$columnToSort = null;
 		$sortDir = null;
 		$stringToSearch = null;
@@ -108,7 +109,7 @@ class Result extends Controller {
 		$total = count($res);
 		$index = 0;
 		$arr = array();
-
+		$totalCount = ($totalCount == -1) ? $total : $totalCount;
 		for ($i = $startIndex; $i < $startIndex + $totalCount && $i < $total; $i++){
 			$arr[$index] = $res[$i];		
 			$index++;
@@ -211,6 +212,7 @@ class Result extends Controller {
 	private function getResultDetail($result) {
 		$startIndex = $_POST['start'];
 		$totalCount = $_POST['length'];
+		$startIndex = ($totalCount == -1) ? 0 : $startIndex; 
 		$columnToSort = null;
 		$sortDir = null;
 		$stringToSearch = null;
@@ -256,6 +258,7 @@ class Result extends Controller {
 		$total = count($res);
 		$index = 0;
 		$arr = array();
+		$totalCount = ($totalCount == -1) ? $total : $totalCount;
 
 		for ($i = $startIndex; $i < $startIndex + $totalCount && $i < $total; $i++){
 			$arr[$index] = $res[$i];	
