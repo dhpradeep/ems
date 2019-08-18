@@ -131,7 +131,7 @@ function export_format(data) {
 
 function exportTableToExcel(doc, filename = null) {
     var downloadLink;
-    var dataType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+    var dataType = 'application/vnd.ms-excel';
     var tableHTML = doc.replace(/ /g, '%20');
 
     // Specify file name

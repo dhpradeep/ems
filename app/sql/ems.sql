@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 06. Aug 2019 um 01:23
+-- Erstellungszeit: 18. Aug 2019 um 22:17
 -- Server-Version: 10.1.38-MariaDB
 -- PHP-Version: 7.3.2
 
@@ -41,7 +41,7 @@ CREATE TABLE `category` (
 INSERT INTO `category` (`id`, `name`, `description`) VALUES
 (4, 'Basic Mathematics', 'Basic Mathematics for BBA and BCA'),
 (11, 'Programming', 'PHP, Javascript and HTML'),
-(12, 'Account', 'Account for BBA');
+(12, 'Eversoft', 'Eversoft for all');
 
 -- --------------------------------------------------------
 
@@ -82,7 +82,9 @@ CREATE TABLE `contactdetails` (
 --
 
 INSERT INTO `contactdetails` (`id`, `userId`, `municipality`, `wardNo`, `area`, `district`, `zone`, `mobileNo`, `telephoneNo`, `blockNo`, `guardianName`, `guardianRelation`, `guardianContact`) VALUES
-(17, 54, 'Lekhnath', NULL, '', 'Kaski', '', '98888886666', '', '', 'NO', '', '');
+(17, 54, 'Lekhnath', '1', '', 'Kaski', '', '988888866669', '88', '', 'NO', '', ''),
+(31, 68, '', '', '', '', '', '', '', '', '', '', ''),
+(32, 69, '', '', '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -112,7 +114,9 @@ CREATE TABLE `documents` (
 --
 
 INSERT INTO `documents` (`id`, `userId`, `formNo`, `entranceNo`, `eligible`, `remarks`, `marksheet_see`, `marksheet_11`, `marksheet_12`, `transcript`, `characterCertificate_see`, `characterCertificate_12`, `citizenship`, `photo`) VALUES
-(16, 54, '22344', '22322', 'true', 'Transcript to submit.', 'true', 'true', 'true', 'false', 'true', 'true', 'true', 'true');
+(16, 54, '22344', '22322', 'true', 'Transcript to submit.', 'true', 'true', 'true', 'false', 'true', 'true', 'true', 'true'),
+(30, 68, '', '222', 'false', '', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false'),
+(31, 69, '', '22', 'false', '', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false');
 
 -- --------------------------------------------------------
 
@@ -136,8 +140,8 @@ CREATE TABLE `education` (
 --
 
 INSERT INTO `education` (`id`, `userId`, `level`, `faculty`, `institution`, `board`, `yearOfCompletion`, `percent`) VALUES
-(13, 54, '1', '', 'AMHSS', 'Nepal', 2015, '91'),
-(14, 54, '2', 'Science', 'AMHSS', 'HSEB', 2017, '83');
+(36, 54, '1', '', 'AMHSS', 'Nepal', 2015, '91'),
+(37, 54, '2', 'Science', 'AMHSS', 'HSEB', 2017, '83');
 
 -- --------------------------------------------------------
 
@@ -163,7 +167,9 @@ CREATE TABLE `personaldata` (
 --
 
 INSERT INTO `personaldata` (`id`, `userId`, `password`, `programId`, `doa`, `dobAd`, `dobBs`, `gender`, `nationality`, `fatherName`) VALUES
-(18, 54, 'eversoft22322', '2', '2019-07-30', '2019-08-11', '2019-08-11', 1, 'Nepal', 'Danu');
+(18, 54, 'eversoft22322', '8', '2019-07-30', '2019-08-11', '2019-08-11', 1, 'Nepal', 'Danu'),
+(32, 68, 'eversoft222', '', '2019-08-18', '0000-00-00', '', 0, 'Nepali', ''),
+(33, 69, 'eversoft22', '', '2019-08-18', '0000-00-00', '', 0, 'Nepali', '');
 
 -- --------------------------------------------------------
 
@@ -185,9 +191,7 @@ CREATE TABLE `program` (
 
 INSERT INTO `program` (`id`, `name`, `duration`, `welcome`, `thanks`) VALUES
 (2, 'BBA', 120, 'Welcome to BBA section.', 'Thank you for your test.'),
-(8, 'BCA', 90, '&lt;p&gt;&lt;strong&gt;Welcome to BCA Entrance Exam.&lt;/strong&gt;&lt;/p&gt;\n', '&lt;p&gt;&lt;strong&gt;Thank you&lt;/strong&gt;&lt;/p&gt;\n'),
-(9, 'BPH', 120, '&lt;p&gt;Welcome to BPH section.&lt;/p&gt;\n', '&lt;p&gt;Thank you for your test for BPH.&lt;/p&gt;\n'),
-(14, 'Test', 60, '&lt;p&gt;&lt;br /&gt;\nWelcome to Test&lt;/p&gt;\n', '&lt;p&gt;&lt;br /&gt;\nTesting Exit.&lt;/p&gt;\n');
+(8, 'BCA', 90, '&lt;h3&gt;&lt;strong&gt;Welcome to BCA Entrance Exam.&lt;/strong&gt;&lt;/h3&gt;\n', '&lt;h3&gt;&lt;strong&gt;Thank you&lt;/strong&gt;&lt;/h3&gt;\n');
 
 -- --------------------------------------------------------
 
@@ -210,10 +214,13 @@ CREATE TABLE `questionmodel` (
 
 INSERT INTO `questionmodel` (`id`, `programId`, `categoryId`, `minLevel`, `maxLevel`, `noOfQuestions`) VALUES
 (6, 2, 4, 2, 2, 20),
-(9, 8, 4, 3, 3, 20),
-(10, 8, 11, 2, 2, 30),
-(11, 2, 12, 3, 3, 30),
-(13, 2, 11, 1, 1, 10);
+(11, 2, 12, 2, 2, 1),
+(13, 2, 11, 1, 1, 10),
+(14, 8, 4, 2, 2, 2),
+(15, 8, 11, 1, 1, 4),
+(16, 8, 12, 1, 1, 2),
+(20, 8, 11, 1, 1, 3),
+(21, 8, 11, 1, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -237,9 +244,18 @@ CREATE TABLE `questions` (
 --
 
 INSERT INTO `questions` (`id`, `categoryId`, `question`, `level`, `answer`, `choice2`, `choice3`, `choice4`) VALUES
-(4, 4, '&lt;p&gt;Who is famous for formula to calculate hypotenuse for right angle traingle?&lt;/p&gt;\n', 2, 'Pythagorus', 'Niels Bohr', 'Einstein', 'Newton'),
-(5, 11, '&lt;p&gt;Which is not a programming language?&lt;/p&gt;\n', 3, 'Lotus', 'C', 'R', 'Java'),
-(6, 12, '&lt;p&gt;Is debit&lt;strong&gt; good&lt;/strong&gt;?&lt;/p&gt;\n', 1, 'No', 'I dont know.', 'Yes', 'Depends');
+(4, 4, 'Who is famous for formula to calculate hypotenuse for right angle traingle?\r\n', 2, 'Pythagorus', 'Niels Bohr', 'Einstein', 'Newton'),
+(5, 11, 'Which is not a programming language?\r\n', 3, 'Lotus', 'C', 'R', 'Java'),
+(6, 12, 'Is debit&lt;strong&gt; good&lt;/strong&gt;?\r\n', 1, 'No', 'I dont know.', 'Yes', 'Depends'),
+(7, 11, 'Who is father of Computer?\r\n', 1, 'Charles Babbage', 'Niels Bohr', 'Lady Augusta', 'Steve Jobs'),
+(8, 11, 'What is binary of 7?\r\n', 1, '111', '101', '10', '1111'),
+(9, 11, 'What is full form of RAM?\r\n', 1, 'Random Access Memory', 'Ram And Manish', 'Read Access Memory', 'Read And Memory'),
+(10, 12, 'Who is responsible for Eversoft finance?\r\n', 1, 'Pradip', 'Saroj', 'Raju', 'Pravhu'),
+(11, 12, 'What is the cost of Web Hosting in Eversoft (p.a)?\r\n', 1, '1250', '5000', '200', '340'),
+(12, 4, 'Which one is a prime number?\r\n', 1, '13', '21', '25', '18'),
+(13, 4, 'What is value of 3! ?\r\n', 2, '6', '9', '21', '27'),
+(14, 12, 'When was Eversoft started?\r\n', 2, '2015', '2017', '2018', '2014'),
+(15, 11, 'How are you?', 1, '2', '3', '1', '9');
 
 -- --------------------------------------------------------
 
@@ -249,13 +265,39 @@ INSERT INTO `questions` (`id`, `categoryId`, `question`, `level`, `answer`, `cho
 
 CREATE TABLE `record` (
   `id` int(11) NOT NULL,
+  `examId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
   `categoryId` int(11) NOT NULL,
   `questionId` int(11) NOT NULL,
-  `choice` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `rightAnswer` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `question` varchar(1200) COLLATE utf8_unicode_ci NOT NULL,
+  `userAnswer` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `answer` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `choice2` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `choice3` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `choice4` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `result` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Daten für Tabelle `record`
+--
+
+INSERT INTO `record` (`id`, `examId`, `userId`, `categoryId`, `questionId`, `question`, `userAnswer`, `answer`, `choice2`, `choice3`, `choice4`, `result`) VALUES
+(191, 22, 54, 4, 4, 'Who is famous for formula to calculate hypotenuse for right angle traingle?\r\n', NULL, 'Pythagorus', 'Niels Bohr', 'Einstein', 'Newton', 0),
+(192, 22, 54, 4, 13, 'What is value of 3! ?\r\n', NULL, '6', '9', '21', '27', 0),
+(193, 22, 54, 11, 7, 'Who is father of Computer?\r\n', NULL, 'Charles Babbage', 'Niels Bohr', 'Lady Augusta', 'Steve Jobs', 0),
+(194, 22, 54, 11, 8, 'What is binary of 7?\r\n', NULL, '111', '101', '10', '1111', 0),
+(195, 22, 54, 11, 9, 'What is full form of RAM?\r\n', NULL, 'Random Access Memory', 'Ram And Manish', 'Read Access Memory', 'Read And Memory', 0),
+(196, 22, 54, 11, 15, 'How are you?', NULL, '2', '3', '1', '9', 0),
+(197, 22, 54, 12, 6, 'Is debit&lt;strong&gt; good&lt;/strong&gt;?\r\n', NULL, 'No', 'I dont know.', 'Yes', 'Depends', 0),
+(198, 22, 54, 12, 11, 'What is the cost of Web Hosting in Eversoft (p.a)?\r\n', NULL, '1250', '5000', '200', '340', 0),
+(199, 22, 54, 11, 7, 'Who is father of Computer?\r\n', NULL, 'Charles Babbage', 'Niels Bohr', 'Lady Augusta', 'Steve Jobs', 0),
+(200, 22, 54, 11, 8, 'What is binary of 7?\r\n', NULL, '111', '101', '10', '1111', 0),
+(201, 22, 54, 11, 9, 'What is full form of RAM?\r\n', NULL, 'Random Access Memory', 'Ram And Manish', 'Read Access Memory', 'Read And Memory', 0),
+(202, 22, 54, 11, 7, 'Who is father of Computer?\r\n', NULL, 'Charles Babbage', 'Niels Bohr', 'Lady Augusta', 'Steve Jobs', 0),
+(203, 22, 54, 11, 8, 'What is binary of 7?\r\n', NULL, '111', '101', '10', '1111', 0),
+(204, 22, 54, 11, 9, 'What is full form of RAM?\r\n', NULL, 'Random Access Memory', 'Ram And Manish', 'Read Access Memory', 'Read And Memory', 0),
+(205, 22, 54, 11, 15, 'How are you?', NULL, '2', '3', '1', '9', 0);
 
 -- --------------------------------------------------------
 
@@ -264,11 +306,19 @@ CREATE TABLE `record` (
 --
 
 CREATE TABLE `timetrack` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL COMMENT 'examId for others',
   `userId` int(11) NOT NULL,
+  `programId` int(11) NOT NULL,
   `remainingTime` int(11) NOT NULL,
-  `isSubmitted` tinyint(1) NOT NULL
+  `isSubmitted` varchar(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'false'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Daten für Tabelle `timetrack`
+--
+
+INSERT INTO `timetrack` (`id`, `userId`, `programId`, `remainingTime`, `isSubmitted`) VALUES
+(22, 54, 8, 0, 'true');
 
 -- --------------------------------------------------------
 
@@ -277,7 +327,7 @@ CREATE TABLE `timetrack` (
 --
 
 CREATE TABLE `userlogin` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL COMMENT 'userID for others',
   `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `fname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `mname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -300,7 +350,9 @@ INSERT INTO `userlogin` (`id`, `username`, `fname`, `mname`, `lname`, `email`, `
 (33, 'pravhu', 'Pravhu', '', 'Gurung', 'admin44@admin.com', 'e00cf25ad42683b3df678c61f42c6bda', 1),
 (34, 'teacher', 'Raju', 'Prasad', 'Lamsal', 'teacher@teacher.com', '41c8949aa55b8cb5dbec662f34b62df3', 2),
 (35, 'test1', 'Test', '', 'User', 'test@test.com', 'e00cf25ad42683b3df678c61f42c6bda', 1),
-(54, 'saroj22322', 'Saroj', '', 'Tripathi', 'saroj@admin.com', '11d3d3a67cd34bfc05ca02bff3fd55de', 3);
+(54, 'saroj22322', 'Saroj', '', 'Tripathi', 'saroj@admin.com', '11d3d3a67cd34bfc05ca02bff3fd55de', 3),
+(68, 'pradip222', 'Pradip', '', '', '', 'bd1e1f105485d1dfab0ebfc0de3214be', 3),
+(69, 'pradip22', 'Pradip', '', '', '', '71b01924a11a127da7122628a813a15b', 3);
 
 --
 -- Indizes der exportierten Tabellen
@@ -398,61 +450,61 @@ ALTER TABLE `connection`
 -- AUTO_INCREMENT für Tabelle `contactdetails`
 --
 ALTER TABLE `contactdetails`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT für Tabelle `documents`
 --
 ALTER TABLE `documents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT für Tabelle `education`
 --
 ALTER TABLE `education`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT für Tabelle `personaldata`
 --
 ALTER TABLE `personaldata`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT für Tabelle `program`
 --
 ALTER TABLE `program`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT für Tabelle `questionmodel`
 --
 ALTER TABLE `questionmodel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT für Tabelle `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT für Tabelle `record`
 --
 ALTER TABLE `record`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=206;
 
 --
 -- AUTO_INCREMENT für Tabelle `timetrack`
 --
 ALTER TABLE `timetrack`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'examId for others', AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT für Tabelle `userlogin`
 --
 ALTER TABLE `userlogin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'userID for others', AUTO_INCREMENT=70;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
