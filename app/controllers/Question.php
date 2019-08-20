@@ -293,7 +293,7 @@ class Question extends Controller {
 					}
 				}else {
 					$result['status'] = 0;
-					$validate->addError("Not sufficient Questions of this level and category in Database!");
+					$validate->addError("Only ".count($resultOfSearch)." questions of this level and category are available in Database!");
 				}							
 			} else {
 				$result['errors'] = $validate->addError("No such model found.");
@@ -337,7 +337,7 @@ class Question extends Controller {
 				}
 			}else {
 				$result['status'] = 0;
-				$validate->addError("Not sufficient Questions of this level and category in Database!");
+				$validate->addError("Only ".count($resultOfSearch)." questions of this level and category are available in Database!");
 			}
 			
 		} else {

@@ -227,13 +227,39 @@ class Test extends Controller {
 
 
 	public function update($name = "") {
-		if(Session::isLoggedIn() && isset($_POST) && $name == "status") {
+		if(Session::isLoggedIn() && isset($_POST['examId']) && $name == "status") {
 			return $this->updateExamStatus();
-		}else if(Session::isLoggedIn() && isset($_POST) && $name == "answer") {
+		}else if(Session::isLoggedIn() && isset($_POST['examId']) && $name == "answer") {
 			return $this->updateExamAnswer();
+		}else if(Session::isLoggedIn() && isset($_POST['examId']) && $name == "get") {
+			return $this->updateExamRecords();
 		}else{
 			header("Location: ".SITE_URL."/home/message");			
 		}
+	}
+
+	private function updateExamRecords() {
+		$response = array("success" => 0, "records" => array());
+		$data = array();
+		foreach ($_POST as $key => $value) {
+			$data[$key] = Input::get($key);
+		}
+		if($data['examId'] > 0) {
+			$allRecords = $this->searchDataFromTable("record", array("examId" => $data['examId']));
+			if(count($allRecords) > 0) {
+				$response['success'] = 1;
+				$sortForId = $this->sortForCategoryId($allRecords);
+				foreach ($sortForId as $key => $value) {
+					$countOfkey = 0;
+					foreach ($value as $index => $wert) {
+						if($wert["userAnswer"] != null && $wert["userAnswer"] != "") $countOfkey++;
+					}
+					$response['records'][$key] = $countOfkey;
+				}
+			}
+		}
+		unset($_POST);
+		return print json_encode($response);
 	}
 
 	private function updateExamStatus() {
@@ -265,7 +291,9 @@ class Test extends Controller {
 			"examId" => $data['examId'],
 			"questionId" => $data['questionId']
 		));
+		$response = array("newAnswer" => 0);
 		if(count($primKey) > 0) {
+			if($primKey[0]['userAnswer'] == null || $primKey[0]['userAnswer'] == "") $response['newAnswer'] = 1;
 			if(strtolower(trim(str_replace(' ', '', $primKey[0]['answer']))) == strtolower(trim(str_replace(' ', '', $data['userAnswer'])))) {
 				$data['result'] = 1;
 			} else {
@@ -279,6 +307,7 @@ class Test extends Controller {
 			));
 		}
 		unset($_POST);
+		return print json_encode($response);
 	}
 
 	private function setDataToTable($tableName, $data) {

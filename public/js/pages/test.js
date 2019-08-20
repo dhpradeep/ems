@@ -7,9 +7,46 @@ $(document).ready(function() {
     if (examId <= 0) {
         alert("Error in exam !");
     } else {
+        setAlldata();
         startTimer(time, examId);
     }
 });
+
+
+function setAlldata() {
+    var id = $("#timeTrack").data('exam');
+    $.ajax({
+        url: '../test/update/get',
+        async: true,
+        type: 'POST',
+        data: {
+            examId: id
+        },
+        success: function(response) {
+            var decode = JSON.parse(response);
+            if (decode.success > 0 && Object.keys(decode.records).length > 0) {
+                answered = 0;
+
+                $.each( decode.records, function( key, value ) {
+                    answered += value;
+                    $("#answeredCategory"+key).data('val', value);
+                    $("#answeredCategory"+key).html(value);
+                });
+
+
+                 $('#answered').html(answered);               
+                 $('#answered').data('val', answered); 
+            }
+        },
+        error: function(error) {
+            console.log("Error:");
+            console.log(error.responseText);
+            console.log(error.message);
+        }
+    });
+}
+
+
 
 function startTimer(sec, id) {
     var minutes = Math.floor(sec / 60);
@@ -64,7 +101,10 @@ $(document).on("click", ".answerRadio", function(e) {
     var target = e.target;
     var answer = target.dataset.choice;
     var qid = target.dataset.qid;
+    var cid = target.dataset.cid;
     var id = $("#timeTrack").data('exam');
+    var answered = $("#answered").data('val');
+    var catAnswered = $("#answeredCategory"+cid).data('val');
     $.ajax({
         url: '../test/update/answer',
         async: true,
@@ -73,6 +113,22 @@ $(document).on("click", ".answerRadio", function(e) {
             examId: id,
             questionId: qid,
             userAnswer: answer,
+        },
+        success: function(response) {
+            var decode = JSON.parse(response);
+            if (decode.newAnswer > 0) {
+                answered += 1;
+                catAnswered += 1;
+                 $('#answered').html(answered);               
+                 $('#answered').data('val', answered);  
+                 $("#answeredCategory"+cid).data('val', catAnswered);
+                 $("#answeredCategory"+cid).html(catAnswered);
+            }
+        },
+        error: function(error) {
+            console.log("Error:");
+            console.log(error.responseText);
+            console.log(error.message);
         }
     });
 });

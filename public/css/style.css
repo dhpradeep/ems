@@ -1,10 +1,13 @@
-#time {
-    font-size: 20px;
+#time, #questionsRecord{
+    font-size: 1.4em;
     color: black;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-align: center;
     position: relative;
+    display: inline-block;
     font-weight: bolder;
+    padding-left: 2px;
+    overflow-x: hidden;
 }
 
 .sticky {
@@ -41,7 +44,7 @@
     color: black;
     height: 100%;
     text-align: center;
-    font-size: 1.4em;
+    font-size: 1.3em;
     padding-top: 7px;
 }
 
@@ -69,9 +72,14 @@
     width: 33.32%;
 }
 
+.nav .active{
+    background: rgba(220, 220, 220, 0.4);
+}
+
 @media screen and (max-width: 767px) {
     /* start of medium tablet styles */
     .mySticky {
         top: 100px;
+        width: 100%;
     }
 }

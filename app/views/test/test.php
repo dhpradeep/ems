@@ -49,11 +49,13 @@
                     <ul class="nav" id="myTabs" role="tablist">
                         <?php
                             $i = 0;
+                            $totalQuestions = 0;
                             foreach ($this->questions as $key => $value) {
+                            $totalQuestions += count($value);
                         ?>
                         <li role="presentation" class="<?php echo ($i==0) ? "active" : ""; ?>">
                             <a href="#category<?= $key ?>" class="<?php echo ($i==0) ? "" : ""; $i++ ?>"  aria-controls="category<?= $key ?>" role="tab" data-toggle="tab">
-                                <?php  echo (isset($this->categories[$key])) ? $this->categories[$key][0]['name'] : "Unknown"; ?>
+                                <?php  echo (isset($this->categories[$key])) ? $this->categories[$key][0]['name'] : "Unknown"; ?> (<span data-val="0" id = "answeredCategory<?= $key ?>">0</span>/<span><?= count($value) ?>)</span>
                             </a>
                         </li>
                         <?php
@@ -68,14 +70,21 @@
         </nav>
 
         <div id="page-wrapper">
-
+            <?php 
+                if(is_null($this->errors) || count($this->errors) <= 0) {
+            ?>
                 <div class="row mySticky">
                     <div class="mydiv navbtn prevbtn">
                         <div class="cur previous">Previous</div>
                     </div>
                         <!-- <button type="submit"  name="test_submit" class="btn btn-success">Previous</button> -->
                     <div class="mydiv">
-                        <div id="time"></div>
+                        <div class="row" style="margin: 0px 0px;">
+                            <div id="time" class="col col-md-6"> Time </div>
+                            <div id="questionsRecord" class="col col-md-6">
+                                (<span id="answered" data-val="0" >0</span>/<span><?= $totalQuestions ?>)</span>
+                            </div>
+                        </div>
                     </div>    
                     <div class="mydiv text-right navbtn nextbtn">
                         <div class="cur next">Next</div>
@@ -84,8 +93,9 @@
                     </div>
                 </div>
             <!-- /.row -->
-            <?php 
-                if(!is_null($this->errors) && count($this->errors) > 0) {
+                <?php
+                    }
+                    if(!is_null($this->errors) && count($this->errors) > 0) {
                     echo "<br><br><br>";
                     foreach ($this->errors as $value) {
                                 ?>
@@ -150,7 +160,7 @@
                                                     <div class="radio radio-primary">
                                                         <label>
                                                         <input class="answerRadio" type="radio"
-                                                         data-qid="<?= $question['questionId'] ?>" data-choice="<?= $question['choice1'] ?>" name="<?= $question['id'] ?>"<?php
+                                                         data-qid="<?= $question['questionId'] ?>" data-cid="<?= $question['categoryId'] ?>" data-choice="<?= $question['choice1'] ?>" name="<?= $question['id'] ?>"<?php
                                                             echo ($question['choice1'] == $question['userAnswer']) ? " checked" : "";
                                                          ?>><?= $question['choice1'] ?><br>
                                                     </label>
@@ -160,7 +170,7 @@
                                                     <div class="radio radio-primary">
                                                         <label>
                                                         <input class="answerRadio" type="radio" 
-                                                        data-qid="<?= $question['questionId'] ?>" data-choice="<?= $question['choice2'] ?>" name="<?= $question['id'] ?>"<?php
+                                                        data-qid="<?= $question['questionId'] ?>" data-cid="<?= $question['categoryId'] ?>" data-choice="<?= $question['choice2'] ?>" name="<?= $question['id'] ?>"<?php
                                                             echo ($question['choice2'] == $question['userAnswer']) ? " checked" : "";
                                                          ?>><?= $question['choice2'] ?><br>
                                                     </label>
@@ -171,7 +181,7 @@
                                                     <div class="radio radio-primary">
                                                         <label>
                                                         <input class="answerRadio" type="radio" 
-                                                        data-qid="<?= $question['questionId'] ?>" data-choice="<?= $question['choice3'] ?>" name="<?= $question['id'] ?>"<?php
+                                                        data-qid="<?= $question['questionId'] ?>" data-cid="<?= $question['categoryId'] ?>" data-choice="<?= $question['choice3'] ?>" name="<?= $question['id'] ?>"<?php
                                                             echo ($question['choice3'] == $question['userAnswer']) ? " checked" : "";
                                                          ?>><?= $question['choice3'] ?><br>
                                                     </label>
@@ -182,7 +192,7 @@
                                                     <div class="radio radio-primary">
                                                         <label>
                                                         <input class="answerRadio" type="radio" 
-                                                        data-qid="<?= $question['questionId'] ?>" data-choice="<?= $question['choice4'] ?>" name="<?= $question['id'] ?>"<?php
+                                                        data-qid="<?= $question['questionId'] ?>" data-cid="<?= $question['categoryId'] ?>" data-choice="<?= $question['choice4'] ?>" name="<?= $question['id'] ?>"<?php
                                                             echo ($question['choice4'] == $question['userAnswer']) ? " checked" : "";
                                                          ?>><?= $question['choice4'] ?><br>
                                                     </label>
