@@ -21,7 +21,7 @@ function educationFormatter(i) {
         '</select>' +
         '</div>' +
         '<div class="form-group col-md-3">' +
-        '<label for="board' + i + '">Board *</label>' +
+        '<label for="board' + i + '">Board</label>' +
         '<input type="text" class="form-control" name="board' + i + '" id="board' + i + '" placeholder="Board" />' +
         '<span class="help-inline"></span>' +
         '</div>' +
@@ -33,17 +33,17 @@ function educationFormatter(i) {
         '<div class="form-group col-md-1"></div></div>'+
         '<div>' +
         '<div class="form-group col-md-3">' +
-        '<label for="yearOfCompletion' + i + '">Y.O.C *</label>' +
+        '<label for="yearOfCompletion' + i + '">Y.O.C</label>' +
         '<input type="text" class="form-control" name="yearOfCompletion' + i + '" id="yearOfCompletion' + i + '" placeholder="Year of completion" />' +
         '<span class="help-inline"></span>' +
         '</div>' +
         '<div class="form-group col-md-3">' +
-        '<label for="percent' + i + '">Percent/GPA *</label>' +
+        '<label for="percent' + i + '">Percent/GPA</label>' +
         '<input type="text" class="form-control" name="percent' + i + '" id="percent' + i + '" placeholder="Percent/GPA" />' +
         '<span class="help-inline"></span>' +
         '</div>' +
         '<div class="form-group col-md-5">' +
-        '<label for="institution' + i + '">Institute *</label>' +
+        '<label for="institution' + i + '">Institute</label>' +
         '<input type="text" class="form-control" name="institution' + i + '" id="institution' + i + '" placeholder="Institute" />' +
         '<span class="help-inline"></span>' +
         '</div>' +

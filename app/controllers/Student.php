@@ -12,7 +12,7 @@ class Student extends Controller {
 
 	public function all($name = "") {
 		$this->model->setTable('userlogin');
-		if(($name == "export" || $name == "add" || $name == "update" || $name == "delete" || $name == "get") && Session::isLoggedIn(1)) {
+		if(($name == "add" || $name == "update" || $name == "delete" || $name == "get") && Session::isLoggedIn(1)) {
 			$result = array('status' => 0);	
 			if(isset($_POST) && count($_POST) > 0) {
 				if($name == "get") {
@@ -26,9 +26,6 @@ class Student extends Controller {
 				}
 				if($name == "add") {
 					return $this->addStudent($result);
-				}
-				if($name == "export") {
-					return $this->exportStudent($result);
 				}
 			}else{
 				header("Location: ".SITE_URL."/home/dashboard");
@@ -243,7 +240,86 @@ class Student extends Controller {
 
 	private function updateStudent($result) {
 		$validate = new Validator();
-		$validation = $validate->check($_POST, array());
+		$validation = $validate->check($_POST, array(
+			'fname' => array(
+				'name' => 'First Name',
+				'required' => true,
+				'min' => 1,
+				'max' => 255
+			),
+			'lname' => array(
+				'name' => 'Last Name',
+				'required' => true,
+				'min' => 1,
+				'max' => 255
+			),
+			'programId' => array(
+				'name' => 'Program',
+				'required' => true,
+				'minLevel' => 1
+			),
+			'doa' => array(
+				'name' => 'Date of Application',
+				'required' => true
+			),
+			'dobAd' => array(
+				'name' => 'Date of Birth(A.D)',
+				'required' => true
+			),
+			'gender' => array(
+				'name' => 'Gender',
+				'required' => true,
+				'minLevel' => 1,
+				'maxLevel' => 4
+			),
+			'municipality' => array(
+				'name' => 'Municipality',
+				'required' => true,
+				'min' => 1,
+				'max' => 255
+			),
+			'wardNo' => array(
+				'name' => 'Ward Number',
+				'required' => true,
+				'minLevel' => 1,
+				'maxLevel' => 1000
+			),
+			'area' => array(
+				'name' => 'Area',
+				'required' => true,
+				'min' => 1,
+				'max' => 255
+			),
+			'district' => array(
+				'name' => 'District',
+				'required' => true,
+				'min' => 1,
+				'max' => 255
+			),
+			'zone' => array(
+				'name' => 'Zone',
+				'required' => true,
+				'min' => 1,
+				'max' => 255
+			),
+			'email' => array(
+				'name' => 'Email',
+				'required' => true,
+				'type' => 'email'
+			),
+			'formNo' => array(
+				'name' => 'Form No.',
+				'required' => true,
+				'min' => 1,
+				'max' => 255
+			),
+			'entranceNo' => array(
+				'name' => 'Registration No.',
+				'required' => true,
+				'min' => 1,
+				'max' => 255
+			)
+		));
 		if($validate->passed()){
 			$dataForSearch = array('id' => $_POST['id']);
 			$res = $this->model->searchStudent($dataForSearch);
@@ -367,6 +443,8 @@ class Student extends Controller {
 						if($count == count($registeredId) || isChanged) {
 							$isChanged = true;
 						}
+					}else {
+						$isChanged = true;
 					}
 					if($isChanged) {
 						$result['status'] = 1;
@@ -392,8 +470,12 @@ class Student extends Controller {
 			$result['status'] = 0;
 		}
 		if($result['status'] == 0 || $result['status'] == -1) {
-			$result['errors'] = $validate->errors();
 			$result['success'] = false;
+			if(count($validate->errors()) >= 5){
+				$result['errors'] = array("Field(*) are required.");
+			}else{
+				$result['errors'] = $validate->errors();
+			}
 		} 
 		unset($_POST);
 		return print json_encode($result);	
@@ -433,6 +515,18 @@ class Student extends Controller {
 				'minLevel' => 1,
 				'maxLevel' => 4
 			),
+			'municipality' => array(
+				'name' => 'Municipality',
+				'required' => true,
+				'min' => 1,
+				'max' => 255
+			),
+			'wardNo' => array(
+				'name' => 'Ward Number',
+				'required' => true,
+				'minLevel' => 1,
+				'maxLevel' => 1000
+			),
 			'area' => array(
 				'name' => 'Area',
 				'required' => true,
@@ -447,12 +541,6 @@ class Student extends Controller {
 			),
 			'zone' => array(
 				'name' => 'Zone',
-				'required' => true,
-				'min' => 1,
-				'max' => 255
-			),
-			'mobileNo' => array(
-				'name' => 'Mobile No.',
 				'required' => true,
 				'min' => 1,
 				'max' => 255
@@ -584,6 +672,9 @@ class Student extends Controller {
 											$validate->addError("Can't add to education table.");		
 										}
 										
+									}else {
+										$result['status'] = 1;
+										$result['success'] = true;
 									}
 								}else {
 									$this->deleteDataFromTable("userlogin", $userId);
@@ -614,19 +705,19 @@ class Student extends Controller {
 				if(count($isEmailRegistered) != 0) {
 					$validate->addError("Email already registered!");
 				}
-				$result['status'] = 0;				
+				$result['status'] = 0;			
 			}
 			
 		} else {
 			$result['status'] = 0;
+		}
+		if($result['status'] == 0 || $result['status'] == -1) {
+			$result['success'] = false;
 			if(count($validate->errors()) >= 5){
 				$result['errors'] = array("Field(*) are required.");
 			}else{
 				$result['errors'] = $validate->errors();
 			}
-		}
-		if($result['status'] == 0 || $result['status'] == -1) {
-			$result['success'] = false;
 		} 
 		unset($_POST);
 		return print json_encode($result);	
@@ -661,10 +752,6 @@ class Student extends Controller {
 		$this->foreignModel->setTable($tableName);
 		return $this->foreignModel->getStudentId($data);
 	} 
-
-	private function exportStudent($result) {
-		var_dump($this->model->searchStudent(array("role" => 3)));
-	}
 }
 
 ?>

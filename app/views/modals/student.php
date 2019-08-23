@@ -122,7 +122,7 @@
                                 <span class="help-inline"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="dobAd">Date of Birth (A.D)</label>
+                                <label for="dobAd">Date of Birth (A.D) *</label>
                                 <input type="date" class="form-control" name="dobAd" id="dobAd" placeholder="Date of Birth" />
                                 <span class="help-inline"></span>
                             </div>
@@ -169,12 +169,12 @@
 
                     <div role="tabpanel" class="tab-pane" id="cdetails">
                             <div class="form-group col-md-6">
-                                <label for="municipality">Municipality</label>
+                                <label for="municipality">Municipality *</label>
                                 <input type="text" class="form-control" name="municipality" id="municipality" placeholder="Municipality" />
                                 <span class="help-inline"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="wardNo">Ward. NO</label>
+                                <label for="wardNo">Ward. No *</label>
                                 <input type="number" class="form-control" name="wardNo" id="wardNo" placeholder="Ward. NO" />
                                 <span class="help-inline"></span>
                             </div>
@@ -194,7 +194,7 @@
                                 <span class="help-inline"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="mobileNo">Mobile No *</label>
+                                <label for="mobileNo">Mobile No</label>
                                 <input type="text" class="form-control" name="mobileNo" id="mobileNo" placeholder="Mobile No" />
                                 <span class="help-inline"></span>
                             </div>
