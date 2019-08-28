@@ -18,6 +18,10 @@ function resetFields() {
 }
 
 function create_question(data = null) {
+
+    $('#toHideForPassage').hide();
+    $("#toHideForLink").hide();
+
     if (data != null) {
         if (data != undefined) {
             CKEDITOR.instances['question'].setData(data.question);
@@ -43,6 +47,7 @@ function create_question(data = null) {
 
 $(document).ready(function() {
     CKEDITOR.replace('question');
+    CKEDITOR.replace('editPassage');
     CKEDITOR.config.autoParagraph = false;
     refresh();
 });
@@ -328,3 +333,26 @@ function getAllData() {
         create_question(row.data());
     });
 }
+
+$(document).on('click', '#createNewPassage', function() {
+    $(this).toggleClass("edit-active")
+    if ($(this).hasClass("edit-active")) {
+        $(this).html("clear passage")
+        $("#passageList").attr('disabled', true)
+        $("#passageList").val("-1")
+        $('#toHideForPassage').show()
+    } else {
+        $(this).html("create new")
+        $("#passageList").attr('disabled', false)
+        CKEDITOR.instances['editPassage'].setData("")
+        $('#toHideForPassage').hide()
+    }
+})
+
+$(document).on('change', "#passage", function() {
+    if ($("#passage").val() == -1) {
+        $("#toHideForLink").hide();
+    } else {
+        $("#toHideForLink").show();
+    }
+})

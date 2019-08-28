@@ -6,6 +6,29 @@
                     <h3>Manage Questions</h3>
                 </div>
                 <div class="modal-body col-md-12">
+                    <div class="form-group col-md-6">
+                        <label>Contain Passage ?</label>
+                        <select class="form-control" id="passage" name="level">
+                            <option value="-1" name="Basic">None</option>
+                            <option value="2" name="Medium">Passage</option>
+                        </select>
+                        <p class="help-inline"></p>
+                    </div>
+                    <div class="form-group col-md-6" id="toHideForLink">
+                        <label>link with</label>
+                        <select class="form-control" id="passageList" name="level">
+                            <option value="-1" name="Basic">None</option>
+                            <option value="1" name="Basic">Passage 1</option>
+                            <option value="2" name="Medium">Passage 2</option>
+                            <option value="2" name="Medium">Passage 3</option>
+                        </select> or <span style="color:blue;cursor:pointer" id="createNewPassage">create new</span>
+                        <p class="help-inline"></p>
+                    </div>
+                    <div id="toHideForPassage" class="form-group col-md-12">
+                        <input id="edit-passage" type="hidden"/>
+                        <label>Passage</label>
+                        <textarea name="editPassage" class="ckeditor" id="editPassage" required></textarea>
+                    </div>
                     <div class="form-group col-md-12">
                         <input id="questionId" type="hidden"/>
                         <label>Question</label>
