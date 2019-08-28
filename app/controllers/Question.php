@@ -45,7 +45,7 @@ class Question extends Controller {
     
     public function all($name = "") {
 		$this->model->setTable('questions');
-		if(($name == "add" || $name == "update" || $name == "delete" || $name == "get") && Session::isLoggedIn(1)) {
+		if(($name == "add" || $name == "update" || $name == "delete" || $name == "get" || $name == "getPassages") && Session::isLoggedIn(1)) {
 			$result = array('status' => 0);	
 			if(isset($_POST) && count($_POST) > 0) {
 				if($name == "get") {
@@ -60,6 +60,9 @@ class Question extends Controller {
 				if($name == "add") {
 					return $this->addQuestion($result);
 				}
+				if($name == "getPassages") {
+					return $this->getPassagesPrivate($result);
+				}
 			}else{
 				header("Location: ".SITE_URL."/home/dashboard");
 			}	
@@ -69,6 +72,10 @@ class Question extends Controller {
 				$this->model->setTable('category');
 				$all = $this->model->getAllQuestion();
 				$this->model->data['category'] = $all;
+				/*$this->setForeignModel('QuestionModel');
+				$this->foreignModel->setTable('passage');
+				$allPassage = $this->foreignModel->getAllQuestion();
+				$this->model->data['passages'] = $allPassage;*/
 				$this->model->template = VIEWS_DIR.DS."questions".DS."questions.php";
 				$this->view->render();
 			}else {
@@ -691,6 +698,35 @@ class Question extends Controller {
 		return print json_encode($result);			
 	}
 
+	private function getPassagesPrivate($result) {
+    	if(!isset($_POST['confirm']) || $_POST['confirm'] != 1) {
+			$result['error'] = array("Invalid selection.");
+			$result['status'] = 0;
+		}else {
+			$this->setForeignModel("QuestionModel");
+			$this->foreignModel->setTable("passage");
+			$res = $this->foreignModel->getAllQuestion();
+			if(count($res) > 0) {
+				$result['passages'] = $this->sortForId($res);
+				$result['status'] = 1;
+			}else {
+				$result['error'] = array("No passages found");
+				$result['status'] = 0;
+			}
+		}
+		$result['success'] = ($result['status'] == 1) ? true : false;
+		unset($_POST);
+		return print json_encode($result);
+    }
+
+    private function sortForId($records) {
+		$finalOutput = array();
+		foreach ($records as $value) {
+			$finalOutput[$value['id']] = $value;			
+		}
+		return $finalOutput;
+	}
+
 	private function getQuestion($result) {
 		$startIndex = $_POST['start'];
 		$totalCount = $_POST['length'];
@@ -752,6 +788,21 @@ class Question extends Controller {
 					$arr[$index]['levelName'] = "Hard";
 					break;
 			}
+			if($arr[$index]['passageId'] > 0) {
+				$this->setForeignModel("QuestionModel");
+				$this->foreignModel->setTable("passage");
+				$co = $this->foreignModel->searchQuestion(array('id' => $arr[$index]['passageId']));
+				if(count($co) > 0) {
+					$arr[$index]['containPassage'] = 1;
+					$arr[$index]['passageId'] = $co[0]['id'];
+					$arr[$index]['passageTitle'] = $co[0]['passageTitle'];
+					$arr[$index]['passage'] = $co[0]['passage'];
+				}else {
+					$arr[$index]['containPassage'] = 0;
+				}
+			}else {
+				$arr[$index]['containPassage'] = 0;
+			}
 			$index++;
 		}
 
@@ -769,6 +820,8 @@ class Question extends Controller {
 	}
 
 	private function deleteQuestion($result) {
+		$this->setForeignModel('QuestionModel');
+		$this->foreignModel->setTable('passage');
 		if(!isset($_POST['id'])) {
 			$result['error'] = array("Invalid selection.");
 			$result['status'] = 0;
@@ -778,6 +831,12 @@ class Question extends Controller {
 			$res = $this->model->searchQuestion($dataToSearch);
 			if(count($res) >= 1) {
 				$out = $this->model->deleteQuestion($idToDel);
+				if($res[0]['passageId'] >= 1) {
+					$co = $this->model->searchQuestion(array('passageId' => $res[0]['passageId']));
+					if(count($co) < 1) {
+						$this->foreignModel->deleteQuestion($res[0]['passageId']);
+					}
+				}
 				if($out == 1) {
 					$result['status'] = 1;
 				}else {
@@ -795,6 +854,8 @@ class Question extends Controller {
 	}
 
 	private function updateQuestion($result) {
+		$this->setForeignModel('QuestionModel');
+		$this->foreignModel->setTable('passage');
 		$data = array();
 		foreach ($_POST as $key => $value) {
 			$data[$key] = Input::get($key);
@@ -834,19 +895,80 @@ class Question extends Controller {
 		));
 		if(Input::get('level') <= 0 || Input::get('minLevel') > 3 ) $validate->addError("Level isnot valid!");
 		if(Input::get('categoryId') <= 0) $validate->addError("Category not valid!");
+
+		if(Input::get('containPassage') == 1) {
+			if(Input::get('passageId') == -1) {
+				$validation = $validate->check($_POST, array(
+				'passageTitle' => array(
+					'name' => 'Passage Title',
+					'required' => true,
+					'min' => 1,
+					'max' => 50
+				),
+				'passage' => array(
+					'name' => 'Passage Content',
+					'required' => true,
+					'min' => 1,
+					'max' => 10000
+				)));
+				$toAdd = array();
+				$toAdd['passage'] = Input::get('passage');
+				$toAdd['passageTitle'] = Input::get('passageTitle');
+				$idToCheck = Input::get('passageId');
+				$thePassage = $this->foreignModel->searchQuestion($toAdd);
+				if(count($thePassage) > 0) {
+					$validate->addError("Passage you want to create already exists");
+				}
+			}else {
+				$idToCheck = Input::get('passageId');
+				$thePassage = $this->foreignModel->searchQuestion(array('id' => $idToCheck));
+				if(count($thePassage) == 0) {
+					$validate->addError("Passage selected doesnot exist anymore.");
+				}
+			}
+		}
 		if($validate->passed()){
 			$dataForSearch = array('id' => $data['id']);
 			$res = $this->model->searchQuestion($dataForSearch);
 			if(count($res) >= 1) {
 				$idToChange = $data['id'];
 				unset($data['id']);
-				$ret = $this->model->updateQuestion($idToChange, $data);
-				if($ret == 1) {
-					$result['status'] = 1;
-					$result['success'] = true;
-				} else {
+				$resultConf = 0;
+				if(Input::get('containPassage') == 1) {
+					if(Input::get('passageId') == -1) {
+						$toAdd = array();
+						$toAdd['passage'] = Input::get('passage');
+						$toAdd['passageTitle'] = Input::get('passageTitle');
+						$resultConf = $this->foreignModel->registerQuestion($toAdd);
+						$data['passageId'] = $resultConf;
+					}else {
+						$resultConf = 1;
+					}
+				}else {
+					$resultConf = 1;
+					$data['passageId'] = null;
+				}
+				unset($data['containPassage']);
+				unset($data['passage']);
+				unset($data['passageTitle']);
+				if($resultConf > 0) {
+					$ret = $this->model->updateQuestion($idToChange, $data);
+					if($res[0]['passageId'] >= 1) {
+						$co = $this->model->searchQuestion(array('passageId' => $res[0]['passageId']));
+						if(count($co) < 1) {
+							$this->foreignModel->deleteQuestion($res[0]['passageId']);
+						}
+					}
+					if($ret == 1) {
+						$result['status'] = 1;
+						$result['success'] = true;
+					} else {
+						$result['status'] = -1;
+						$result['errors'] = $validate->addError("Nothing updated!");
+					}
+				}else {
 					$result['status'] = -1;
-					$result['errors'] = $validate->addError("Nothing updated!");
+					$result['errors'] = $validate->addError("Problem with passage table!");
 				}							
 			} else {
 				$result['errors'] = $validate->addError("No such category found.");
@@ -864,6 +986,8 @@ class Question extends Controller {
 	}
 
 	private function addQuestion($result){
+		$this->setForeignModel('QuestionModel');
+		$this->foreignModel->setTable('passage');
 		$validate = new Validator();
 		$validation = $validate->check($_POST, array(
 			'question' => array(
@@ -906,20 +1030,75 @@ class Question extends Controller {
 				'minLevel' => 0
 			)
 		));
+		if(Input::get('containPassage') == 1) {
+			if(Input::get('passageId') == -1) {
+				$validation = $validate->check($_POST, array(
+				'passageTitle' => array(
+					'name' => 'Passage Title',
+					'required' => true,
+					'min' => 1,
+					'max' => 50
+				),
+				'passage' => array(
+					'name' => 'Passage Content',
+					'required' => true,
+					'min' => 1,
+					'max' => 10000
+				)));
+				$toAdd = array();
+				$toAdd['passage'] = Input::get('passage');
+				$toAdd['passageTitle'] = Input::get('passageTitle');
+				$idToCheck = Input::get('passageId');
+				$thePassage = $this->foreignModel->searchQuestion($toAdd);
+				if(count($thePassage) > 0) {
+					$validate->addError("Passage you want to create already exists");
+				}
+			} else {
+				$idToCheck = Input::get('passageId');
+				$thePassage = $this->foreignModel->searchQuestion(array('id' => $idToCheck));
+				if(count($thePassage) == 0) {
+					$validate->addError("Passage selected doesnot exist anymore.");
+				}
+			}
+		}
 		if($validate->passed()){
 			$data = array();
 			$data['id'] = null;
 			foreach ($_POST as $key => $value) {
 				$data[$key] = Input::get($key);
 			}
-			$id = $this->model->registerQuestion($data);
-			if($id != 0){
-				$result['status'] = 1;
-				$result['success'] = true;
-			}else{
-				$result['status'] = -1;
-				$result['errors'] = $validate->addError("Problem with connection to server!");
+
+			$resultConf = 0;
+			if(Input::get('containPassage') == 1) {
+				if(Input::get('passageId') == -1) {
+					$toAdd = array();
+					$toAdd['passage'] = Input::get('passage');
+					$toAdd['passageTitle'] = Input::get('passageTitle');
+					$resultConf = $this->foreignModel->registerQuestion($toAdd);
+					$data['passageId'] = $resultConf;
+				}else {
+					$resultConf = 1;
+				}
+			}else {
+				$resultConf = 1;
+				$data['passageId'] = null;
 			}
+			unset($data['containPassage']);
+			unset($data['passage']);
+			unset($data['passageTitle']);
+			if($resultConf > 0) {
+				$id = $this->model->registerQuestion($data);
+				if($id != 0){
+					$result['status'] = 1;
+					$result['success'] = true;
+				}else{
+					$result['status'] = -1;
+					$result['errors'] = $validate->addError("Problem with connection to server!");
+				}
+			}else {
+				$result['status'] = -1;
+				$result['errors'] = $validate->addError("Problem with passage table!");
+			}			
 		} else {
 			$result['status'] = 0;
 		}

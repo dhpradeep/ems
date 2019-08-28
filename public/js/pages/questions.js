@@ -8,22 +8,29 @@ $('#addQuestion').on('hidden.bs.modal', function(e) {
 
 function resetFields() {
     CKEDITOR.instances['question'].setData("");
+    CKEDITOR.instances['passage'].setData("");
     $("#questionId").data('id', '-1');
     $('#answer').val('');
     $('#choice2').val('');
     $('#choice3').val('');
     $('#choice4').val('');
+    $('#containPassage').val('-1');
+    $('#passageList').val('-1');
+    $("#passageList").attr('disabled', false);
+    $('#passageTitle').val("");
+    $('#createNewPassage').html("create new");
+
+    $('#toHideForPassage').hide();
+    $("#toHideForLink").hide();
     //$('#level').val('');
     //$('#categoryId').val('');
 }
 
 function create_question(data = null) {
 
-    $('#toHideForPassage').hide();
-    $("#toHideForLink").hide();
-
     if (data != null) {
         if (data != undefined) {
+            fetchPasses(0, data.passageId);
             CKEDITOR.instances['question'].setData(data.question);
             $("#questionId").data('id', data.id);
             $("#saveBtn")[0].innerHTML = "Update";
@@ -35,6 +42,21 @@ function create_question(data = null) {
             $('#level').val(data.level);
 
             $('#categoryId').val(data.categoryId);
+            if(data.containPassage == 1) {
+                $('#containPassage').val('1');
+                $('#passageList').val(data.passageId);
+                $('#passageTitle').val(data.passageTitle)
+                CKEDITOR.instances['passage'].setData(data.passage);
+                $('#createNewPassage').html("clear passage");
+                if(!$('#createNewPassage').hasClass("edit-active")) {
+                    $('#createNewPassage').toggleClass("edit-active");  
+                }
+                $('#toHideForPassage').show();
+                $("#toHideForLink").show();
+            }else {
+                $('#toHideForPassage').hide();
+                $("#toHideForLink").hide();
+            }         
 
             $('#addQuestion').modal('show');
         }
@@ -47,7 +69,7 @@ function create_question(data = null) {
 
 $(document).ready(function() {
     CKEDITOR.replace('question');
-    CKEDITOR.replace('editPassage');
+    CKEDITOR.replace('passage');
     CKEDITOR.config.autoParagraph = false;
     refresh();
 });
@@ -89,6 +111,20 @@ function updateQuestion() {
         $(this).val($(this).val().trim());
     });
 
+    var containPassage = $('#containPassage').val();
+    var passageId;
+    var passageTitle;
+    var passage;
+    if(containPassage > 0) {
+        passageId = $('#passageList').val();
+        passageTitle = $('#passageTitle').val();
+        passage = $().CKEditorValFor('passage');
+    }else {
+        passageId = -2;
+        passageTitle = "";
+        passage = "";
+    }
+
     var id = $('#questionId').data('id');
     if (id > 0) {
         $.ajax({
@@ -103,7 +139,11 @@ function updateQuestion() {
                 answer: $('#answer').val(),
                 choice2: $('#choice2').val(),
                 choice3: $('#choice3').val(),
-                choice4: $('#choice4').val()
+                choice4: $('#choice4').val(),
+                containPassage : containPassage,
+                passageId : passageId,
+                passageTitle : passageTitle,
+                passage : passage
             },
             success: function(response) {
                 animate(300);
@@ -116,7 +156,7 @@ function updateQuestion() {
                     decode.errors.forEach(function(element) {
                         $.notify(element, "error");
                     });
-                    if (decode.status === -1) $('#addQuestion').modal('hide');
+                    //if (decode.status === -1) $('#addQuestion').modal('hide');
                     return;
                 }
             },
@@ -141,6 +181,20 @@ function addQuestion() {
         $(this).val($(this).val().trim());
     });
 
+    var containPassage = $('#containPassage').val();
+    var passageId;
+    var passageTitle;
+    var passage;
+    if(containPassage > 0) {
+        passageId = $('#passageList').val();
+        passageTitle = $('#passageTitle').val();
+        passage = $().CKEditorValFor('passage');
+    }else {
+        passageId = -2;
+        passageTitle = "";
+        passage = "";
+    }
+
     $.ajax({
         url: '../question/all/add',
         async: true,
@@ -152,7 +206,11 @@ function addQuestion() {
             answer: $('#answer').val(),
             choice2: $('#choice2').val(),
             choice3: $('#choice3').val(),
-            choice4: $('#choice4').val()
+            choice4: $('#choice4').val(),
+            containPassage : containPassage,
+            passageId : passageId,
+            passageTitle : passageTitle,
+            passage : passage
         },
         success: function(response) {
             var decode = JSON.parse(response);
@@ -164,7 +222,7 @@ function addQuestion() {
                 decode.errors.forEach(function(element) {
                     $.notify(element, "error");
                 });
-                if (decode.status == -1) $('#addQuestion').modal('hide');
+                //if (decode.status == -1) $('#addQuestion').modal('hide');
                 return;
             }
         },
@@ -247,7 +305,7 @@ function refresh() {
 
 /* Formatting function for row details*/
 function format(d) {
-    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+    var html = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
         '<tr>' +
         '<td class = "choices">Question:</td>' +
         '<td class = "answers"><b>' + d.question + '</b></td>' +
@@ -267,8 +325,100 @@ function format(d) {
         '<tr>' +
         '<td class = "choices">4th Choice:</td>' +
         '<td class = "answers">' + d.choice4 + '</td>' +
-        '</tr>' +
-        '</table>';
+        '</tr>';
+    if(d.containPassage == 1) {
+        html +='<tr>'+
+            '<td class = "choices">Passage:</td>' +
+            '<td class = "answers">' + d.passageTitle + '</td>' +
+            '</tr>';
+    }
+    html += '</table>';
+
+
+    return html;
+}
+
+$("#addQuestion").on('change', "#containPassage", function(){
+    if($(this).val() == 1) {
+        fetchPasses(0);
+    }
+});
+
+$("#addQuestion").on('change', "#passageList", function(){
+    if($(this).val() != -1) {
+        fetchPasses(1);
+    }else {
+        $('#toHideForPassage').hide();
+    }
+});
+
+function checkObjectSize(obj) {
+    return Object.keys(obj).length;
+}
+
+function fetchPasses(mode, value = -1) {
+    var passageId;
+    if(mode == 1) {
+        passageId = $("#passageList").val();
+    }
+        $.ajax({
+            url: '../question/all/getPassages',
+            async: true,
+            type: 'POST',
+            data: {
+                confirm: 1
+            },
+            success: function(response) {
+                var decode = JSON.parse(response);
+                if (decode.success == true) {
+                    var html = '<option value="-1">None</option>';
+                    if (checkObjectSize(decode.passages) >= 1) {
+                        if(mode == 1) {              
+                            if(decode.passages[passageId] != undefined ) {
+                                $('#passageTitle').val(decode.passages[passageId].passageTitle);
+                                //CKEDITOR.instances['passage'].setData("");
+                                CKEDITOR.instances['passage'].setData(decode.passages[passageId].passage);
+                            }else {
+                                $('#passageTitle').val("");
+                                CKEDITOR.instances['passage'].setData("");
+                            }
+                            return;
+                        }
+                        var key;
+                        for (key in decode.passages) {
+                            html += '<option value="' + decode.passages[key].id + '">' + decode.passages[key].passageTitle + '</option>';
+                        }
+                    } else {
+                       $.notify("No passages found.", "error");
+                    }
+                    $('#passageList').html(html);
+
+                    if(mode == 0 && value != -1 && value != undefined) {
+                        $('#passageList').val(value);
+                        console.log("hel");
+                    }
+                } else if (decode.success === false) {
+                    if($('#containPassage').val() == 1) {
+                        var html = '<option value="-1">None</option>';
+                        if (decode.error != undefined) {
+                            $.notify(decode.error[0], "error");
+                        } else {
+                            $.notify("Problem fetching passages.", "error");
+                        }
+                        if(mode == 0) $('#passageList').html(html);
+                    }
+                    return;
+                }
+            },
+            error: function(error) {
+                if (error.responseText) {
+                    var msg = JSON.parse(error.responseText)
+                    $.notify(msg.msg, "error");
+                }
+                return;
+            }
+        });
+    
 }
 
 function getAllData() {
@@ -296,7 +446,12 @@ function getAllData() {
             {
                 "data": "question"
             },
-            { "data": "category" },
+            { "data": "category",
+                sortable: true,
+                "render": function(data, type, row, meta) {
+                    return (row.containPassage == 1) ? "(P) "+ row.category : row.category;
+                }
+            },
             { "data": "levelName" },
             {
                 sortable: false,
@@ -344,14 +499,20 @@ $(document).on('click', '#createNewPassage', function() {
     } else {
         $(this).html("create new")
         $("#passageList").attr('disabled', false)
-        CKEDITOR.instances['editPassage'].setData("")
+        CKEDITOR.instances['passage'].setData("")
+        $("#passageTitle").val('');
+        $("#passageList").val("-1");
         $('#toHideForPassage').hide()
     }
 })
 
-$(document).on('change', "#passage", function() {
-    if ($("#passage").val() == -1) {
+$(document).on('change', "#containPassage", function() {
+    if ($("#containPassage").val() == -1) {
         $("#toHideForLink").hide();
+        CKEDITOR.instances['passage'].setData("")
+        $("#passageTitle").val('');
+        $("#passageList").val("-1");
+        $('#toHideForPassage').hide()
     } else {
         $("#toHideForLink").show();
     }

@@ -8,26 +8,36 @@
                 <div class="modal-body col-md-12">
                     <div class="form-group col-md-6">
                         <label>Contain Passage ?</label>
-                        <select class="form-control" id="passage" name="level">
-                            <option value="-1" name="Basic">None</option>
-                            <option value="2" name="Medium">Passage</option>
+                        <select class="form-control" id="containPassage" name="level">
+                            <option value="-1" name="none">No</option>
+                            <option value="1" name="passage">Yes</option>
                         </select>
                         <p class="help-inline"></p>
                     </div>
                     <div class="form-group col-md-6" id="toHideForLink">
-                        <label>link with</label>
+                        <label>Select passage</label>
                         <select class="form-control" id="passageList" name="level">
-                            <option value="-1" name="Basic">None</option>
-                            <option value="1" name="Basic">Passage 1</option>
-                            <option value="2" name="Medium">Passage 2</option>
-                            <option value="2" name="Medium">Passage 3</option>
+                            <option value="-1" name="passage-1">None</option>
+                            <?php 
+                                if(!is_null($this->passages)) {
+                                    foreach ($this->passages as $passage) {
+                                        echo "<option value='".$passage['id']."' name='passage".$passage['id']."'>".$passage['passageTitle']."</option>";  
+                                    }
+                                }
+                            ?>
                         </select> or <span style="color:blue;cursor:pointer" id="createNewPassage">create new</span>
                         <p class="help-inline"></p>
                     </div>
-                    <div id="toHideForPassage" class="form-group col-md-12">
-                        <input id="edit-passage" type="hidden"/>
-                        <label>Passage</label>
-                        <textarea name="editPassage" class="ckeditor" id="editPassage" required></textarea>
+                    <div id="toHideForPassage">
+                        <div class="form-group col-md-6">
+                            <label>Passage Title</label>
+                            <input type="text" name="passageTitle" id="passageTitle" class="form-control answer" required/> 
+                            <p class="help-inline"></p>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>Passage</label>
+                            <textarea name="passage" class="ckeditor" id="passage" required></textarea>
+                        </div>
                     </div>
                     <div class="form-group col-md-12">
                         <input id="questionId" type="hidden"/>
