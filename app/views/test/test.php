@@ -139,59 +139,23 @@
                                         <span style="font-size: 25px"><strong>
                                             <?php echo $questionNumber; $questionNumber++;?>) 
                                         </strong><?= htmlspecialchars_decode($question['question']) ?></span>
-                                        <a class="paragaphExtend active" id="pragraphExtend" data-toggle="collapse" href="#collapse<?= $question['id'] ?>">[view passage - passage name 1]</a>
+                                        <?php if($question['containPassage'] == 1) {
+                                        ?>                                        
+                                        <a class="paragaphExtend active" id="pragraphExtend" data-toggle="collapse" href="#collapse<?= $question['id'] ?>">[Passage here : <?= $question['passageTitle'] ?> ]</a>
+                                        <?php } ?>
                                     </div>
                                     <fieldset>
+                                        <?php if($question['containPassage'] == 1) {
+                                        ?>
                                     <div id="passageExtendedView" class="col-md-12 panel-group">
-                                    <div id="collapse<?= $question['id'] ?>" class="panel-collapse collapse">
-                                        <div class="panel-passage-body panel-body">
-                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
-                                                repreh  enderit praesentium pariatur fugiat officiis!</p>
-
-                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
-                                                reprehenderit praesentium pariatur fugiat officiis!</p>
-
-                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
-                                                reprehenderit praesentium pariatur fugiat officiis!</p>
-
-                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
-                                                reprehenderit praesentium pariatur fugiat officiis!</p>
-                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
-                                                reprehenderit praesentium pariatur fugiat officiis!</p>
-
-                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
-                                                reprehenderit praesentium pariatur fugiat officiis!</p>
-
-                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
-                                                reprehenderit praesentium pariatur fugiat officiis!</p>
-
-                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
-                                                reprehenderit praesentium pariatur fugiat officiis!</p>
-                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
-                                                reprehenderit praesentium pariatur fugiat officiis!</p>
-
-                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
-                                                reprehenderit praesentium pariatur fugiat officiis!</p>
-
-                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
-                                                reprehenderit praesentium pariatur fugiat officiis!</p>
-
-                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
-                                                reprehenderit praesentium pariatur fugiat officiis!</p>
-                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
-                                                reprehenderit praesentium pariatur fugiat officiis!</p>
-
-                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
-                                                reprehenderit praesentium pariatur fugiat officiis!</p>
-
-                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
-                                                reprehenderit praesentium pariatur fugiat officiis!</p>
-
-                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
-                                                reprehenderit praesentium pariatur fugiat officiis!</p>
+                                        <div id="collapse<?= $question['id'] ?>" class="panel-collapse collapse">
+                                            <div class="panel-passage-body panel-body">
+                                                <?= htmlspecialchars_decode(html_entity_decode($question['passage'])) ?>
+                                         
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                    <?php } ?>
                                         <div class="form-group" style="font-size: 18px;">
                                             <div class="col-lg-12">
                                                 <?php
@@ -263,7 +227,7 @@
                                     <?php
                             $arrKeys = array_keys($this->questions); 
                             if($i >= count($arrKeys)) { ?>
-                                        <div class="form-group col-sm-6">
+                                        <div class="form-group col-sm-6" style="margin-top: 30px;">
                                             <button type="submit" id="submitBtn" name="test_submit" class="navbtn submitbtn">Submit</button>
                                         </div>
                                         <?php } ?>

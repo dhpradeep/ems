@@ -934,15 +934,17 @@ class Question extends Controller {
 				$idToChange = $data['id'];
 				unset($data['id']);
 				$resultConf = 0;
+				$change = 0;
 				if(Input::get('containPassage') == 1) {
+					$toAdd = array();
+					$toAdd['passage'] = Input::get('passage');
+					$toAdd['passageTitle'] = Input::get('passageTitle');
 					if(Input::get('passageId') == -1) {
-						$toAdd = array();
-						$toAdd['passage'] = Input::get('passage');
-						$toAdd['passageTitle'] = Input::get('passageTitle');
 						$resultConf = $this->foreignModel->registerQuestion($toAdd);
 						$data['passageId'] = $resultConf;
 					}else {
 						$resultConf = 1;
+						$change = $this->foreignModel->updateQuestion(Input::get('passageId'), $toAdd);
 					}
 				}else {
 					$resultConf = 1;
@@ -959,7 +961,7 @@ class Question extends Controller {
 							$this->foreignModel->deleteQuestion($res[0]['passageId']);
 						}
 					}
-					if($ret == 1) {
+					if($ret == 1 || $change != 0) {
 						$result['status'] = 1;
 						$result['success'] = true;
 					} else {

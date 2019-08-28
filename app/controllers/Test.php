@@ -71,6 +71,7 @@ class Test extends Controller {
 							"level" => $model['minLevel']
 						);
 						$matchingQuestions = $this->searchDataFromTable("questions", $toSearch);
+						shuffle($matchingQuestions);
 						$length = count($matchingQuestions);
 						$toRemove = $length - $model['noOfQuestions'];
 						for($toRemove; $toRemove > 0; $toRemove--) {
@@ -83,12 +84,7 @@ class Test extends Controller {
 								"userId" => Session::getSession('uid'),
 								"categoryId" => $model['categoryId'],
 								"questionId" => $question['id'],
-								"question" => $question['question'],
 								"userAnswer" => null,
-								"answer" => $question['answer'],
-								"choice2" => $question['choice2'],
-								"choice3" => $question['choice3'],
-								"choice4" => $question['choice4'],
 								"result" => 0
 							);
 							$this->setDataToTable("record", $toRecord);
@@ -99,6 +95,38 @@ class Test extends Controller {
 					"examId" => $examId));
 				}else {
 					$records = $records;
+				}
+				foreach ($records as $key => $value) {
+					$questionId = $value['questionId'];
+					$questionDesc = $this->searchDataFromTable("questions", array('id' => $questionId));
+					if(count($questionDesc) < 0 ) {
+						$records[$key]['question'] = "Question not found!";
+						$records[$key]['choice1'] = "Not found!";
+						$records[$key]['choice2'] = "Not found!";
+						$records[$key]['choice3'] = "Not found!";
+						$records[$key]['choice4'] = "Not found!";
+						$records[$key]['containPassage'] = 0;
+						$records[$key]['userAnswer'] = null;
+					}else {
+						$records[$key]['question'] = $questionDesc[0]['question'];
+						$records[$key]['answer'] = $questionDesc[0]['answer'];
+						$records[$key]['choice2'] = $questionDesc[0]['choice2'];
+						$records[$key]['choice3'] = $questionDesc[0]['choice3'];
+						$records[$key]['choice4'] = $questionDesc[0]['choice4'];
+						if($questionDesc[0]['passageId'] > 0) {
+							$records[$key]['containPassage'] = 1;
+							$passageDesc = $this->searchDataFromTable("passage", array('id' => $questionDesc[0]['passageId']));
+							if(count($passageDesc) < 0) {
+								$records[$key]['passageTitle'] = "Passage Not found";
+								$records[$key]['userAnswer'] = "The passage exists no longer";
+							}else {
+								$records[$key]['passageTitle'] = $passageDesc[0]['passageTitle'];
+								$records[$key]['passage'] = $passageDesc[0]['passage'];
+							}
+						}else {
+							$records[$key]['containPassage'] = 0;
+						}
+					}
 				}
 				$this->model->data['questions'] = $this->sortForCategoryId($records);
 			}

@@ -87,6 +87,8 @@
 
 #pragraphExtend {
     color: #23527c;
+    margin-left: 10px;
+    font-size: 1.3em;
 }
 
 #pragraphExtend:hover {
@@ -95,8 +97,9 @@
 }
 
 .panel-passage-body {
-    max-height: 250px;
+    max-height: 300px;
     overflow-x: hidden;
+    font-size: 1.2em;
 }
 
 .paragaphExtend {
