@@ -870,7 +870,7 @@ class Question extends Controller {
 				'name' => 'Question',
 				'required' => true,
 				'min' => 1,
-				'max' => 255
+				'max' => 1200
 			),
 			'answer' => array(
 				'name' => 'Answer',
