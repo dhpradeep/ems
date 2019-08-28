@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 18. Aug 2019 um 22:17
--- Server-Version: 10.1.38-MariaDB
--- PHP-Version: 7.3.2
+-- Generation Time: Aug 28, 2019 at 07:09 PM
+-- Server version: 10.3.16-MariaDB
+-- PHP Version: 7.1.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Datenbank: `ems`
+-- Database: `ems`
 --
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `category`
+-- Table structure for table `category`
 --
 
 CREATE TABLE `category` (
@@ -35,18 +35,20 @@ CREATE TABLE `category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Daten für Tabelle `category`
+-- Dumping data for table `category`
 --
 
 INSERT INTO `category` (`id`, `name`, `description`) VALUES
-(4, 'Basic Mathematics', 'Basic Mathematics for BBA and BCA'),
-(11, 'Programming', 'PHP, Javascript and HTML'),
-(12, 'Eversoft', 'Eversoft for all');
+(1, 'Photoshop and Indesign', 'Photoshop and Indesign course in one section'),
+(4, 'Basic Mathematics', ''),
+(5, 'Computer Fundamental', ''),
+(6, 'paragraph', ''),
+(7, 'passage', '');
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `connection`
+-- Table structure for table `connection`
 --
 
 CREATE TABLE `connection` (
@@ -58,7 +60,7 @@ CREATE TABLE `connection` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `contactdetails`
+-- Table structure for table `contactdetails`
 --
 
 CREATE TABLE `contactdetails` (
@@ -78,18 +80,28 @@ CREATE TABLE `contactdetails` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Daten für Tabelle `contactdetails`
+-- Dumping data for table `contactdetails`
 --
 
 INSERT INTO `contactdetails` (`id`, `userId`, `municipality`, `wardNo`, `area`, `district`, `zone`, `mobileNo`, `telephoneNo`, `blockNo`, `guardianName`, `guardianRelation`, `guardianContact`) VALUES
-(17, 54, 'Lekhnath', '1', '', 'Kaski', '', '988888866669', '88', '', 'NO', '', ''),
-(31, 68, '', '', '', '', '', '', '', '', '', '', ''),
-(32, 69, '', '', '', '', '', '', '', '', '', '', '');
+(1, 2, '', '', 'Pokhara', 'Kaski', 'Gandaki', '9806570669', '', '', '', '', ''),
+(2, 3, 'Pokhara', '', 'Ratnachowk', 'Kaski', 'Gandaki', '9846751280', '', '', '', '', ''),
+(3, 4, 'Pokhara', '', 'Ratnachowk', 'Kaski', 'Gandaki', '9815150106', '', '', '', '', ''),
+(4, 5, 'Pokhara', '', 'Ratnachowk', 'Kaski', 'Gandaki', '9867861977', '', '', '', '', ''),
+(5, 6, 'Pokhara', '', 'Ratnachowk', 'Kaski', 'Gandaki', '9840010302', '', '', '', '', ''),
+(6, 7, 'Pokhara', '', 'Ratnachowk', 'Kaski', 'Gandaki', '9846531569', '', '', '', '', ''),
+(7, 8, 'Pokhara', '', 'Ratnachowk', 'Kaski', 'Gandaki', '9804185335', '', '', '', '', ''),
+(8, 9, 'Pokhara', '', 'Ratnachowk', 'Kaski', 'Gandaki', '9806725266', '', '', '', '', ''),
+(9, 10, 'Pokhara', '', 'Ratnachowk', 'Kaski', 'Gandaki', '9846845849', '', '', '', '', ''),
+(10, 11, 'Pokhara', '', 'Ratnachowk', 'Kaski', 'Gandaki', '9846584393', '', '', '', '', ''),
+(11, 12, 'Pokhara', '', 'Ratnachowk', 'Kaski', 'Gandaki', '1234567890', '', '', '', '', ''),
+(12, 13, 'Pokhara', '', 'Ratnachowk', 'Kaski', 'Gandaki', '1231231231', '', '', '', '', ''),
+(13, 14, 'Pokhara', '', 'Ratnachowk', 'Kaski', 'Gandaki', '1231231231', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `documents`
+-- Table structure for table `documents`
 --
 
 CREATE TABLE `documents` (
@@ -110,18 +122,28 @@ CREATE TABLE `documents` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Daten für Tabelle `documents`
+-- Dumping data for table `documents`
 --
 
 INSERT INTO `documents` (`id`, `userId`, `formNo`, `entranceNo`, `eligible`, `remarks`, `marksheet_see`, `marksheet_11`, `marksheet_12`, `transcript`, `characterCertificate_see`, `characterCertificate_12`, `citizenship`, `photo`) VALUES
-(16, 54, '22344', '22322', 'true', 'Transcript to submit.', 'true', 'true', 'true', 'false', 'true', 'true', 'true', 'true'),
-(30, 68, '', '222', 'false', '', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false'),
-(31, 69, '', '22', 'false', '', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false');
+(1, 2, '1', '1', 'false', '', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false'),
+(2, 3, '2', '2', 'false', '', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false'),
+(3, 4, '3', '3', 'false', '', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false'),
+(4, 5, '4', '4', 'false', '', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false'),
+(5, 6, '5', '5', 'false', '', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false'),
+(6, 7, '6', '6', 'false', '', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false'),
+(7, 8, '7', '7', 'false', '', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false'),
+(8, 9, '8', '8', 'false', '', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false'),
+(9, 10, '9', '9', 'false', '', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false'),
+(10, 11, '10', '10', 'false', '', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false'),
+(11, 12, '11', '11', 'false', '', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false'),
+(12, 13, '12', '12', 'false', '', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false'),
+(13, 14, '13', '13', 'false', '', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false');
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `education`
+-- Table structure for table `education`
 --
 
 CREATE TABLE `education` (
@@ -135,18 +157,22 @@ CREATE TABLE `education` (
   `percent` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Daten für Tabelle `education`
+-- Table structure for table `passage`
 --
 
-INSERT INTO `education` (`id`, `userId`, `level`, `faculty`, `institution`, `board`, `yearOfCompletion`, `percent`) VALUES
-(36, 54, '1', '', 'AMHSS', 'Nepal', 2015, '91'),
-(37, 54, '2', 'Science', 'AMHSS', 'HSEB', 2017, '83');
+CREATE TABLE `passage` (
+  `id` int(11) NOT NULL,
+  `passageTitle` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `passage` varchar(10000) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `personaldata`
+-- Table structure for table `personaldata`
 --
 
 CREATE TABLE `personaldata` (
@@ -163,18 +189,28 @@ CREATE TABLE `personaldata` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Daten für Tabelle `personaldata`
+-- Dumping data for table `personaldata`
 --
 
 INSERT INTO `personaldata` (`id`, `userId`, `password`, `programId`, `doa`, `dobAd`, `dobBs`, `gender`, `nationality`, `fatherName`) VALUES
-(18, 54, 'eversoft22322', '8', '2019-07-30', '2019-08-11', '2019-08-11', 1, 'Nepal', 'Danu'),
-(32, 68, 'eversoft222', '', '2019-08-18', '0000-00-00', '', 0, 'Nepali', ''),
-(33, 69, 'eversoft22', '', '2019-08-18', '0000-00-00', '', 0, 'Nepali', '');
+(1, 2, 'eversoft1', '1', '2019-08-20', '2019-08-20', '2019-08-20', 2, 'Nepali', ''),
+(2, 3, 'eversoft2', '2', '2019-08-20', '2019-08-20', '2019-08-20', 2, 'Nepali', ''),
+(3, 4, 'eversoft3', '1', '2019-08-20', '2019-08-20', '2019-08-20', 2, 'Nepali', ''),
+(4, 5, 'eversoft4', '1', '2019-08-20', '2019-08-20', '2019-08-20', 1, 'Nepali', ''),
+(5, 6, 'eversoft5', '1', '2019-08-20', '2019-08-20', '2019-08-20', 2, 'Nepali', ''),
+(6, 7, 'eversoft6', '1', '2019-08-20', '2019-08-20', '2019-08-20', 2, 'Nepali', ''),
+(7, 8, 'eversoft7', '1', '2019-08-20', '2019-08-20', '2019-08-20', 1, 'Nepali', ''),
+(8, 9, 'eversoft8', '1', '2019-08-20', '2019-08-20', '2019-08-20', 1, 'Nepali', ''),
+(9, 10, 'eversoft9', '1', '2019-08-20', '2019-08-20', '2019-08-20', 1, 'Nepali', ''),
+(10, 11, 'eversoft10', '2', '2019-08-20', '2019-08-20', '2019-08-20', 2, 'Nepali', ''),
+(11, 12, 'eversoft11', '1', '2019-08-20', '2019-08-20', '2019-08-20', 1, 'Nepali', ''),
+(12, 13, 'eversoft12', '1', '2019-08-20', '2019-08-20', '2019-08-20', 2, 'Nepali', ''),
+(13, 14, 'eversoft13', '1', '2019-08-20', '2019-08-20', '2019-08-20', 1, 'Nepali', '');
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `program`
+-- Table structure for table `program`
 --
 
 CREATE TABLE `program` (
@@ -186,17 +222,17 @@ CREATE TABLE `program` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Daten für Tabelle `program`
+-- Dumping data for table `program`
 --
 
 INSERT INTO `program` (`id`, `name`, `duration`, `welcome`, `thanks`) VALUES
-(2, 'BBA', 120, 'Welcome to BBA section.', 'Thank you for your test.'),
-(8, 'BCA', 90, '&lt;h3&gt;&lt;strong&gt;Welcome to BCA Entrance Exam.&lt;/strong&gt;&lt;/h3&gt;\n', '&lt;h3&gt;&lt;strong&gt;Thank you&lt;/strong&gt;&lt;/h3&gt;\n');
+(1, 'Graphic Designing Workshop', 10, '&lt;h2&gt;Graphic Designing workshop test exam.&lt;/h2&gt;\n\n&lt;h3&gt;&lt;span class=&quot;marker&quot;&gt;&lt;strong&gt;Rules:&lt;/strong&gt;&lt;/span&gt;&lt;/h3&gt;\n\n&lt;blockquote&gt;\n&lt;ul&gt;\n	&lt;li&gt;You can&amp;#39;t use Internet or friends help.&lt;/li&gt;\n	&lt;li&gt;Once you have been press the &lt;strong&gt;&amp;#39;take test&amp;#39;&lt;/strong&gt;&amp;nbsp;button than your time has been start, so you can&amp;#39;t go back.&lt;/li&gt;\n	&lt;li&gt;All Questions are in MCQ(Multiple choice questions) format.&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/blockquote&gt;\n\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n', '&lt;p&gt;Thank you for your participation!&lt;br /&gt;\nYour result will publish soon.&lt;/p&gt;\n'),
+(2, 'BCA', 500, '&lt;p&gt;welcome sample message for &lt;strong&gt;BCA&lt;/strong&gt;&lt;/p&gt;\n', '&lt;p&gt;Thank you message for &lt;strong&gt;BCA&lt;/strong&gt;&lt;/p&gt;\n');
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `questionmodel`
+-- Table structure for table `questionmodel`
 --
 
 CREATE TABLE `questionmodel` (
@@ -209,23 +245,21 @@ CREATE TABLE `questionmodel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Daten für Tabelle `questionmodel`
+-- Dumping data for table `questionmodel`
 --
 
 INSERT INTO `questionmodel` (`id`, `programId`, `categoryId`, `minLevel`, `maxLevel`, `noOfQuestions`) VALUES
-(6, 2, 4, 2, 2, 20),
-(11, 2, 12, 2, 2, 1),
-(13, 2, 11, 1, 1, 10),
-(14, 8, 4, 2, 2, 2),
-(15, 8, 11, 1, 1, 4),
-(16, 8, 12, 1, 1, 2),
-(20, 8, 11, 1, 1, 3),
-(21, 8, 11, 1, 1, 4);
+(7, 1, 1, 1, 1, 10),
+(8, 1, 1, 3, 3, 5),
+(10, 1, 1, 2, 2, 10),
+(11, 2, 4, 1, 1, 1),
+(12, 2, 5, 2, 2, 1),
+(13, 2, 1, 2, 2, 10);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `questions`
+-- Table structure for table `questions`
 --
 
 CREATE TABLE `questions` (
@@ -236,31 +270,48 @@ CREATE TABLE `questions` (
   `answer` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `choice2` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `choice3` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `choice4` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `choice4` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `passageId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Daten für Tabelle `questions`
+-- Dumping data for table `questions`
 --
 
-INSERT INTO `questions` (`id`, `categoryId`, `question`, `level`, `answer`, `choice2`, `choice3`, `choice4`) VALUES
-(4, 4, 'Who is famous for formula to calculate hypotenuse for right angle traingle?\r\n', 2, 'Pythagorus', 'Niels Bohr', 'Einstein', 'Newton'),
-(5, 11, 'Which is not a programming language?\r\n', 3, 'Lotus', 'C', 'R', 'Java'),
-(6, 12, 'Is debit&lt;strong&gt; good&lt;/strong&gt;?\r\n', 1, 'No', 'I dont know.', 'Yes', 'Depends'),
-(7, 11, 'Who is father of Computer?\r\n', 1, 'Charles Babbage', 'Niels Bohr', 'Lady Augusta', 'Steve Jobs'),
-(8, 11, 'What is binary of 7?\r\n', 1, '111', '101', '10', '1111'),
-(9, 11, 'What is full form of RAM?\r\n', 1, 'Random Access Memory', 'Ram And Manish', 'Read Access Memory', 'Read And Memory'),
-(10, 12, 'Who is responsible for Eversoft finance?\r\n', 1, 'Pradip', 'Saroj', 'Raju', 'Pravhu'),
-(11, 12, 'What is the cost of Web Hosting in Eversoft (p.a)?\r\n', 1, '1250', '5000', '200', '340'),
-(12, 4, 'Which one is a prime number?\r\n', 1, '13', '21', '25', '18'),
-(13, 4, 'What is value of 3! ?\r\n', 2, '6', '9', '21', '27'),
-(14, 12, 'When was Eversoft started?\r\n', 2, '2015', '2017', '2018', '2014'),
-(15, 11, 'How are you?', 1, '2', '3', '1', '9');
+INSERT INTO `questions` (`id`, `categoryId`, `question`, `level`, `answer`, `choice2`, `choice3`, `choice4`, `passageId`) VALUES
+(1, 1, 'What does the Eyedropper tool do?', 1, 'Selects the color at the cursor', 'Paints a single dot of color at the cursor', 'Creates a histogram of the area around the cursor', 'Fades the colors of an area centered on the cursor', NULL),
+(2, 1, '&lt;strong&gt;&amp;quot;Layers&amp;quot;&lt;/strong&gt; in Photoshop are:', 1, 'Images stacked on top of each other', 'Filters that have been applied to the image', 'Previous versions of an image', 'Color and brightness correction', NULL),
+(3, 1, 'How do you add a page in layout &lt;em&gt;(indesign)&lt;/em&gt;', 1, 'layout / page / add page', 'file / open', 'Under object, Effect', 'Under object, content', NULL),
+(4, 1, 'What are smart guides ?', 1, 'lines used to help line up object', 'border around page', 'None of these', 'grids in the background', NULL),
+(5, 1, 'What three color make up visible light spectrum ?', 1, 'RGB', 'CMYK', 'CMY', 'RGY', NULL),
+(6, 1, 'What does &lt;strong&gt;Control+shift+I&lt;/strong&gt; does in photoshop during selection?', 1, 'Inverse selection', 'New document', 'Desaturate', 'New layer', NULL),
+(7, 1, 'which of these is not a selection tool ?', 1, 'Pen Tool', 'Polygonal Lasso tool', 'Magnetic Lasso Tool', 'Lasso Tool', NULL),
+(8, 1, '&lt;strong&gt;&amp;quot;B&amp;quot;&lt;/strong&gt; is the keyboard shortcut in photoshop for :', 1, 'PaintBrush', 'Select Box', 'Blur', 'Bold', NULL),
+(9, 1, 'A layer style that outlines an object or type is called .......', 1, 'Stroke', 'Gradient Overlay', 'Warp', '3d modelling', NULL),
+(10, 1, 'What does 0% opacity does ?', 1, 'Transparent', 'Gradient Overlay', 'Opaque', 'Lightness', NULL),
+(11, 1, 'Which is photoshop default file extension for saving file ?', 3, '.psd', '.png', '.jpg', '.tiff', NULL),
+(12, 1, 'what is the standard size of photo paper is ?', 3, '4*6', '4*5', '4*7', '5*7', NULL),
+(13, 1, 'How many color can gradient include ?', 3, 'multiple', '2', '3', '1', NULL),
+(14, 1, 'Pen tool is primariliy used for :&amp;nbsp;', 3, 'Path', 'Shape', 'Selection', 'None of above', NULL),
+(15, 1, 'What is th keyboard shortcut for Zoom tool ?', 3, 'Z', 'Ctrl + Z', 'Alt + Z', 'Shift +Z', NULL),
+(16, 1, 'How to select whole canvas through shortcut ?', 2, 'Ctrl + a', 'Ctrl + w', 'Ctrl + Y', 'Ctrl + B', NULL),
+(17, 1, 'What is adobe indesign used for ?', 2, 'designing books', 'vector image', 'editing photos', '3d modelling', NULL),
+(18, 1, 'What is the use of &lt;strong&gt;CTRL + G&lt;/strong&gt; in layer&amp;nbsp; ?', 2, 'Group layer', 'Merge layer', 'Filter Layer', 'Save layer', NULL),
+(19, 1, '&lt;strong&gt;&amp;quot;Levels&amp;quot;&lt;/strong&gt; in Photoshop are:', 2, 'Color and brightness correction', 'Images stacked on top of each other', 'Previous versions of an image', 'Filters that have been applied to the image', NULL),
+(20, 1, 'What is canvas also called ?', 2, 'working space', 'editing toolkit', 'tool bar', 'history showing toolbar', NULL),
+(21, 1, 'What does &lt;strong&gt;CTRL+SHIFT+S&lt;/strong&gt; does ?', 2, 'Save As', 'Open', 'Save', 'Open As', NULL),
+(22, 1, 'Shortcut for resizing brush in photoshop ?', 2, '[ ]', '{ }', '( )', 'V', NULL),
+(23, 1, 'what does SHIFT does during selection ?', 2, 'Add', 'Substract', 'deselect', 'multiply', NULL),
+(24, 1, 'What is the shortcut key for Showing Text designing toolbar ?', 2, 'Ctrl + T', 'Ctrl+Y', 'Ctrl + Q', 'Ctrl + K', NULL),
+(25, 1, 'what does &lt;strong&gt;ALT&lt;/strong&gt; does during selection ?', 2, 'deselect', 'Substract', 'Add', 'multiply', NULL),
+(26, 5, 'What is the full form of &lt;strong&gt;BCA ?&lt;/strong&gt;', 2, 'bachelors in computer application', 'bachelors in computer architecture', 'bachelors in co-operative application', 'bachelors in computer engineer', NULL),
+(27, 4, 'Addition of 2 + 2 ?', 1, '4', '3', '2', '5', NULL),
+(28, 6, '&lt;p&gt;&lt;strong&gt;Lorem Ipsum&lt;/strong&gt;&amp;nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum ha&lt;/p&gt;\n\n&lt;p&gt;(Q1-5)&lt;/p&gt;\n\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n\n&lt;p&gt;Q1. djaadjldajl&amp;nbsp;&lt;/p&gt;\n', 1, '1', '2', '3', '4', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `record`
+-- Table structure for table `record`
 --
 
 CREATE TABLE `record` (
@@ -279,30 +330,39 @@ CREATE TABLE `record` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Daten für Tabelle `record`
+-- Dumping data for table `record`
 --
 
 INSERT INTO `record` (`id`, `examId`, `userId`, `categoryId`, `questionId`, `question`, `userAnswer`, `answer`, `choice2`, `choice3`, `choice4`, `result`) VALUES
-(191, 22, 54, 4, 4, 'Who is famous for formula to calculate hypotenuse for right angle traingle?\r\n', NULL, 'Pythagorus', 'Niels Bohr', 'Einstein', 'Newton', 0),
-(192, 22, 54, 4, 13, 'What is value of 3! ?\r\n', NULL, '6', '9', '21', '27', 0),
-(193, 22, 54, 11, 7, 'Who is father of Computer?\r\n', NULL, 'Charles Babbage', 'Niels Bohr', 'Lady Augusta', 'Steve Jobs', 0),
-(194, 22, 54, 11, 8, 'What is binary of 7?\r\n', NULL, '111', '101', '10', '1111', 0),
-(195, 22, 54, 11, 9, 'What is full form of RAM?\r\n', NULL, 'Random Access Memory', 'Ram And Manish', 'Read Access Memory', 'Read And Memory', 0),
-(196, 22, 54, 11, 15, 'How are you?', NULL, '2', '3', '1', '9', 0),
-(197, 22, 54, 12, 6, 'Is debit&lt;strong&gt; good&lt;/strong&gt;?\r\n', NULL, 'No', 'I dont know.', 'Yes', 'Depends', 0),
-(198, 22, 54, 12, 11, 'What is the cost of Web Hosting in Eversoft (p.a)?\r\n', NULL, '1250', '5000', '200', '340', 0),
-(199, 22, 54, 11, 7, 'Who is father of Computer?\r\n', NULL, 'Charles Babbage', 'Niels Bohr', 'Lady Augusta', 'Steve Jobs', 0),
-(200, 22, 54, 11, 8, 'What is binary of 7?\r\n', NULL, '111', '101', '10', '1111', 0),
-(201, 22, 54, 11, 9, 'What is full form of RAM?\r\n', NULL, 'Random Access Memory', 'Ram And Manish', 'Read Access Memory', 'Read And Memory', 0),
-(202, 22, 54, 11, 7, 'Who is father of Computer?\r\n', NULL, 'Charles Babbage', 'Niels Bohr', 'Lady Augusta', 'Steve Jobs', 0),
-(203, 22, 54, 11, 8, 'What is binary of 7?\r\n', NULL, '111', '101', '10', '1111', 0),
-(204, 22, 54, 11, 9, 'What is full form of RAM?\r\n', NULL, 'Random Access Memory', 'Ram And Manish', 'Read Access Memory', 'Read And Memory', 0),
-(205, 22, 54, 11, 15, 'How are you?', NULL, '2', '3', '1', '9', 0);
+(250, 12, 3, 4, 27, 'Addition of 2 + 2 ?', NULL, '4', '3', '2', '5', 0),
+(251, 12, 3, 5, 26, 'What is the full form of &lt;strong&gt;BCA ?&lt;/strong&gt;', NULL, 'bachelors in computer application', 'bachelors in computer architecture', 'bachelors in co-operative application', 'bachelors in computer engineer', 0),
+(252, 12, 3, 1, 16, 'How to select whole canvas through shortcut ?', NULL, 'Ctrl + a', 'Ctrl + w', 'Ctrl + Y', 'Ctrl + B', 0),
+(253, 12, 3, 1, 17, 'What is adobe indesign used for ?', NULL, 'designing books', 'vector image', 'editing photos', '3d modelling', 0),
+(254, 12, 3, 1, 18, 'What is the use of &lt;strong&gt;CTRL + G&lt;/strong&gt; in layer&amp;nbsp; ?', NULL, 'Group layer', 'Merge layer', 'Filter Layer', 'Save layer', 0),
+(255, 12, 3, 1, 19, '&lt;strong&gt;&amp;quot;Levels&amp;quot;&lt;/strong&gt; in Photoshop are:', NULL, 'Color and brightness correction', 'Images stacked on top of each other', 'Previous versions of an image', 'Filters that have been applied to the image', 0),
+(256, 12, 3, 1, 20, 'What is canvas also called ?', NULL, 'working space', 'editing toolkit', 'tool bar', 'history showing toolbar', 0),
+(257, 12, 3, 1, 21, 'What does &lt;strong&gt;CTRL+SHIFT+S&lt;/strong&gt; does ?', NULL, 'Save As', 'Open', 'Save', 'Open As', 0),
+(258, 12, 3, 1, 22, 'Shortcut for resizing brush in photoshop ?', NULL, '[ ]', '{ }', '( )', 'V', 0),
+(259, 12, 3, 1, 23, 'what does SHIFT does during selection ?', NULL, 'Add', 'Substract', 'deselect', 'multiply', 0),
+(260, 12, 3, 1, 24, 'What is the shortcut key for Showing Text designing toolbar ?', NULL, 'Ctrl + T', 'Ctrl+Y', 'Ctrl + Q', 'Ctrl + K', 0),
+(261, 12, 3, 1, 25, 'what does &lt;strong&gt;ALT&lt;/strong&gt; does during selection ?', NULL, 'deselect', 'Substract', 'Add', 'multiply', 0),
+(274, 14, 11, 4, 27, 'Addition of 2 + 2 ?', NULL, '4', '3', '2', '5', 0),
+(275, 14, 11, 5, 26, 'What is the full form of &lt;strong&gt;BCA ?&lt;/strong&gt;', NULL, 'bachelors in computer application', 'bachelors in computer architecture', 'bachelors in co-operative application', 'bachelors in computer engineer', 0),
+(276, 14, 11, 1, 16, 'How to select whole canvas through shortcut ?', NULL, 'Ctrl + a', 'Ctrl + w', 'Ctrl + Y', 'Ctrl + B', 0),
+(277, 14, 11, 1, 17, 'What is adobe indesign used for ?', NULL, 'designing books', 'vector image', 'editing photos', '3d modelling', 0),
+(278, 14, 11, 1, 18, 'What is the use of &lt;strong&gt;CTRL + G&lt;/strong&gt; in layer&amp;nbsp; ?', NULL, 'Group layer', 'Merge layer', 'Filter Layer', 'Save layer', 0),
+(279, 14, 11, 1, 19, '&lt;strong&gt;&amp;quot;Levels&amp;quot;&lt;/strong&gt; in Photoshop are:', NULL, 'Color and brightness correction', 'Images stacked on top of each other', 'Previous versions of an image', 'Filters that have been applied to the image', 0),
+(280, 14, 11, 1, 20, 'What is canvas also called ?', NULL, 'working space', 'editing toolkit', 'tool bar', 'history showing toolbar', 0),
+(281, 14, 11, 1, 21, 'What does &lt;strong&gt;CTRL+SHIFT+S&lt;/strong&gt; does ?', NULL, 'Save As', 'Open', 'Save', 'Open As', 0),
+(282, 14, 11, 1, 22, 'Shortcut for resizing brush in photoshop ?', NULL, '[ ]', '{ }', '( )', 'V', 0),
+(283, 14, 11, 1, 23, 'what does SHIFT does during selection ?', NULL, 'Add', 'Substract', 'deselect', 'multiply', 0),
+(284, 14, 11, 1, 24, 'What is the shortcut key for Showing Text designing toolbar ?', NULL, 'Ctrl + T', 'Ctrl+Y', 'Ctrl + Q', 'Ctrl + K', 0),
+(285, 14, 11, 1, 25, 'what does &lt;strong&gt;ALT&lt;/strong&gt; does during selection ?', NULL, 'deselect', 'Substract', 'Add', 'multiply', 0);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `timetrack`
+-- Table structure for table `timetrack`
 --
 
 CREATE TABLE `timetrack` (
@@ -314,16 +374,17 @@ CREATE TABLE `timetrack` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Daten für Tabelle `timetrack`
+-- Dumping data for table `timetrack`
 --
 
 INSERT INTO `timetrack` (`id`, `userId`, `programId`, `remainingTime`, `isSubmitted`) VALUES
-(22, 54, 8, 0, 'true');
+(12, 3, 2, 3516, 'false'),
+(14, 11, 2, 29565, 'false');
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `userlogin`
+-- Table structure for table `userlogin`
 --
 
 CREATE TABLE `userlogin` (
@@ -338,173 +399,188 @@ CREATE TABLE `userlogin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Daten für Tabelle `userlogin`
+-- Dumping data for table `userlogin`
 --
 
 INSERT INTO `userlogin` (`id`, `username`, `fname`, `mname`, `lname`, `email`, `passwordHash`, `role`) VALUES
-(13, 'admin', 'Saroj', '', 'Tripathi', 'admin@admin.com', 'e00cf25ad42683b3df678c61f42c6bda', 1),
-(14, 'admin2', 'Pradip', '', 'Dhakal', 'admin2@admin.com', 'c84258e9c39059a89ab77d846ddab909', 1),
-(28, 'thaxaina', 'Saroj', '', 'Tripathi', 'ademin@admin.com', 'e00cf25ad42683b3df678c61f42c6bda', 1),
-(31, 'admin1', 'Arjun', 'Prasad', 'Subedi', 'admin1@admin.com', 'e00cf25ad42683b3df678c61f42c6bda', 1),
-(32, 'student', 'Saroj', '', 'Tripathi', 'student@student.com', 'cd73502828457d15655bbd7a63fb0bc8', 1),
-(33, 'pravhu', 'Pravhu', '', 'Gurung', 'admin44@admin.com', 'e00cf25ad42683b3df678c61f42c6bda', 1),
-(34, 'teacher', 'Raju', 'Prasad', 'Lamsal', 'teacher@teacher.com', '41c8949aa55b8cb5dbec662f34b62df3', 2),
-(35, 'test1', 'Test', '', 'User', 'test@test.com', 'e00cf25ad42683b3df678c61f42c6bda', 1),
-(54, 'saroj22322', 'Saroj', '', 'Tripathi', 'saroj@admin.com', '11d3d3a67cd34bfc05ca02bff3fd55de', 3),
-(68, 'pradip222', 'Pradip', '', '', '', 'bd1e1f105485d1dfab0ebfc0de3214be', 3),
-(69, 'pradip22', 'Pradip', '', '', '', '71b01924a11a127da7122628a813a15b', 3);
+(1, 'admin', 'Pradip', NULL, 'Dhakal', 'dhpradeep25@gmail.com', '7488e331b8b64e5794da3fa4eb10ad5d', 1),
+(2, 'niruta1', 'Niruta', '', 'Shrestha', 'nirutastha24@gmail.com', 'f7434565370befd8f9cec1626d018fca', 3),
+(3, 'asmita2', 'Asmita', '', 'Pokhrel', 'asmitapokhrel89@gmail.com', '3dd12d38cad25e3831329d939ba804ba', 3),
+(4, 'santoshi3', 'Santoshi', '', 'Regmi', 'santoshireg@gmail.com', 'f83976fd055906fd24a415a00a3385fd', 3),
+(5, 'sagun4', 'Sagun', '', 'Baral', 'sagunbaral30@gmail.com', '227fba76c15f76286c0489a06fee1a7f', 3),
+(6, 'puspa5', 'Puspa', '', 'Khanal', 'pujusmile037@gmail.com', 'b3d43e3cf364cb339360c5411fe147b7', 3),
+(7, 'sapana6', 'Sapana', '', 'Timilsina', 'timilsinasapana20@gmail.com', 'edad3cebe4c3315c8230795cc33f151a', 3),
+(8, 'shiva7', 'Shiva', '', 'Aryal', 'shivaaryal62@gmail.com', '22a8f408f8bb5dc85849cd3f341c0ea8', 3),
+(9, 'subanta8', 'Subanta', '', 'Poudel', 'subantaleeonel@gmail.com', '4e74e4a47e273f54cd0df7f477986f79', 3),
+(10, 'shiva9', 'Shiva', 'Kumar', 'Gurung', 'shivakgrg@gmail.com', '10ac75f45988b1c7f6bed60265d71c17', 3),
+(11, 'jyotsna10', 'Jyotsna', '', 'Udas', 'jyotsnajosu8493@gmail.com', 'aed2bdab464533897564cb8c0a10c773', 3),
+(12, 'jeevan11', 'Jeevan', '', 'Subedi', 'jeevan@student.com', 'fd008eac4ba7789b3f1f7bb23f7143d4', 3),
+(13, 'samjhana12', 'Samjhana', '', 'Timilsina', 'samjhana@student.com', '4bf659c7db089092212b049219f93c89', 3),
+(14, 'nabin13', 'Nabin', '', 'Poudel', 'nabin@student.com', '416c2aa3347bac9e096eee6d68e787dc', 3);
 
 --
--- Indizes der exportierten Tabellen
+-- Indexes for dumped tables
 --
 
 --
--- Indizes für die Tabelle `category`
+-- Indexes for table `category`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `connection`
+-- Indexes for table `connection`
 --
 ALTER TABLE `connection`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `contactdetails`
+-- Indexes for table `contactdetails`
 --
 ALTER TABLE `contactdetails`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `documents`
+-- Indexes for table `documents`
 --
 ALTER TABLE `documents`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `education`
+-- Indexes for table `education`
 --
 ALTER TABLE `education`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `personaldata`
+-- Indexes for table `passage`
+--
+ALTER TABLE `passage`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `personaldata`
 --
 ALTER TABLE `personaldata`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `program`
+-- Indexes for table `program`
 --
 ALTER TABLE `program`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `questionmodel`
+-- Indexes for table `questionmodel`
 --
 ALTER TABLE `questionmodel`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `questions`
+-- Indexes for table `questions`
 --
 ALTER TABLE `questions`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `record`
+-- Indexes for table `record`
 --
 ALTER TABLE `record`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `timetrack`
+-- Indexes for table `timetrack`
 --
 ALTER TABLE `timetrack`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `userlogin`
+-- Indexes for table `userlogin`
 --
 ALTER TABLE `userlogin`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT für exportierte Tabellen
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT für Tabelle `category`
+-- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT für Tabelle `connection`
+-- AUTO_INCREMENT for table `connection`
 --
 ALTER TABLE `connection`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `contactdetails`
+-- AUTO_INCREMENT for table `contactdetails`
 --
 ALTER TABLE `contactdetails`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT für Tabelle `documents`
+-- AUTO_INCREMENT for table `documents`
 --
 ALTER TABLE `documents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT für Tabelle `education`
+-- AUTO_INCREMENT for table `education`
 --
 ALTER TABLE `education`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `personaldata`
+-- AUTO_INCREMENT for table `passage`
+--
+ALTER TABLE `passage`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `personaldata`
 --
 ALTER TABLE `personaldata`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT für Tabelle `program`
+-- AUTO_INCREMENT for table `program`
 --
 ALTER TABLE `program`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT für Tabelle `questionmodel`
+-- AUTO_INCREMENT for table `questionmodel`
 --
 ALTER TABLE `questionmodel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT für Tabelle `questions`
+-- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
--- AUTO_INCREMENT für Tabelle `record`
+-- AUTO_INCREMENT for table `record`
 --
 ALTER TABLE `record`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=206;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=286;
 
 --
--- AUTO_INCREMENT für Tabelle `timetrack`
+-- AUTO_INCREMENT for table `timetrack`
 --
 ALTER TABLE `timetrack`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'examId for others', AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'examId for others', AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT für Tabelle `userlogin`
+-- AUTO_INCREMENT for table `userlogin`
 --
 ALTER TABLE `userlogin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'userID for others', AUTO_INCREMENT=70;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'userID for others', AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
