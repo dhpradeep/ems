@@ -1,4 +1,5 @@
-#time, #questionsRecord{
+#time,
+#questionsRecord {
     font-size: 1.4em;
     color: black;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -72,7 +73,7 @@
     width: 33.32%;
 }
 
-.nav .active{
+.nav .active {
     background: rgba(220, 220, 220, 0.4);
 }
 
@@ -82,4 +83,35 @@
         top: 100px;
         width: 100%;
     }
+}
+
+#pragraphExtend {
+    color: #23527c;
+}
+
+#pragraphExtend:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.panel-passage-body {
+    max-height: 250px;
+    overflow-x: hidden;
+}
+
+.paragaphExtend {
+    position: relative;
+}
+
+.paragaphExtend::after {
+    content: "\f107";
+    color: #333;
+    top: -2px;
+    right: -15px;
+    position: absolute;
+    font-family: "FontAwesome"
+}
+
+.paragaphExtend[aria-expanded="true"]::after {
+    content: "\f106";
 }

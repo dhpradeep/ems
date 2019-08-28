@@ -44,27 +44,27 @@
             <?php
                 if(!is_null($this->questions) && !is_null($this->categories) && count($this->errors) == 0) {
             ?>
-            <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="myTabs" role="tablist">
-                        <?php
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="myTabs" role="tablist">
+                            <?php
                             $i = 0;
                             $totalQuestions = 0;
                             foreach ($this->questions as $key => $value) {
                             $totalQuestions += count($value);
                         ?>
-                        <li role="presentation" class="<?php echo ($i==0) ? "active" : ""; ?>">
-                            <a href="#category<?= $key ?>" class="<?php echo ($i==0) ? "" : ""; $i++ ?>"  aria-controls="category<?= $key ?>" role="tab" data-toggle="tab">
-                                <?php  echo (isset($this->categories[$key])) ? $this->categories[$key][0]['name'] : "Unknown"; ?> (<span data-val="0" id = "answeredCategory<?= $key ?>">0</span>/<span><?= count($value) ?>)</span>
-                            </a>
-                        </li>
-                        <?php
+                                <li role="presentation" class="<?php echo ($i==0) ? " active " : " "; ?>">
+                                    <a href="#category<?= $key ?>" class="<?php echo ($i==0) ? " " : " "; $i++ ?>" aria-controls="category<?= $key ?>" role="tab" data-toggle="tab">
+                                        <?php  echo (isset($this->categories[$key])) ? $this->categories[$key][0]['name'] : "Unknown"; ?> (<span data-val="0" id="answeredCategory<?= $key ?>">0</span>/<span><?= count($value) ?>)</span>
+                                    </a>
+                                </li>
+                                <?php
                             }
                         ?>
-                    </ul>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <?php
+                <?php
                 }
             ?>
         </nav>
@@ -73,55 +73,55 @@
             <?php 
                 if(is_null($this->errors) || count($this->errors) <= 0) {
             ?>
-                <div class="row mySticky">
-                    <div class="mydiv navbtn prevbtn">
-                        <div class="cur previous">Previous</div>
-                    </div>
-                        <!-- <button type="submit"  name="test_submit" class="btn btn-success">Previous</button> -->
-                    <div class="mydiv">
-                        <div class="row" style="margin: 0px 0px;">
-                            <div id="time" class="col col-md-6"> Time </div>
-                            <div id="questionsRecord" class="col col-md-6">
-                                (<span id="answered" data-val="0" >0</span>/<span><?= $totalQuestions ?>)</span>
-                            </div>
+            <div class="row mySticky">
+                <div class="mydiv navbtn prevbtn">
+                    <div class="cur previous">Previous</div>
+                </div>
+                <!-- <button type="submit"  name="test_submit" class="btn btn-success">Previous</button> -->
+                <div class="mydiv">
+                    <div class="row" style="margin: 0px 0px;">
+                        <div id="time" class="col col-md-6"> Time </div>
+                        <div id="questionsRecord" class="col col-md-6">
+                            (<span id="answered" data-val="0">0</span>/<span><?= $totalQuestions ?>)</span>
                         </div>
-                    </div>    
-                    <div class="mydiv text-right navbtn nextbtn">
-                        <div class="cur next">Next</div>
-                        <!-- <button type="button" class="btn btn-success">Next</button>
-                        <button type="button" class="btn btn-success">Submit</button> -->
                     </div>
                 </div>
+                <div class="mydiv text-right navbtn nextbtn">
+                    <div class="cur next">Next</div>
+                    <!-- <button type="button" class="btn btn-success">Next</button>
+                        <button type="button" class="btn btn-success">Submit</button> -->
+                </div>
+            </div>
             <!-- /.row -->
-                <?php
+            <?php
                     }
                     if(!is_null($this->errors) && count($this->errors) > 0) {
                     echo "<br><br><br>";
                     foreach ($this->errors as $value) {
                                 ?>
-                    <div class="row">
-                        <div>
-                            <span style="font-size:22px;"><strong><?= $value ?></strong></span>
-                        </div>
+                <div class="row">
+                    <div>
+                        <span style="font-size:22px;"><strong><?= $value ?></strong></span>
                     </div>
-                    <?php }?>
-                    <div class="row">
-                        <div>
-                            <span style="font-size:22px;"><strong><?= (!is_null($this->thanks)) ? $this->thanks : "" ?></strong></span>
-                        </div>
+                </div>
+                <?php }?>
+                <div class="row">
+                    <div>
+                        <span style="font-size:22px;"><strong><?= (!is_null($this->thanks)) ? $this->thanks : "" ?></strong></span>
                     </div>
+                </div>
 
-               <?php }else{ ?>
+                <?php }else{ ?>
 
-            <!-- div for timer -->
-            <!-- <div class='timer rounded-circle'>
+                <!-- div for timer -->
+                <!-- <div class='timer rounded-circle'>
                 <div id="time" class='time'></div>
             </div> -->
 
-            <div id="timeTrack" data-time="<?= $this->remainingTime ?>" data-exam = "<?= $this->examId ?>"></div>
+                <div id="timeTrack" data-time="<?= $this->remainingTime ?>" data-exam="<?= $this->examId ?>"></div>
 
                 <div class="row">
-                    <div class="tab-content">                        
+                    <div class="tab-content">
                         <?php
                         if(!is_null($this->questions) && !is_null($this->categories) && count($this->errors) == 0) {
                             $i = 0;
@@ -129,18 +129,69 @@
                             foreach ($this->questions as $key => $value) { 
                         ?>
 
-                        <div role="tabpanel" class="tab-pane <?php echo ($i==0) ? "active" : ""; $i++ ?>" id="category<?= $key ?>">
-                            <br><br>
-                            <?php 
+                            <div role="tabpanel" class="tab-pane <?php echo ($i==0) ? " active " : " "; $i++ ?>" id="category<?= $key ?>">
+                                <br><br>
+                                <?php 
                                 foreach ($value as $question) { 
                             ?>
-                                <div class="col md-12 main">
+                                <div class="col-md-12 main">
                                     <div class="page-header">
                                         <span style="font-size: 25px"><strong>
                                             <?php echo $questionNumber; $questionNumber++;?>) 
                                         </strong><?= htmlspecialchars_decode($question['question']) ?></span>
+                                        <a class="paragaphExtend active" id="pragraphExtend" data-toggle="collapse" href="#collapse<?= $question['id'] ?>">[view passage - passage name 1]</a>
                                     </div>
                                     <fieldset>
+                                    <div id="passageExtendedView" class="col-md-12 panel-group">
+                                    <div id="collapse<?= $question['id'] ?>" class="panel-collapse collapse">
+                                        <div class="panel-passage-body panel-body">
+                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
+                                                repreh  enderit praesentium pariatur fugiat officiis!</p>
+
+                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
+                                                reprehenderit praesentium pariatur fugiat officiis!</p>
+
+                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
+                                                reprehenderit praesentium pariatur fugiat officiis!</p>
+
+                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
+                                                reprehenderit praesentium pariatur fugiat officiis!</p>
+                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
+                                                reprehenderit praesentium pariatur fugiat officiis!</p>
+
+                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
+                                                reprehenderit praesentium pariatur fugiat officiis!</p>
+
+                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
+                                                reprehenderit praesentium pariatur fugiat officiis!</p>
+
+                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
+                                                reprehenderit praesentium pariatur fugiat officiis!</p>
+                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
+                                                reprehenderit praesentium pariatur fugiat officiis!</p>
+
+                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
+                                                reprehenderit praesentium pariatur fugiat officiis!</p>
+
+                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
+                                                reprehenderit praesentium pariatur fugiat officiis!</p>
+
+                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
+                                                reprehenderit praesentium pariatur fugiat officiis!</p>
+                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
+                                                reprehenderit praesentium pariatur fugiat officiis!</p>
+
+                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
+                                                reprehenderit praesentium pariatur fugiat officiis!</p>
+
+                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
+                                                reprehenderit praesentium pariatur fugiat officiis!</p>
+
+                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus nisi, consectetur iusto repellat nobis excepturi alias, quaerat earum laudantium sequi aspernatur consequuntur velit eligendi facilis
+                                                reprehenderit praesentium pariatur fugiat officiis!</p>
+                                        </div>
+                                    </div>
+                                </div>
                                         <div class="form-group" style="font-size: 18px;">
                                             <div class="col-lg-12">
                                                 <?php
@@ -156,68 +207,68 @@
                                                     $question['choice3'] = $answerArr[2];
                                                     $question['choice4'] = $answerArr[3];
                                                 ?>
-                                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                                    <div class="radio radio-primary">
-                                                        <label>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                                        <div class="radio radio-primary">
+                                                            <label>
                                                         <input class="answerRadio" type="radio"
                                                          data-qid="<?= $question['questionId'] ?>" data-cid="<?= $question['categoryId'] ?>" data-choice="<?= $question['choice1'] ?>" name="<?= $question['id'] ?>"<?php
                                                             echo ($question['choice1'] == $question['userAnswer']) ? " checked" : "";
                                                          ?>><?= $question['choice1'] ?><br>
                                                     </label>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                                    <div class="radio radio-primary">
-                                                        <label>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                                        <div class="radio radio-primary">
+                                                            <label>
                                                         <input class="answerRadio" type="radio" 
                                                         data-qid="<?= $question['questionId'] ?>" data-cid="<?= $question['categoryId'] ?>" data-choice="<?= $question['choice2'] ?>" name="<?= $question['id'] ?>"<?php
                                                             echo ($question['choice2'] == $question['userAnswer']) ? " checked" : "";
                                                          ?>><?= $question['choice2'] ?><br>
                                                     </label>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                                    <div class="radio radio-primary">
-                                                        <label>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                                        <div class="radio radio-primary">
+                                                            <label>
                                                         <input class="answerRadio" type="radio" 
                                                         data-qid="<?= $question['questionId'] ?>" data-cid="<?= $question['categoryId'] ?>" data-choice="<?= $question['choice3'] ?>" name="<?= $question['id'] ?>"<?php
                                                             echo ($question['choice3'] == $question['userAnswer']) ? " checked" : "";
                                                          ?>><?= $question['choice3'] ?><br>
                                                     </label>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                                    <div class="radio radio-primary">
-                                                        <label>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                                        <div class="radio radio-primary">
+                                                            <label>
                                                         <input class="answerRadio" type="radio" 
                                                         data-qid="<?= $question['questionId'] ?>" data-cid="<?= $question['categoryId'] ?>" data-choice="<?= $question['choice4'] ?>" name="<?= $question['id'] ?>"<?php
                                                             echo ($question['choice4'] == $question['userAnswer']) ? " checked" : "";
                                                          ?>><?= $question['choice4'] ?><br>
                                                     </label>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                
+
                                             </div>
                                         </div>
                                     </fieldset>
                                 </div>
-                            <?php
+                                <?php
                                 }
                             ?>
-                            <br>
+                                    <br>
 
-                            <?php
+                                    <?php
                             $arrKeys = array_keys($this->questions); 
                             if($i >= count($arrKeys)) { ?>
-                                <div class="form-group col-sm-6">
-                                <button type="submit" id="submitBtn" name="test_submit" class="navbtn submitbtn">Submit</button>
-                                </div>
-                            <?php } ?>
-                        </div>
-                        <?php
+                                        <div class="form-group col-sm-6">
+                                            <button type="submit" id="submitBtn" name="test_submit" class="navbtn submitbtn">Submit</button>
+                                        </div>
+                                        <?php } ?>
+                            </div>
+                            <?php
                                 }
                             }
                         ?>
@@ -225,7 +276,7 @@
                 </div>
                 <br><br>
 
-        <?php } ?>
+                <?php } ?>
         </div>
         <!-- /#wrapper -->
         <!-- jQuery -->
@@ -244,4 +295,5 @@
         <script src="<?= JS_DIR ?>/pages/test.js"></script>
         <?php } ?>
 </body>
+
 </html>
