@@ -320,9 +320,18 @@ class Test extends Controller {
 			"questionId" => $data['questionId']
 		));
 		$response = array("newAnswer" => 0);
+
+		$conditions = 0;
 		if(count($primKey) > 0) {
+			$ques = $this->searchDataFromTable("questions", array('id' => $data['questionId']));
+			if(count($ques) > 0) {
+				$conditions = 1;
+				$data['answer'] = $ques[0]['answer'];
+			}
+		}
+		if($conditions > 0) {
 			if($primKey[0]['userAnswer'] == null || $primKey[0]['userAnswer'] == "") $response['newAnswer'] = 1;
-			if(strtolower(trim(str_replace(' ', '', $primKey[0]['answer']))) == strtolower(trim(str_replace(' ', '', $data['userAnswer'])))) {
+			if(strtolower(trim(str_replace(' ', '', $data['answer']))) == strtolower(trim(str_replace(' ', '', $data['userAnswer'])))) {
 				$data['result'] = 1;
 			} else {
 				$data['result'] = 0;

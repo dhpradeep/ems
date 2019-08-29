@@ -98,7 +98,7 @@ class Result extends Controller {
 		$name  = array_column($res, 'name');
 		$programName = array_column($res, 'programName');
 		$percent = array_column($res, 'percent');
-		$toSort = (isset($_POST["order"][0]["column"])) ? $_POST["columns"][$_POST["order"][0]["column"]]["data"] : $percent;
+		$toSort = (isset($_POST["order"][0]["column"])) ? $_POST["columns"][$_POST["order"][0]["column"]]["data"] : "percent";
 		if(isset($_POST["order"][0]["dir"]) && ($toSort == "name" || $toSort == "programName"|| $toSort == "percent")) {
 			if($_POST["order"][0]["dir"] == "asc")
 				array_multisort($$toSort, SORT_ASC, $res);
@@ -223,7 +223,8 @@ class Result extends Controller {
 
 			$columnToSort = $_POST["order"][0]["column"];
 
-			$columnToSort = (isset($_POST["columns"][$columnToSort]["data"]) && $_POST["columns"][$columnToSort]["orderable"]) ? $_POST["columns"][$columnToSort]["data"] : "question" ;
+			$columnToSort = (isset($_POST["columns"][$columnToSort]["data"]) && $_POST["columns"][$columnToSort]["orderable"]) ? $_POST["columns"][$columnToSort]["data"] : "result" ;
+			$columnToSort = ($columnToSort == "question") ? null : $columnToSort;
 			$columnToSort = Sanitize::escape($columnToSort);
 		}
 
@@ -232,6 +233,35 @@ class Result extends Controller {
 		}
 
 		$res = $this->model->getAllDataConditions($stringToSearch,$fieldToSearch,$columnToSort,$sortDir);
+		foreach ($res as $key => $value) {
+			$questionId = $value['questionId'];
+			$questionDesc = $this->searchDataFromTable("questions", array('id' => $questionId));
+			if(count($questionDesc) < 0 ) {
+				$res[$key]['question'] = "Question not found!";
+				$res[$key]['choice1'] = "Not found!";
+				$res[$key]['choice2'] = "Not found!";
+				$res[$key]['choice3'] = "Not found!";
+				$res[$key]['choice4'] = "Not found!";
+				$res[$key]['containPassage'] = 0;
+				$res[$key]['userAnswer'] = null;
+			}else {
+				$res[$key]['question'] = $questionDesc[0]['question'];
+				$res[$key]['answer'] = $questionDesc[0]['answer'];
+				$res[$key]['choice2'] = $questionDesc[0]['choice2'];
+				$res[$key]['choice3'] = $questionDesc[0]['choice3'];
+				$res[$key]['choice4'] = $questionDesc[0]['choice4'];
+			}
+		}
+
+		$question = array_column($res, 'question');
+		$toSort = (isset($_POST["order"][0]["column"])) ? $_POST["columns"][$_POST["order"][0]["column"]]["data"] : "question";
+		if(isset($_POST["order"][0]["dir"]) && ($toSort == "question")) {
+			if($_POST["order"][0]["dir"] == "asc"){
+				array_multisort($$toSort, SORT_ASC, $res);
+			}
+			else
+				array_multisort($$toSort, SORT_DESC, $res);
+		}
 
 		if(isset($_POST['id']) && $_POST['id'] > 0) {
 			$i = 0;
