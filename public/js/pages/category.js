@@ -1,3 +1,7 @@
+$('body').on('shown.bs.modal', '#addCategory', function() {
+    $('input:visible:enabled:first', this).focus();
+})
+
 function create_category(data = null) {
     if(data != null) {
         $('#addCategory').modal('show');
@@ -210,6 +214,7 @@ function getAllData(){
      $('#categoryTable').DataTable( {
         "processing": true,
         "serverSide": true,
+        stateSave: true,
         "ajax": {
             "url": "../question/category/get",
             "type": "POST"

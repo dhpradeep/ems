@@ -2,6 +2,10 @@ $('#addStudent').on('hidden.bs.modal', function(e) {
     resetFields();
 });
 
+$('body').on('shown.bs.modal', '#addStudent', function() {
+    $('input:visible:enabled:first', this).focus();
+})
+
 function resetFields() {
     $("#nestedForm").empty();
     $("#studentId").data('id', '-1');
@@ -638,6 +642,7 @@ function getAllData(trigger = null) {
     var table = $('#studentTable').DataTable({
         "processing": true,
         "serverSide": true,
+        stateSave: true,
         "ajax": {
             "url": "../student/all/get",
             "type": "POST",

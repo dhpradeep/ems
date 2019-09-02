@@ -2,6 +2,10 @@ jQuery.fn.CKEditorValFor = function(element_id) {
     return CKEDITOR.instances[element_id].getData();
 }
 
+$('body').on('shown.bs.modal', '#addProgram', function() {
+    $('input:visible:enabled:first', this).focus();
+})
+
 $('#addProgram').on('hidden.bs.modal', function(e) {
     resetFields();
 });
@@ -224,6 +228,7 @@ function getAllData(){
     var table = $('#programTable').DataTable( {
         "processing": true,
         "serverSide": true,
+        stateSave: true,
         "ajax": {
             "url": "../question/program/get",
             "type": "POST"

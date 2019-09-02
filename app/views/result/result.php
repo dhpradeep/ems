@@ -15,6 +15,7 @@
     <link href="<?= CSS_DIR ?>/timeline.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="<?= CSS_DIR ?>/sb-admin-2.css" rel="stylesheet">
+    <link href="<?= CSS_DIR ?>/style.css" rel="stylesheet">
     <!-- Morris Charts CSS -->
     <link href="<?= BOWER_DIR ?>/morrisjs/morris.css" rel="stylesheet">
     <!-- Custom Fonts -->
@@ -52,7 +53,7 @@
                     <div class="form-inline form-padding">
                         <a class="btn btn-success" onclick="getAllData(1)">Export to Excel</a>
                         <a onclick="refresh()" class="btn btn-info">Refresh</a>
-                        <div class="input-group"> <span class="input-group-addon">Filter by Program: </span>
+                        <div class="input-group col-md-3 col-sm-4 col-xs-6"> <span class="input-group-addon">Filter by Program: </span>
                             <select class="form-control" id="filterData" name="filterResult">
                                 <option value="0" name="None"> None </option>
                                 <?php
@@ -72,19 +73,20 @@
                         </div>
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
+                                <div class="table-responsive">
                               <table id="resultTable" class="table table-bordered table-striped">
                                   <thead>
                                       <tr role="row">
-                                            <th >
+                                            <th style="min-width: 150px">
                                                 Student Name
                                             </th>
-                                            <th >
+                                            <th style="min-width: 150px">
                                                 Program
                                             </th>
-                                            <th>
+                                            <th style="min-width: 100px">
                                                 Right Answers
                                             </th>
-                                            <th>
+                                            <th style="min-width: 100px">
                                                 Percentage
                                             </th>
                                             <th style="min-width: 100px">
@@ -93,6 +95,7 @@
                                       </tr>
                                   </thead>
                               </table>
+                              </div>
                             </div>
                         </div>
                     </div>

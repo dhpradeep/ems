@@ -4,7 +4,7 @@
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
             <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
         </a>
-        <ul class="dropdown-menu dropdown-user dropdown-menu-right">
+        <ul class="dropdown-menu dropdown-users">
             <li>
                 <a href="<?= SITE_URL ?>/user/profile"><i class="fa fa-user fa-fw"></i><?= Session::getSession('uname'); ?></a>
             </li>

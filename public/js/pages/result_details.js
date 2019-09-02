@@ -47,6 +47,7 @@ function getAllData(){
         var table = $('#resultDetailTable').DataTable( {
             "processing": true,
             "serverSide": true,
+            stateSave: true,
             "ajax": {
                 "url": "../examController/get",
                 "type": "POST",

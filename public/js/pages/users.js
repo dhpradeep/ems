@@ -6,6 +6,10 @@ $( document ).ready(function() {
     refresh();
 });
 
+$('body').on('shown.bs.modal', '#adduser', function() {
+    $('input:visible:enabled:first', this).focus();
+})
+
 $(document).on("click", ".remove-icon", function(e) {
     var id = $(this).data('id');
     BootstrapDialog.show({
@@ -190,6 +194,7 @@ function getAllData(){
                              $('#userTable').DataTable( {
                                 "processing": true,
                                 "serverSide": true,
+                                stateSave: true,
                                 "ajax": {
                                     "url": "../user/users/get",
                                     "type": "POST",

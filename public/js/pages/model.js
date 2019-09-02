@@ -1,3 +1,7 @@
+$('body').on('shown.bs.modal', '#addModel', function() {
+    $('input:visible:enabled:first', this).focus();
+})
+
 function create_model(data = null) {
     if(data != null) {
         $("#modelId").data('id',data.id);
@@ -216,6 +220,7 @@ function getAllData(){
         var table = $('#modelTable').DataTable( {
             "processing": true,
             "serverSide": true,
+            stateSave: true,
             "ajax": {
                 "url": "../../question/modelController/get",
                 "data": {

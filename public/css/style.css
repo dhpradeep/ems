@@ -33,6 +33,7 @@
     border-bottom-right-radius: 50%;
     opacity: 0.6;
     padding-top: 10px;
+    z-index: 1;
 }
 
 .cur {
@@ -59,8 +60,12 @@
 }
 
 .navbtn:hover {
-    background-image: linear-gradient(to right, #193650 0%, #1b476d 51%, #337ab7 100%);
+    background-image: linear-gradient(to right, #2382db 0%, #0d4e8b 51%, #7067be 100%);
     color: white;
+}
+
+.mySticky:hover{
+    opacity: 1;
 }
 
 .nextbtn {
@@ -117,4 +122,10 @@
 
 .paragaphExtend[aria-expanded="true"]::after {
     content: "\f106";
+}
+
+@media (max-width: 1077px) {
+    .col-sm-4 {
+        margin-top: 5px;
+    }
 }
