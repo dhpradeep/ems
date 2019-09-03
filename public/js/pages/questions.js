@@ -42,21 +42,21 @@ function create_question(data = null) {
             $('#level').val(data.level);
 
             $('#categoryId').val(data.categoryId);
-            if(data.containPassage == 1) {
+            if (data.containPassage == 1) {
                 $('#containPassage').val('1');
                 $('#passageList').val(data.passageId);
                 $('#passageTitle').val(data.passageTitle)
                 CKEDITOR.instances['passage'].setData(data.passage);
                 $('#createNewPassage').html("clear passage");
-                if(!$('#createNewPassage').hasClass("edit-active")) {
-                    $('#createNewPassage').toggleClass("edit-active");  
+                if (!$('#createNewPassage').hasClass("edit-active")) {
+                    $('#createNewPassage').toggleClass("edit-active");
                 }
                 $('#toHideForPassage').show();
                 $("#toHideForLink").show();
-            }else {
+            } else {
                 $('#toHideForPassage').hide();
                 $("#toHideForLink").hide();
-            }         
+            }
 
             $('#addQuestion').modal('show');
         }
@@ -69,7 +69,9 @@ function create_question(data = null) {
 
 $(document).ready(function() {
     CKEDITOR.replace('question');
+    CKEDITOR.add;
     CKEDITOR.replace('passage');
+    CKEDITOR.add;
     CKEDITOR.config.autoParagraph = false;
     refresh();
 });
@@ -115,11 +117,11 @@ function updateQuestion() {
     var passageId;
     var passageTitle;
     var passage;
-    if(containPassage > 0) {
+    if (containPassage > 0) {
         passageId = $('#passageList').val();
         passageTitle = $('#passageTitle').val();
         passage = $().CKEditorValFor('passage');
-    }else {
+    } else {
         passageId = -2;
         passageTitle = "";
         passage = "";
@@ -140,10 +142,10 @@ function updateQuestion() {
                 choice2: $('#choice2').val(),
                 choice3: $('#choice3').val(),
                 choice4: $('#choice4').val(),
-                containPassage : containPassage,
-                passageId : passageId,
-                passageTitle : passageTitle,
-                passage : passage
+                containPassage: containPassage,
+                passageId: passageId,
+                passageTitle: passageTitle,
+                passage: passage
             },
             success: function(response) {
                 animate(300);
@@ -185,11 +187,11 @@ function addQuestion() {
     var passageId;
     var passageTitle;
     var passage;
-    if(containPassage > 0) {
+    if (containPassage > 0) {
         passageId = $('#passageList').val();
         passageTitle = $('#passageTitle').val();
         passage = $().CKEditorValFor('passage');
-    }else {
+    } else {
         passageId = -2;
         passageTitle = "";
         passage = "";
@@ -207,10 +209,10 @@ function addQuestion() {
             choice2: $('#choice2').val(),
             choice3: $('#choice3').val(),
             choice4: $('#choice4').val(),
-            containPassage : containPassage,
-            passageId : passageId,
-            passageTitle : passageTitle,
-            passage : passage
+            containPassage: containPassage,
+            passageId: passageId,
+            passageTitle: passageTitle,
+            passage: passage
         },
         success: function(response) {
             var decode = JSON.parse(response);
@@ -326,8 +328,8 @@ function format(d) {
         '<td class = "choices">4th Choice:</td>' +
         '<td class = "answers">' + d.choice4 + '</td>' +
         '</tr>';
-    if(d.containPassage == 1) {
-        html +='<tr>'+
+    if (d.containPassage == 1) {
+        html += '<tr>' +
             '<td class = "choices">Passage:</td>' +
             '<td class = "answers">' + d.passageTitle + '</td>' +
             '</tr>';
@@ -338,16 +340,16 @@ function format(d) {
     return html;
 }
 
-$("#addQuestion").on('change', "#containPassage", function(){
-    if($(this).val() == 1) {
+$("#addQuestion").on('change', "#containPassage", function() {
+    if ($(this).val() == 1) {
         fetchPasses(0);
     }
 });
 
-$("#addQuestion").on('change', "#passageList", function(){
-    if($(this).val() != -1) {
+$("#addQuestion").on('change', "#passageList", function() {
+    if ($(this).val() != -1) {
         fetchPasses(1);
-    }else {
+    } else {
         $('#toHideForPassage').hide();
     }
 });
@@ -358,67 +360,67 @@ function checkObjectSize(obj) {
 
 function fetchPasses(mode, value = -1) {
     var passageId;
-    if(mode == 1) {
+    if (mode == 1) {
         passageId = $("#passageList").val();
     }
-        $.ajax({
-            url: '../question/all/getPassages',
-            async: true,
-            type: 'POST',
-            data: {
-                confirm: 1
-            },
-            success: function(response) {
-                var decode = JSON.parse(response);
-                if (decode.success == true) {
-                    var html = '<option value="-1">None</option>';
-                    if (checkObjectSize(decode.passages) >= 1) {
-                        if(mode == 1) {              
-                            if(decode.passages[passageId] != undefined ) {
-                                $('#passageTitle').val(decode.passages[passageId].passageTitle);
-                                //CKEDITOR.instances['passage'].setData("");
-                                CKEDITOR.instances['passage'].setData(decode.passages[passageId].passage);
-                            }else {
-                                $('#passageTitle').val("");
-                                CKEDITOR.instances['passage'].setData("");
-                            }
-                            return;
-                        }
-                        var key;
-                        for (key in decode.passages) {
-                            html += '<option value="' + decode.passages[key].id + '">' + decode.passages[key].passageTitle + '</option>';
-                        }
-                    } else {
-                       $.notify("No passages found.", "error");
-                    }
-                    $('#passageList').html(html);
-
-                    if(mode == 0 && value != -1 && value != undefined) {
-                        $('#passageList').val(value);
-                        console.log("hel");
-                    }
-                } else if (decode.success === false) {
-                    if($('#containPassage').val() == 1) {
-                        var html = '<option value="-1">None</option>';
-                        if (decode.error != undefined) {
-                            $.notify(decode.error[0], "error");
+    $.ajax({
+        url: '../question/all/getPassages',
+        async: true,
+        type: 'POST',
+        data: {
+            confirm: 1
+        },
+        success: function(response) {
+            var decode = JSON.parse(response);
+            if (decode.success == true) {
+                var html = '<option value="-1">None</option>';
+                if (checkObjectSize(decode.passages) >= 1) {
+                    if (mode == 1) {
+                        if (decode.passages[passageId] != undefined) {
+                            $('#passageTitle').val(decode.passages[passageId].passageTitle);
+                            //CKEDITOR.instances['passage'].setData("");
+                            CKEDITOR.instances['passage'].setData(decode.passages[passageId].passage);
                         } else {
-                            $.notify("Problem fetching passages.", "error");
+                            $('#passageTitle').val("");
+                            CKEDITOR.instances['passage'].setData("");
                         }
-                        if(mode == 0) $('#passageList').html(html);
+                        return;
                     }
-                    return;
+                    var key;
+                    for (key in decode.passages) {
+                        html += '<option value="' + decode.passages[key].id + '">' + decode.passages[key].passageTitle + '</option>';
+                    }
+                } else {
+                    $.notify("No passages found.", "error");
                 }
-            },
-            error: function(error) {
-                if (error.responseText) {
-                    var msg = JSON.parse(error.responseText)
-                    $.notify(msg.msg, "error");
+                $('#passageList').html(html);
+
+                if (mode == 0 && value != -1 && value != undefined) {
+                    $('#passageList').val(value);
+                    console.log("hel");
+                }
+            } else if (decode.success === false) {
+                if ($('#containPassage').val() == 1) {
+                    var html = '<option value="-1">None</option>';
+                    if (decode.error != undefined) {
+                        $.notify(decode.error[0], "error");
+                    } else {
+                        $.notify("Problem fetching passages.", "error");
+                    }
+                    if (mode == 0) $('#passageList').html(html);
                 }
                 return;
             }
-        });
-    
+        },
+        error: function(error) {
+            if (error.responseText) {
+                var msg = JSON.parse(error.responseText)
+                $.notify(msg.msg, "error");
+            }
+            return;
+        }
+    });
+
 }
 
 function getAllData() {
@@ -446,10 +448,11 @@ function getAllData() {
             {
                 "data": "question"
             },
-            { "data": "category",
+            {
+                "data": "category",
                 sortable: true,
                 "render": function(data, type, row, meta) {
-                    return (row.containPassage == 1) ? "(P) "+ row.category : row.category;
+                    return (row.containPassage == 1) ? "(P) " + row.category : row.category;
                 }
             },
             { "data": "levelName" },
