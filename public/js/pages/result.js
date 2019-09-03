@@ -171,6 +171,7 @@ function getAllData(trigger = null) {
     var table = $('#resultTable').DataTable({
         "processing": true,
         "serverSide": true,
+        stateSave: true,
         /*dom: 'Bfrtip',
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'

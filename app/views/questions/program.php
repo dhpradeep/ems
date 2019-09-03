@@ -67,19 +67,21 @@
                         </div>
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
+                                <div class="table-responsive">
                               <table id="programTable" class="table table-bordered table-striped paginated tablesorter">
                                   <thead>
-                                      <tr role="row">
-                                            <th >
+                                      <tr>
+                                            <th style="min-width: 150px">
                                                 Program Name
                                             </th>
-                                            <th>
+                                            <th style="min-width: 150px">
                                                 Duration
                                             </th>
                                             <th style="min-width: 150px">Action</th>
                                       </tr>
                                   </thead>
                               </table>
+                              </div>
                             </div>
                         </div>
                     </div>

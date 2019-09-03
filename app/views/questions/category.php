@@ -66,19 +66,21 @@
                         </div>
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
+                                <div class="table-responsive">
                                 <table id="categoryTable" class="table table-bordered table-striped paginated tablesorter" style="margin-bottom:0;">
                                     <thead>
                                         <tr>
-                                            <th>
+                                            <th style="min-width: 150px">
                                                 Category Name
                                             </th>
-                                            <th>
+                                            <th style="min-width: 150px">
                                                 Category Description
                                             </th>
                                             <th style="min-width: 60px;">Action</th>
                                         </tr>
                                     </thead>
                                 </table>
+                                </div>
                             </div>
                         </div>
                     </div>

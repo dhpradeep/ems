@@ -6,6 +6,9 @@ $('#addQuestion').on('hidden.bs.modal', function(e) {
     resetFields();
 });
 
+$('body').on('shown.bs.modal', '#addQuestion', function() {
+})
+
 function resetFields() {
     CKEDITOR.instances['question'].setData("");
     CKEDITOR.instances['passage'].setData("");
@@ -428,6 +431,7 @@ function getAllData() {
     var table = $('#questionTable').DataTable({
         "processing": true,
         "serverSide": true,
+        stateSave: true,
         "ajax": {
             "url": "../question/all/get",
             "type": "POST",

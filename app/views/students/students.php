@@ -81,7 +81,7 @@
                             <a onclick="create_student()" class="btn btn-primary">Add Student</a>
                             <a onclick="refresh()" class="btn btn-info">Refresh</a>
                             <a onclick="getAllData(2)" class="btn btn-success text-right">Export to excel</a>
-                            <div class="input-group"> <span class="input-group-addon">Filter by Program: </span>
+                            <div class="input-group col-md-3 col-sm-4 col-xs-6"> <span class="input-group-addon">Filter by Program: </span>
                                 <select class="form-control" id="filterData" name="filterResult">
                                     <option value="0" name="None"> None </option>
                                     <?php
@@ -103,20 +103,22 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
-                                <table class="table table-striped table-bordered table-hover paginated tablesorter" id="studentTable">
+                                <div class="table-responsive">
+                                <table width="100%" class="table table-striped table-bordered table-hover paginated tablesorter" id="studentTable">
                                     <thead>
                                         <tr>
                                             <th style="min-width: 60px">Details</th>
-                                            <th>Fullname</th>
-                                            <th>Entrance No</th>
-                                            <th>Username</th>
-                                            <th>Email</th>
+                                            <th style="min-width: 100px">Fullname</th>
+                                            <th style="min-width: 60px">Entrance No</th>
+                                            <th style="min-width: 60px">Username</th>
+                                            <th style="min-width: 100px">Email</th>
                                             <th style="min-width: 30px">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class="searchable">
                                     </tbody>
                                 </table>
+                                </div>
                             </div>
                         </div>
                         <!-- /.panel-body -->

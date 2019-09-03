@@ -15,6 +15,7 @@
     <link href="<?= CSS_DIR ?>/timeline.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="<?= CSS_DIR ?>/sb-admin-2.css" rel="stylesheet">
+    <link href="<?= CSS_DIR ?>/style.css" rel="stylesheet">
     <!-- Morris Charts CSS -->
     <link href="<?= BOWER_DIR ?>/morrisjs/morris.css" rel="stylesheet">
     <!-- Custom Fonts -->
@@ -55,7 +56,7 @@
                         <form id="frmSearch" role="form">
                             <input type="hidden" data-id="<?= $this->examId ?>" id="examId">
                             <a onclick="refresh()" class="btn btn-info">Refresh</a>
-                            <div class="input-group"> <span class="input-group-addon">Filter by Category: </span>
+                            <div class="input-group col-md-3 col-sm-4 col-xs-6"> <span class="input-group-addon">Filter by Category: </span>
                                 <select class="form-control" id="filterData" name="filterResult">
                                     <option value="0" name="None"> None </option>
                                     <?php
@@ -77,16 +78,17 @@
                         </div>
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
+                                <div class="table-responsive">
                               <table id="resultDetailTable" class="table table-bordered table-striped paginated tablesorter">
                                   <thead>
                                       <tr role="row">
-                                            <th >
+                                            <th style="min-width: 250px;">
                                                 Question
                                             </th>
-                                            <th>
+                                            <th style="min-width: 250px;">
                                                 Given Answer
                                             </th>
-                                            <th>
+                                            <th style="min-width: 250px;">
                                                 Correct Answer
                                             </th>
                                             <th style="min-width: 70px;">
@@ -95,6 +97,7 @@
                                       </tr>
                                   </thead>
                               </table>
+                              </div>
                             </div>
                         </div>
                     </div>
