@@ -611,13 +611,13 @@ class Question extends Controller {
 				'name' => 'Welcome Message',
 				'required' => true,
 				'min' => 1,
-				'max' => 1200
+				'max' => 5000
 			),
 			'thanks' => array(
 				'name' => 'Exit Message',
 				'required' => true,
 				'min' => 1,
-				'max' => 1200
+				'max' => 5000
 			)
 		));
 		if(Input::get('duration') <= 0 ) $validate->addError("Duration isnot valid!");
@@ -663,13 +663,13 @@ class Question extends Controller {
 				'name' => 'Welcome Message',
 				'required' => true,
 				'min' => 1,
-				'max' => 1200
+				'max' => 5000
 			),
 			'thanks' => array(
 				'name' => 'Exit Message',
 				'required' => true,
 				'min' => 1,
-				'max' => 1200
+				'max' => 5000
 			)
 		));
 		if(Input::get('duration') <= 0 ) $validate->addError("Duration isnot valid!");
@@ -866,10 +866,10 @@ class Question extends Controller {
 				'name' => 'Question',
 				'required' => true,
 				'min' => 1,
-				'max' => 1200
+				'max' => 10000
 			),
 			'answer' => array(
-				'name' => 'Question',
+				'name' => 'Answer',
 				'required' => true,
 				'min' => 1,
 				'max' => 255
@@ -996,7 +996,7 @@ class Question extends Controller {
 				'name' => 'Question',
 				'required' => true,
 				'min' => 1,
-				'max' => 1200
+				'max' => 10000
 			),
 			'answer' => array(
 				'name' => 'Answer',

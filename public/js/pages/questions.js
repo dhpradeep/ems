@@ -71,13 +71,26 @@ function create_question(data = null) {
 }
 
 $(document).ready(function() {
-    CKEDITOR.replace('question');
-    CKEDITOR.add;
-    CKEDITOR.replace('passage');
-    CKEDITOR.add;
+    loadEditors();
+    // CKEDITOR.replace('question');
+    // CKEDITOR.add;
+    // CKEDITOR.replace('passage');
+    // CKEDITOR.add;
     CKEDITOR.config.autoParagraph = false;
     refresh();
 });
+
+function loadEditors() {
+    var $editors = $("textarea.ckeditor");
+    if ($editors.length) {
+        $editors.each(function() {
+            var editorID = $(this).attr("id");
+            var instance = CKEDITOR.instances[editorID];
+            if (instance) { instance.destroy(true); }
+            CKEDITOR.replace(editorID);
+        });
+    }
+}
 
 $(document).on("click", "#saveBtn", function(e) {
     e.preventDefault();
