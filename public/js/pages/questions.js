@@ -71,11 +71,12 @@ function create_question(data = null) {
 }
 
 $(document).ready(function() {
-    loadEditors();
-    // CKEDITOR.replace('question');
-    // CKEDITOR.add;
-    // CKEDITOR.replace('passage');
-    // CKEDITOR.add;
+    for(name in CKEDITOR.instances)
+    {
+        CKEDITOR.instances[name].destroy(true);
+    }
+    CKEDITOR.replace('question');
+    CKEDITOR.replace('passage');
     CKEDITOR.config.autoParagraph = false;
     refresh();
 });

@@ -36,13 +36,13 @@
                         </div>
                         <div class="form-group col-md-12">
                             <label>Passage</label>
-                            <textarea name="passage" class="ckeditor" id="passage" required></textarea>
+                            <textarea name="passage" id="passage" required></textarea>
                         </div>
                     </div>
                     <div class="form-group col-md-12">
                         <input id="questionId" type="hidden"/>
                         <label>Question</label>
-                        <textarea name="question" class="ckeditor" id="question" required></textarea>
+                        <textarea name="question" id="question" required></textarea>
                     </div>
                     <!--<div class="form-group col-md-12">
                         <label>Primary Image: </label>
