@@ -796,7 +796,7 @@ class Question extends Controller {
 					$arr[$index]['containPassage'] = 1;
 					$arr[$index]['passageId'] = $co[0]['id'];
 					$arr[$index]['passageTitle'] = $co[0]['passageTitle'];
-					$arr[$index]['passage'] = $co[0]['passage'];
+					$arr[$index]['passage'] = html_entity_decode($co[0]['passage']);
 				}else {
 					$arr[$index]['containPassage'] = 0;
 				}

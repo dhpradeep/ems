@@ -19,11 +19,11 @@
                     </div>
                     <div class="form-group col-md-12">
                         <label>Welcome Message for Students</label>
-                        <textarea name="welcome" class="ckeditor" id="welcome" required></textarea>
+                        <textarea name="welcome" id="welcome" required></textarea>
                     </div>
                     <div class="form-group col-md-12">
                         <label>Exit Message for Students</label>
-                        <textarea name="thanks" class="ckeditor" id="thanks" required></textarea>
+                        <textarea name="thanks" id="thanks" required></textarea>
                     </div>
                 </form>
             </div>

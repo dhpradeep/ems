@@ -99,9 +99,9 @@ class Test extends Controller {
 				foreach ($records as $key => $value) {
 					$questionId = $value['questionId'];
 					$questionDesc = $this->searchDataFromTable("questions", array('id' => $questionId));
-					if(count($questionDesc) < 0 ) {
+					if(count($questionDesc) <= 0 ) {
 						$records[$key]['question'] = "Question not found!";
-						$records[$key]['choice1'] = "Not found!";
+						$records[$key]['answer'] = "Not found!";
 						$records[$key]['choice2'] = "Not found!";
 						$records[$key]['choice3'] = "Not found!";
 						$records[$key]['choice4'] = "Not found!";
@@ -116,7 +116,7 @@ class Test extends Controller {
 						if($questionDesc[0]['passageId'] > 0) {
 							$records[$key]['containPassage'] = 1;
 							$passageDesc = $this->searchDataFromTable("passage", array('id' => $questionDesc[0]['passageId']));
-							if(count($passageDesc) < 0) {
+							if(count($passageDesc) <= 0) {
 								$records[$key]['passageTitle'] = "Passage Not found";
 								$records[$key]['userAnswer'] = "The passage exists no longer";
 							}else {
