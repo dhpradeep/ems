@@ -177,7 +177,7 @@
                                                         <input class="answerRadio" type="radio"
                                                          data-qid="<?= $question['questionId'] ?>" data-cid="<?= $question['categoryId'] ?>" data-choice="<?= $question['choice1'] ?>" name="<?= $question['id'] ?>"<?php
                                                             echo ($question['choice1'] == $question['userAnswer']) ? " checked" : "";
-                                                         ?>><?= $question['choice1'] ?><br>
+                                                         ?>><?= htmlspecialchars_decode($question['choice1']) ?><br>
                                                     </label>
                                                         </div>
                                                     </div>
@@ -187,7 +187,7 @@
                                                         <input class="answerRadio" type="radio" 
                                                         data-qid="<?= $question['questionId'] ?>" data-cid="<?= $question['categoryId'] ?>" data-choice="<?= $question['choice2'] ?>" name="<?= $question['id'] ?>"<?php
                                                             echo ($question['choice2'] == $question['userAnswer']) ? " checked" : "";
-                                                         ?>><?= $question['choice2'] ?><br>
+                                                         ?>><?= htmlspecialchars_decode($question['choice2']) ?><br>
                                                     </label>
                                                         </div>
                                                     </div>
@@ -198,7 +198,7 @@
                                                         <input class="answerRadio" type="radio" 
                                                         data-qid="<?= $question['questionId'] ?>" data-cid="<?= $question['categoryId'] ?>" data-choice="<?= $question['choice3'] ?>" name="<?= $question['id'] ?>"<?php
                                                             echo ($question['choice3'] == $question['userAnswer']) ? " checked" : "";
-                                                         ?>><?= $question['choice3'] ?><br>
+                                                         ?>><?= htmlspecialchars_decode($question['choice3']) ?><br>
                                                     </label>
                                                         </div>
                                                     </div>
@@ -209,7 +209,7 @@
                                                         <input class="answerRadio" type="radio" 
                                                         data-qid="<?= $question['questionId'] ?>" data-cid="<?= $question['categoryId'] ?>" data-choice="<?= $question['choice4'] ?>" name="<?= $question['id'] ?>"<?php
                                                             echo ($question['choice4'] == $question['userAnswer']) ? " checked" : "";
-                                                         ?>><?= $question['choice4'] ?><br>
+                                                         ?>><?= htmlspecialchars_decode($question['choice4']) ?><br>
                                                     </label>
                                                         </div>
                                                     </div>
@@ -251,6 +251,10 @@
         <script src="<?= BOWER_DIR ?>/metisMenu/dist/metisMenu.min.js"></script>
         <!-- Bootstrap Core JavaScript -->
         <script src="<?= BOWER_DIR ?>/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js"></script>
+
+        <!-- Mathjax JavaScript -->
+        <script src="<?= JS_DIR ?>/mathjax/MathJax.js?config=TeX-AMS_HTML" async></script>
+
         <!-- Custom Theme JavaScript -->
         <script src="<?= JS_DIR ?>/sb-admin-2.js"></script>
         <?php if(!(!is_null($this->errors) && count($this->errors) > 0))

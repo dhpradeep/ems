@@ -68,6 +68,10 @@ defined("JS_DIR")
 defined("FONTS_DIR")
 	|| define("FONTS_DIR", SITE_URL."/fonts");
 
+// PDF folder
+defined("PDF_DIR")
+	|| define("PDF_DIR", SITE_URL."/pdf");
+
 
 // To be used for some defaults values.
 defined("WEBSITE_TITLE")

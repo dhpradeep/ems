@@ -1,4 +1,4 @@
-<div class="modal fade" id="addQuestion" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal fade" id="addQuestion"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form method="POST" role="form" id="frmQuestions" enctype="multipart/form-data">
@@ -30,27 +30,22 @@
                     </div>
                     <div id="toHideForPassage">
                         <div class="form-group col-md-6">
-                            <label>Passage Title</label>
+                            <label>Passage Title *</label>
                             <input type="text" name="passageTitle" id="passageTitle" class="form-control answer" required/> 
                             <p class="help-inline"></p>
                         </div>
                         <div class="form-group col-md-12">
-                            <label>Passage</label>
+                            <label>Passage *</label>
                             <textarea name="passage" id="passage" required></textarea>
                         </div>
                     </div>
                     <div class="form-group col-md-12">
                         <input id="questionId" type="hidden"/>
-                        <label>Question</label>
+                        <label>Question * </label><a style="float:right;" href="<?= PDF_DIR ?>/latex_usermanual.pdf" target="_blank">Open Latex Manual</a>
                         <textarea name="question" id="question" required></textarea>
                     </div>
-                    <!--<div class="form-group col-md-12">
-                        <label>Primary Image: </label>
-                        <input type="file" name="image" id="image" class="form-control" accept="image/*" />
-                        <p class="help-inline"></p>
-                    </div>-->
                     <div class="form-group col-md-6">
-                        <label>Category</label>
+                        <label>Category *</label>
                         <select class="form-control" id="categoryId" name="categoryId">
                             <?php
                                 foreach ($this->category as $value) {
@@ -62,7 +57,7 @@
                         </select>
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Question Level </label>
+                        <label>Question Level *</label>
                         <select class="form-control" id="level" name="level">
                             <option value="1" name="Basic">Basic</option>
                             <option value="2" name="Medium">Medium</option>
@@ -71,25 +66,20 @@
                         <p class="help-inline"></p>
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Correct Answer</label>
-                        <input type="text" name="answer" id="answer" class="form-control answer" required/>
-                        <p class="help-inline"></p>
-                        
+                        <label>Correct Answer *</label>
+                        <textarea name="answer" id="answer" required></textarea>
                     </div>
                     <div class="form-group col-md-6">
-                        <label>2nd Choice</label>
-                        <input type="text" name="choice2" id="choice2" class="form-control answer" required/> 
-                        <p class="help-inline"></p>
-                    </div>
-                    <div class="form-group col-md-6">                
-                        <label>3rd Choice</label>
-                        <input type="text" name="choice3" id="choice3" class="form-control answer" required/> 
-                        <p class="help-inline"></p>
+                        <label>2nd Choice *</label>
+                        <textarea name="choice2" id="choice2" required></textarea>
                     </div>
                     <div class="form-group col-md-6">
-                        <label>4th Choice</label>
-                        <input type="text" name="choice4" id="choice4" class="form-control answer" required/>
-                        <p class="help-inline"></p> 
+                        <label>3rd Choice *</label>
+                        <textarea name="choice3" id="choice3" required></textarea>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>4th Choice *</label>
+                        <textarea name="choice4" id="choice4" required></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -12,10 +12,12 @@ CKEDITOR.editorConfig = function(config) {
         { name: 'tools', groups: ['tools'] },
         { name: 'others', groups: ['others'] },
         { name: 'about', groups: ['about'] },
-        { name: 'document', groups: ['mode', 'document', 'doctools' , 'FMathEditor'] }
+        { name: 'document', groups: ['mode', 'document', 'doctools' , 'mathjax'] }
     ];
 
-    config.extraPlugins = 'FMathEditor';
+    config.extraPlugins = 'mathjax';
+    config.mathJaxClass = 'my-math';
+    config.mathJaxLib = '../js/mathjax/MathJax.js?config=TeX-AMS_HTML';
 
     config.removeButtons = 'NewPage,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Find,Replace,SelectAll,Scayt,Form,TextField,Textarea,Select,Button,ImageButton,HiddenField,CopyFormatting,RemoveFormat,Flash,Image,Iframe,ShowBlocks,About,Radio,Checkbox,Save';
 };

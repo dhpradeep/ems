@@ -872,25 +872,25 @@ class Question extends Controller {
 				'name' => 'Answer',
 				'required' => true,
 				'min' => 1,
-				'max' => 255
+				'max' => 2000
 			),
 			'choice2' => array(
 				'name' => '2nd. Choice',
 				'required' => true,
 				'min' => 1,
-				'max' => 255
+				'max' => 2000
 			),
 			'choice3' => array(
 				'name' => '3rd. Choice',
 				'required' => true,
 				'min' => 1,
-				'max' => 255
+				'max' => 2000
 			),
 			'choice4' => array(
 				'name' => '4th. Choice',
 				'required' => true,
 				'min' => 1,
-				'max' => 255
+				'max' => 2000
 			)
 		));
 		if(Input::get('level') <= 0 || Input::get('minLevel') > 3 ) $validate->addError("Level isnot valid!");
@@ -1002,25 +1002,25 @@ class Question extends Controller {
 				'name' => 'Answer',
 				'required' => true,
 				'min' => 1,
-				'max' => 255
+				'max' => 2000
 			),
 			'choice2' => array(
 				'name' => '2nd. Choice',
 				'required' => true,
 				'min' => 1,
-				'max' => 255
+				'max' => 2000
 			),
 			'choice3' => array(
 				'name' => '3rd. Choice',
 				'required' => true,
 				'min' => 1,
-				'max' => 255
+				'max' => 2000
 			),
 			'choice4' => array(
 				'name' => '4th. Choice',
 				'required' => true,
 				'min' => 1,
-				'max' => 255
+				'max' => 2000
 			),
 			'level' => array(
 				'name' => 'Level',

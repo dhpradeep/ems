@@ -135,10 +135,6 @@
     <!-- jQuery -->
     <script src="<?= BOWER_DIR ?>/jquery/dist/jquery.min.js"></script>
 
-     <!-- jQuery tablesorter-->
-    <script src="<?= BOWER_DIR ?>/jquery.tablesorter/dist/js/jquery.tablesorter.js"></script>
-    <script src="<?= BOWER_DIR ?>/jquery.tablesorter/dist/js/jquery.tablesorter.widgets.js"></script>
-
     <!-- Bootstrap Core JavaScript -->
     <script src="<?= BOWER_DIR ?>/bootstrap/dist/js/bootstrap.min.js"></script>
 
@@ -151,6 +147,9 @@
     
     <!-- ckeditor -->
     <script src="<?= BOWER_DIR ?>/ckeditor/ckeditor.js"></script>
+
+    <!-- Mathjax JavaScript -->
+    <script src="<?= JS_DIR ?>/mathjax/MathJax.js?config=TeX-AMS_HTML" async></script>
 
     <!-- Notify -->
     <script src="<?= BOWER_DIR ?>/notifyjs/dist/notify.js"></script>

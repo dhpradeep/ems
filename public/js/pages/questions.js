@@ -2,6 +2,7 @@ jQuery.fn.CKEditorValFor = function(element_id) {
     return CKEDITOR.instances[element_id].getData();
 }
 
+
 $('#addQuestion').on('hidden.bs.modal', function(e) {
     resetFields();
 });
@@ -12,11 +13,11 @@ $('body').on('shown.bs.modal', '#addQuestion', function() {
 function resetFields() {
     CKEDITOR.instances['question'].setData("");
     CKEDITOR.instances['passage'].setData("");
+    CKEDITOR.instances['answer'].setData("");
+    CKEDITOR.instances['choice2'].setData("");
+    CKEDITOR.instances['choice3'].setData("");
+    CKEDITOR.instances['choice4'].setData("");
     $("#questionId").data('id', '-1');
-    $('#answer').val('');
-    $('#choice2').val('');
-    $('#choice3').val('');
-    $('#choice4').val('');
     $('#containPassage').val('-1');
     $('#passageList').val('-1');
     $("#passageList").attr('disabled', false);
@@ -37,10 +38,10 @@ function create_question(data = null) {
             CKEDITOR.instances['question'].setData(data.question);
             $("#questionId").data('id', data.id);
             $("#saveBtn")[0].innerHTML = "Update";
-            $('#answer').val(data.answer);
-            $('#choice2').val(data.choice2);
-            $('#choice3').val(data.choice3);
-            $('#choice4').val(data.choice4);
+            CKEDITOR.instances['answer'].setData(data.answer);
+            CKEDITOR.instances['choice2'].setData(data.choice2);
+            CKEDITOR.instances['choice3'].setData(data.choice3);
+            CKEDITOR.instances['choice4'].setData(data.choice4);
 
             $('#level').val(data.level);
 
@@ -77,6 +78,19 @@ $(document).ready(function() {
     }
     CKEDITOR.replace('question');
     CKEDITOR.replace('passage');
+    CKEDITOR.replace('answer', {
+        customConfig : 'ckeditorCustomConfig.js',
+        height: '100px'
+    });
+    CKEDITOR.replace('choice2', {
+        height: '100px'
+    });
+    CKEDITOR.replace('choice3', {
+        height: '100px'
+    });
+    CKEDITOR.replace('choice4', {
+        height: '100px'
+    });
     CKEDITOR.config.autoParagraph = false;
     refresh();
 });
@@ -155,10 +169,10 @@ function updateQuestion() {
                 categoryId: $('#categoryId').children("option:selected").val(),
                 question: $().CKEditorValFor('question'),
                 level: $('#level').children("option:selected").val(),
-                answer: $('#answer').val(),
-                choice2: $('#choice2').val(),
-                choice3: $('#choice3').val(),
-                choice4: $('#choice4').val(),
+                answer: $().CKEditorValFor('answer'),
+                choice2: $().CKEditorValFor('choice2'),
+                choice3: $().CKEditorValFor('choice3'),
+                choice4: $().CKEditorValFor('choice4'),
                 containPassage: containPassage,
                 passageId: passageId,
                 passageTitle: passageTitle,
@@ -222,10 +236,10 @@ function addQuestion() {
             categoryId: $('#categoryId').children("option:selected").val(),
             question: $().CKEditorValFor('question'),
             level: $('#level').children("option:selected").val(),
-            answer: $('#answer').val(),
-            choice2: $('#choice2').val(),
-            choice3: $('#choice3').val(),
-            choice4: $('#choice4').val(),
+            answer: $().CKEditorValFor('answer'),
+            choice2: $().CKEditorValFor('choice2'),
+            choice3: $().CKEditorValFor('choice3'),
+            choice4: $().CKEditorValFor('choice4'),
             containPassage: containPassage,
             passageId: passageId,
             passageTitle: passageTitle,
@@ -414,7 +428,6 @@ function fetchPasses(mode, value = -1) {
 
                 if (mode == 0 && value != -1 && value != undefined) {
                     $('#passageList').val(value);
-                    console.log("hel");
                 }
             } else if (decode.success === false) {
                 if ($('#containPassage').val() == 1) {
