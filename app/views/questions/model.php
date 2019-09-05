@@ -78,13 +78,13 @@
                                 <table id="modelTable" class="table table-bordered table-striped">
                                     <thead>
                                         <tr role="row">
-                                            <th>
+                                            <th style="min-width: 200px">
                                                 Category
                                             </th>
-                                            <th>
+                                            <th style="min-width: 100px">
                                                 Level
                                             </th>
-                                            <th>
+                                            <th style="min-width: 100px">
                                                 Number of Questions
                                             </th>
                                             <th style="min-width: 60px">Action</th>

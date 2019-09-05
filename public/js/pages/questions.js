@@ -72,6 +72,7 @@ function create_question(data = null) {
 }
 
 $(document).ready(function() {
+    $.fn.modal.Constructor.prototype.enforceFocus = $.noop;
     for(name in CKEDITOR.instances)
     {
         CKEDITOR.instances[name].destroy(true);
