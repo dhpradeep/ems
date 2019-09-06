@@ -44,7 +44,7 @@
             <?php
                 if(!is_null($this->questions) && !is_null($this->categories) && count($this->errors) == 0) {
             ?>
-                <div class="navbar-default sidebar" role="navigation">
+                <div class="navbar-default sidebar" role="navigation" style="top: 0px;">
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="myTabs" role="tablist">
                             <?php
