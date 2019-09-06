@@ -75,7 +75,7 @@ defined("PDF_DIR")
 
 // To be used for some defaults values.
 defined("WEBSITE_TITLE")
-	|| define("WEBSITE_TITLE", "Entrance Management System");
+	|| define("WEBSITE_TITLE", "ENTRANCE MANAGEMENT SYSTEM");
 
 // Brand Name
 defined("BRAND_NAME")

@@ -128,3 +128,16 @@
         margin-top: 5px;
     }
 }
+
+.brand-information{
+    background: #cbd3f7 !important;
+}
+
+.brand-information-for-exam{
+    background: #d3d9f5 !important;
+}
+
+.student-information{
+    background: #2b50fc !important;
+    color: white;
+}

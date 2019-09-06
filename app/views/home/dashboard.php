@@ -15,6 +15,8 @@
     <link href="<?= CSS_DIR ?>/timeline.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="<?= CSS_DIR ?>/sb-admin-2.css" rel="stylesheet">
+    <link href="<?= CSS_DIR ?>/style.css" rel="stylesheet">
+    
     <!-- Morris Charts CSS -->
     <link href="<?= BOWER_DIR ?>/morrisjs/morris.css" rel="stylesheet">
     <!-- Custom Fonts -->
@@ -34,7 +36,7 @@
                     <div class="col-lg-12">
                                               
                         <h1 class="page-header">
-                            Welcome to <small class="text-primary"><?= WEBSITE_TITLE ?></small>
+                        <small class="text-primary text-bold"><b>WELCOME TO <?= WEBSITE_TITLE ?></b></small>
                            
                         </h1>                
                     </div>
@@ -42,7 +44,7 @@
                 <!-- /.row -->
 
     <!-- on admin session -->
-                <div class="row">
+                <div class="row brand-information">
                     <div class="col-lg-12">
                         <h4>About the system here</h4>
                         
@@ -67,21 +69,21 @@
                         }
                     }else {
                 ?>
-                <div class="row">
+                <div class="row student-information">
                     <div>
-                        <span style="font-size:16px;">Name of Student : <strong><?= Session::getSession('uname'); ?></strong></span>
+                        <span style="font-size:20px;">Name of Student : <strong><?= strtoupper(Session::getSession('uname')); ?></strong></span>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row student-information">
                     <div>
                         <span style="font-size:20px;">Program : <strong><?= $this->name ?></strong></span>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row brand-information-for-exam">
                     <div class="col md-12">
                     <p><?= htmlspecialchars_decode($this->welcome) ?></p><br><br>
                     <div class="col col-md-12 text-left">
-                        <a href="<?= SITE_URL ?>/test/start"><button class="btn btn-success" type="button">Take Test</button></a>
+                        <a href="#"><button class="btn btn-success" type="button" id="take-test-by-student">Take Test</button></a>
                     </div>
                 </div>
             </div>
@@ -96,10 +98,13 @@
     <script src="<?= BOWER_DIR ?>/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="<?= BOWER_DIR ?>/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="<?= BOWER_DIR ?>/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js"></script>
     <!-- Metis Menu Plugin JavaScript -->
     <script src="<?= BOWER_DIR ?>/metisMenu/dist/metisMenu.min.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="<?= JS_DIR ?>/sb-admin-2.js"></script>
+    <script src="<?= JS_DIR ?>/script.js"></script>
 </body>
 
 </html>

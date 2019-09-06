@@ -35,6 +35,8 @@
 <body>
 
     <div class="container">
+    <h1 class="text-center" style="color:#337ab7;"><span>LA GRANDEE</span></h1>
+    <h1 class="text-center" style="color:#337ab7;"><span>Online Examination System</span></h1><br>
         <div class="col-md-4 col-md-offset-4">
             <div class="login-panel panel panel-primary">
                 <div class="panel-heading">
