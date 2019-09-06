@@ -79,6 +79,9 @@
                                     <thead>
                                         <tr role="row">
                                             <th>
+                                                Order
+                                            </th>
+                                            <th>
                                                 Category
                                             </th>
                                             <th>

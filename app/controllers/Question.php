@@ -193,19 +193,31 @@ class Question extends Controller {
 
 			$columnToSort = $_POST["order"][0]["column"];
 
-			$columnToSort = (!isset($_POST["columns"][$columnToSort]["name"]) && $_POST["columns"][$columnToSort]["orderable"]) ? $_POST["columns"][$columnToSort]["name"] : "categoryId" ;
+			$columnToSort = (!isset($_POST["columns"][$columnToSort]["name"]) && $_POST["columns"][$columnToSort]["orderable"]) ? $_POST["columns"][$columnToSort]["name"] : "id" ;
+			$columnToSort = ($columnToSort == "order") ? "id" : $columnToSort;
+			$columnToSort = ($columnToSort == "category") ? "categoryId" : $columnToSort;
 			$columnToSort = Sanitize::escape($columnToSort);
 		}
 		if(isset($_POST["search"]["value"])) {
 			$stringToSearch = Sanitize::escape($_POST["search"]["value"]);
 		}
 		$allModels = $this->model->getAllQuestionConditions($stringToSearch,$fieldToSearch,$columnToSort,$sortDir);
+
 		$res = array();
 		foreach ($allModels as $value) {
 			if($value['programId'] == Input::get('programId')) {
 				array_push($res, $value);
 			}
 		}
+
+		$newArr = $this->model->searchQuestion(array('programId' => Input::get('programId')));
+
+		foreach ($newArr as $key => $value) {
+			foreach ($res as $key1 => $value1) {
+				if($value['id'] == $value1['id']) $res[$key1]['order'] = $key + 1;
+			}
+		}
+
 		$total = count($res);
 		$index = 0;
 		$arr = array();
@@ -776,6 +788,10 @@ class Question extends Controller {
 			$categories = $this->foreignModel->searchQuestion($toSearch);			
 			$arr[$index] = $res[$i];
 			$arr[$index]['question'] = html_entity_decode($res[$i]['question']);
+			$arr[$index]['answer'] = html_entity_decode($res[$i]['answer']);
+			$arr[$index]['choice2'] = html_entity_decode($res[$i]['choice2']);
+			$arr[$index]['choice3'] = html_entity_decode($res[$i]['choice3']);
+			$arr[$index]['choice4'] = html_entity_decode($res[$i]['choice4']);
 			$arr[$index]['category'] = $categories[0]['name'];
 			switch ($arr[$index]['level']) {
 				case 1:

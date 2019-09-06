@@ -175,5 +175,16 @@ function submitTest() {
     document.location.reload();
 }
 
-$(".next").click(function() { $('#myTabs li.active').next('li').find('a').trigger('click') });
-$(".previous").click(function() { $('#myTabs li.active').prev('li').find('a').trigger('click') });
+$(".next").click(function() {
+    $('#myTabs li.active').next('li').find('a').trigger('click'); 
+     $(document).scrollTop(0);
+});
+
+$(".toUp").click(function() {
+     $(document).scrollTop(0);
+});
+
+$(".previous").click(function() {
+     $('#myTabs li.active').prev('li').find('a').trigger('click');
+     $(document).scrollTop(0);
+ });

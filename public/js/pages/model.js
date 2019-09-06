@@ -230,6 +230,7 @@ function getAllData(){
             },
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             "columns": [
+                { "data": "order" },
                 { "data": "category" },
                 { "data": "levelName" },
                 { "data": "noOfQuestions" },
@@ -240,7 +241,7 @@ function getAllData(){
                      }
                 }
             ],
-            "order": [[1, 'asc']]
+            "order": [[0, 'asc']]
         } );
 
         $('#modelTable tbody').on('click', '.edit-icon', function () {

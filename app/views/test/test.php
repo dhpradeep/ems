@@ -54,7 +54,7 @@
                             $totalQuestions += count($value);
                         ?>
                                 <li role="presentation" class="<?php echo ($i==0) ? " active " : " "; ?>">
-                                    <a href="#category<?= $key ?>" class="<?php echo ($i==0) ? " " : " "; $i++ ?>" aria-controls="category<?= $key ?>" role="tab" data-toggle="tab">
+                                    <a href="#category<?= $key ?>" class="<?php echo "toUp"; $i++ ?>" aria-controls="category<?= $key ?>" role="tab" data-toggle="tab">
                                         <?php  echo (isset($this->categories[$key])) ? $this->categories[$key][0]['name'] : "Unknown"; ?> (<span data-val="0" id="answeredCategory<?= $key ?>">0</span>/<span><?= count($value) ?>)</span>
                                     </a>
                                 </li>
@@ -136,9 +136,19 @@
                             ?>
                                 <div class="col-md-12 main">
                                     <div class="page-header">
-                                        <span style="font-size: 25px"><strong>
-                                            <?php echo $questionNumber; $questionNumber++;?>) 
-                                        </strong><?= htmlspecialchars_decode($question['question']) ?></span>
+                                        <span style="font-size: 22px"><strong>
+                                            <?php
+                                                 $toFormat = htmlspecialchars_decode($question['question']);
+                                                 $pos = strpos($toFormat, '<p>');
+                                                 if($pos !== false && $pos < 1){
+                                                    $toFormat = substr_replace($toFormat, $questionNumber. ") ",$pos+3, 0);
+                                                 }else {
+                                                    $toFormat = substr_replace($toFormat, $questionNumber. ") ",0, 0);
+                                                 }
+                                                 $questionNumber++;
+                                                 echo $toFormat;
+                                             ?> 
+                                        </strong></span>
                                         <?php if($question['containPassage'] == 1) {
                                         ?>                                        
                                         <a class="paragaphExtend active" id="pragraphExtend" data-toggle="collapse" href="#collapse<?= $question['id'] ?>">[Passage here : <?= $question['passageTitle'] ?> ]</a>
