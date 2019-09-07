@@ -12,7 +12,7 @@ class Question extends Controller {
 
 	public function category($name = "") {
 		$this->model->setTable('category');
-		if(($name == "add" || $name == "update" || $name == "delete" || $name == "get") && Session::isLoggedIn(1)) {
+		if(($name == "add" || $name == "update" || $name == "delete" || $name == "get") && (Session::isLoggedIn(1) || Session::isLoggedIn(2))) {
 			$result = array('status' => 0);	
 			if(isset($_POST) && count($_POST) > 0) {
 				if($name == "get") {
@@ -32,7 +32,7 @@ class Question extends Controller {
 			}	
 
 		} else if($name == ''){	
-			if(Session::isLoggedIn(1)) {
+			if(Session::isLoggedIn(1) || Session::isLoggedIn(2)) {
 				$this->model->template = VIEWS_DIR.DS."questions".DS."category.php";
 				$this->view->render();
 			}else {
@@ -45,7 +45,7 @@ class Question extends Controller {
     
     public function all($name = "") {
 		$this->model->setTable('questions');
-		if(($name == "add" || $name == "update" || $name == "delete" || $name == "get" || $name == "getPassages") && Session::isLoggedIn(1)) {
+		if(($name == "add" || $name == "update" || $name == "delete" || $name == "get" || $name == "getPassages") && (Session::isLoggedIn(1) || Session::isLoggedIn(2))) {
 			$result = array('status' => 0);	
 			if(isset($_POST) && count($_POST) > 0) {
 				if($name == "get") {
@@ -68,7 +68,7 @@ class Question extends Controller {
 			}	
 
 		} else if($name == ''){	
-			if(Session::isLoggedIn(1)) {
+			if(Session::isLoggedIn(1) || Session::isLoggedIn(2)) {
 				$this->model->setTable('category');
 				$all = $this->model->getAllQuestion();
 				$this->model->data['category'] = $all;
@@ -88,7 +88,7 @@ class Question extends Controller {
     
     public function program($name='') {
     	$this->model->setTable('program');
-		if(($name == "add" || $name == "update" || $name == "delete" || $name == "get") && Session::isLoggedIn(1)) {
+		if(($name == "add" || $name == "update" || $name == "delete" || $name == "get") && (Session::isLoggedIn(1) || Session::isLoggedIn(2))) {
 			$result = array('status' => 0);	
 			if(isset($_POST) && count($_POST) > 0) {
 				if($name == "get") {
@@ -108,7 +108,7 @@ class Question extends Controller {
 			}	
 
 		} else if($name == ''){	
-			if(Session::isLoggedIn(1)) {
+			if(Session::isLoggedIn(1) || Session::isLoggedIn(2)) {
 				$this->model->template = VIEWS_DIR.DS."questions".DS."program.php";
 				$this->view->render();
 			}else {
@@ -122,7 +122,7 @@ class Question extends Controller {
 
 	public function model($name=''){
 		if($name != ""){
-			if(Session::isLoggedIn(1)) {
+			if(Session::isLoggedIn(1) || Session::isLoggedIn(2)) {
 				$this->setForeignModel("QuestionModel");
 				$this->foreignModel->setTable("program");
 				$allPrograms = $this->foreignModel->getAllQuestion();
@@ -154,7 +154,7 @@ class Question extends Controller {
 
 	public function modelController($name = '') {
 		$this->model->setTable('questionmodel');
-		if(($name == "add" || $name == "update" || $name == "delete" || $name == "get") && Session::isLoggedIn(1)) {
+		if(($name == "add" || $name == "update" || $name == "delete" || $name == "get") && (Session::isLoggedIn(1) || Session::isLoggedIn(2))) {
 			$result = array('status' => 0);	
 			if(isset($_POST) && count($_POST) > 0) {
 				if($name == "get" && isset($_POST['programId'])) {

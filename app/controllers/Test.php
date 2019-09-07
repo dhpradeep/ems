@@ -172,7 +172,7 @@ class Test extends Controller {
 			$previousExam = $this->searchDataFromTable("timetrack",array("userId" => Session::getSession('uid'), "programId" => $userProgram));
 			if(count($previousExam) > 0) {
 				if($previousExam[0]['isSubmitted'] == "true" || $previousExam[0]['remainingTime'] <= 0) {
-					array_push($this->model->data['errors'], "Exam already submitted");
+					array_push($this->model->data['errors'], "Exam submitted");
 					$programT =$this->searchDataFromTable("program", array("id" => $userProgram));
 					if(count($programT) > 0) {
 						$this->model->data['thanks'] = htmlspecialchars_decode($programT[0]['thanks']);

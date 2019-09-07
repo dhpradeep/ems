@@ -129,15 +129,26 @@
     }
 }
 
+.errors-information, .student-information, .brand-information-for-exam {
+    padding : 5px 10px 10px 10px;
+}
+
 .brand-information{
-    background: #cbd3f7 !important;
+    background: #f7f7f7 !important;
+    margin-top: 50px;
 }
 
 .brand-information-for-exam{
-    background: #d3d9f5 !important;
+    background: #e8ebf9 !important;
 }
 
 .student-information{
-    background: #2b50fc !important;
+    background: #337ab7 !important;
     color: white;
+}
+
+@media(min-width:768px) {
+    .page-wrapperUser {
+        margin: 0 0 0 0 !important;
+    }
 }

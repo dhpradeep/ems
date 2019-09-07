@@ -26,6 +26,7 @@
 
 <body>
     <div id="wrapper">
+        <div id="target1"></div>
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top sticky" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -264,6 +265,9 @@
 
         <!-- Mathjax JavaScript -->
         <script src="<?= JS_DIR ?>/mathjax/MathJax.js?config=TeX-AMS_HTML" async></script>
+
+        <!-- spinJS -->
+        <script src="<?= BOWER_DIR ?>/spin.js/spin.js"></script>
 
         <!-- Custom Theme JavaScript -->
         <script src="<?= JS_DIR ?>/sb-admin-2.js"></script>

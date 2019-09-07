@@ -13,6 +13,12 @@
     <!-- /.navbar-header -->
     <?php include(INCLUDES_DIR.DS.'navbar-top-links.php') ?>
     <!-- /.navbar-top-links -->
+    <?php
+        if(Session::isLoggedIn(1) || Session::isLoggedIn(2)) {
+    ?>
     <?php include(INCLUDES_DIR.DS.'panel.php') ?>
     <!-- /.navbar-static-side -->
+    <?php
+        }
+    ?>
 </nav>

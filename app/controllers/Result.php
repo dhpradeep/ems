@@ -293,6 +293,8 @@ class Result extends Controller {
 		for ($i = $startIndex; $i < $startIndex + $totalCount && $i < $total; $i++){
 			$arr[$index] = $res[$i];	
 			$arr[$index]['question'] = html_entity_decode($res[$i]['question']);	
+			$arr[$index]['answer'] = html_entity_decode($res[$i]['answer']);	
+			$arr[$index]['userAnswer'] = html_entity_decode($res[$i]['userAnswer']);
 			$index++;
 		}
 

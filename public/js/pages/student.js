@@ -115,6 +115,7 @@ function create_student(data = null) {
 }
 
 $(document).ready(function() {
+    $('#toExport').hide();
     refresh();
 });
 
@@ -487,7 +488,7 @@ function format(d) {
         '</table>';
 }
 
-function get_keys(data, mode = 0) {
+/*function get_keys(data, mode = 0) {
     var arr = [];
     if (mode == 1) {
         for (var i in data) {
@@ -513,10 +514,51 @@ function get_keys(data, mode = 0) {
         }
     }
     return arr;
-}
+}*/
 
 function export_format(data) {
     var found = false;
+
+    var arr = {
+        formNo: "Form No",
+        entranceNo: "Entrance No",
+        name: "Fullname",
+        programName: "Program",
+        dobAd: "Date of Birth (AD)",
+        doa: "Date of Application",
+        genderName: "Gender",
+        nationality: "Nationality",
+        fatherName: "Father's name",
+        municipality: "Municipality",
+        wardNo: "Ward No",
+        area: "Area",
+        district: "District",
+        zone: "Zone",
+        mobileNo: "Mobile",
+        telephoneNo: "Telephone",
+        email: "Email",
+        blockNo: "Block No",
+        guardianName: "Guardian Name",
+        guardianRelation: "Guardian Relation",
+        guardianContact: "Guardian Contact",
+        levelName: "Level",
+        board: "Board",
+        faculty: "Faculty",
+        yearOfCompletion: "Year",
+        percent: "Percent / GPA",
+        institution: "Institute",
+        eligible: "Eligible",
+        marksheet_see: "Marksheet SEE/SLC",
+        marksheet_11: "Marksheet 11",
+        marksheet_12: "Marksheet 12",
+        transcript: "Transcript",
+        characterCertificate_see: "Character Certificate SLC/SEE",
+        characterCertificate_12: "Character Certificate +2",
+        citizenship: "Citizenship",
+        photo: "Photo",
+        remarks: "Remarks"
+    };
+
     var index;
 
     if (data.length <= 0) {
@@ -526,18 +568,20 @@ function export_format(data) {
 
     for (var i = 0; i < data.length; i++) {
         if (data[i].edu.length > 0) {
-            index = get_keys(data[i], 1);
+           /* index = get_keys(data[i], 1);*/
             found = true;
             break;
         }
     }
-    if (found == false && data.length > 0) {
+    /*if (found == false && data.length > 0) {
         index = get_keys(data[0], 0);
-    }
+    }*/
+
+    var key;
 
     var doc = "<table border='1'><tr>";
-    for (i = 0; i < index.length; i++) {
-        doc += "<th>" + index[i] + "</th>";
+    for (key in arr) {
+        doc += "<th>" + arr[key] + "</th>";
     }
 
 
@@ -547,44 +591,46 @@ function export_format(data) {
 
         if (edulength < 1) {
             doc += "<tr>";
-            for (j = 0; j < index.length; j++) {
-                if (data[i][index[j]] == undefined) {
-                    doc += "<td></td>";
-                } else {
-                    doc += "<td>" + data[i][index[j]] + "</td>";
-                }
+            for (key in arr) {
+                    if (data[i][key] == undefined) {
+                        doc += "<td></td>";
+                    } else {
+                        doc += "<td>" + data[i][key] + "</td>";
+                    }
             }
             doc += "</tr>";
         } else if (edulength >= 1) {
             doc += "<tr>";
-            for (j = 0; j < index.length; j++) {
-                if (index[j] in data[i]['edu'][0]) {
-                    if (data[i]['edu'][0][index[j]] == undefined) {
-                        doc += "<td></td>"
+            for (key in arr) {
+                    if (key in data[i]['edu'][0]) {
+                        if (data[i]['edu'][0][key] == undefined) {
+                            doc += "<td></td>"
+                        } else {
+                            doc += "<td>" + data[i]['edu'][0][key] + "</td>";
+                        }
                     } else {
-                        doc += "<td>" + data[i]['edu'][0][index[j]] + "</td>";
+                        if (data[i][key] == undefined) {
+                            doc += "<td></td>"
+                        } else {
+                            doc += "<td>" + data[i][key] + "</td>";
+                        }
                     }
-                } else {
-                    if (data[i][index[j]] == undefined) {
-                        doc += "<td></td>"
-                    } else {
-                        doc += "<td>" + data[i][index[j]] + "</td>";
-                    }
-                }
             }
             doc += "</tr>";
             if (edulength > 1) {
                 for (k = 1; k < edulength; k++) {
                     doc += "<tr>";
-                    for (j = 0; j < index.length; j++) {
-                        if (index[j] in data[i].edu[k]) {
-                            if (data[i]['edu'][k][index[j]] == undefined) {
-                                doc += "<td></td>"
+                    for (key in arr) {
+                        if(arr[key] != undefined) {
+                            if (key in data[i].edu[k]) {
+                                if (data[i]['edu'][k][key] == undefined) {
+                                    doc += "<td></td>"
+                                } else {
+                                    doc += "<td>" + data[i]['edu'][k][key] + "</td>";
+                                }
                             } else {
-                                doc += "<td>" + data[i]['edu'][k][index[j]] + "</td>";
+                                doc += "<td></td>";
                             }
-                        } else {
-                            doc += "<td></td>";
                         }
                     }
                     doc += "</tr>";
@@ -595,9 +641,11 @@ function export_format(data) {
 
     doc += "</table>";
 
-    // $("#mytable").append(doc);
+    $("#toExport").html(doc);
 
-    exportTableToExcel(doc, "student_data");
+    exportTableToCSV("studentData.csv");
+
+    //exportTableToExcel(doc, "student_data");
 
 }
 
@@ -630,6 +678,51 @@ function exportTableToExcel(doc, filename = null) {
         //triggering the function
         downloadLink.click();
     }
+}
+
+function downloadCSV(csv, filename) {
+    var csvFile;
+    var downloadLink;
+
+    // CSV file
+    csvFile = new Blob([csv], { type: "text/csv" });
+
+    // Download link
+    downloadLink = document.createElement("a");
+
+    // File name
+    downloadLink.download = filename;
+
+    // Create a link to the file
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+
+    // Hide download link
+    downloadLink.style.display = "none";
+
+    // Add the link to DOM
+    document.body.appendChild(downloadLink);
+
+    // Click download link
+    downloadLink.click();
+}
+
+
+function exportTableToCSV(filename) {
+    var csv = [];
+    var rows = document.querySelectorAll("#toExport table tr");
+
+    for (var i = 0; i < rows.length; i++) {
+        var row = [],
+            cols = rows[i].querySelectorAll("td, th");
+
+        for (var j = 0; j < cols.length; j++)
+            row.push(cols[j].innerText);
+
+        csv.push(row.join(","));
+    }
+
+    // Download CSV file
+    downloadCSV(csv.join("\n"), filename);
 }
 
 function print_to_excel(data) {

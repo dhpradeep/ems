@@ -30,7 +30,7 @@
         <!-- Navigation -->
         <?php include(INCLUDES_DIR.DS.'nav-bar.php'); ?>
 
-        <div id="page-wrapper">
+        <div id="page-wrapper" <?php if(!(Session::isLoggedIn(1) || Session::isLoggedIn(2))) echo 'class = "page-wrapperUser"'?>>
             <!-- /.row -->
             <div class="row">
                     <div class="col-lg-12">
@@ -43,24 +43,12 @@
                 </div>
                 <!-- /.row -->
 
-    <!-- on admin session -->
-                <div class="row brand-information">
-                    <div class="col-lg-12">
-                        <h4>About the system here</h4>
-                        
-                        <blockquote>
-                            This is <?= WEBSITE_TITLE." Version : ".VERSION ?><br><br>
-                          <p>Developed by <strong><a target="blank" href = "<?= BRAND_WEBSITE ?>" ><?= BRAND_NAME ?></a></strong></p>
-                        </blockquote>
-                    </div>
-                </div>
-
     <!-- on student session -->
                 <?php 
                     if(!is_null($this->errors) &&count($this->errors) > 0) {
                         foreach ($this->errors as $value) {
                             ?>
-                            <div class="row">
+                            <div class="row errors-information">
                                 <div>
                                     <span style="font-size:14px;"><strong><?= $value ?></strong></span>
                                 </div>
@@ -82,13 +70,24 @@
                 <div class="row brand-information-for-exam">
                     <div class="col md-12">
                     <p><?= htmlspecialchars_decode($this->welcome) ?></p><br><br>
-                    <div class="col col-md-12 text-left">
+                    <div class="text-left">
                         <a href="#"><button class="btn btn-success" type="button" id="take-test-by-student">Take Test</button></a>
                     </div>
                 </div>
             </div>
             <br>
             <?php } ?>
+                <!-- Brand info -->
+                <div class="row brand-information">
+                    <div class="col-lg-12">
+                        <h4>About the system here</h4>
+                        
+                        <blockquote>
+                            This is <?= WEBSITE_TITLE." Version : ".VERSION ?><br><br>
+                          <p>Developed by <strong><a target="blank" href = "<?= BRAND_WEBSITE ?>" ><?= BRAND_NAME ?></a></strong></p>
+                        </blockquote>
+                    </div>
+                </div>
             </div>
         <br><br>
         <!-- /#page-wrapper -->

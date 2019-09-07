@@ -51,7 +51,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="form-inline form-padding">
-                        <a class="btn btn-success" onclick="getAllData(1)">Export to Excel</a>
+                        <a class="btn btn-success" id="exportBtn">Export to Excel</a>
                         <a onclick="refresh()" class="btn btn-info">Refresh</a>
                         <div class="input-group col-md-3 col-sm-4 col-xs-6"> <span class="input-group-addon">Filter by Program: </span>
                             <select class="form-control" id="filterData" name="filterResult">
@@ -73,7 +73,7 @@
                         </div>
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
-                                <div class="table-responsive">
+                                <div class="table-responsive" id="toExport">
                               <table id="resultTable" class="table table-bordered table-striped">
                                   <thead>
                                       <tr role="row">
@@ -134,8 +134,7 @@
     <script src="<?= BOWER_DIR ?>/spin.js/spin.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="<?= JS_DIR ?>/sb-admin-2.js"></script> 
-    <script src="<?= JS_DIR ?>/pages/result.js"></script>
+    <script src="<?= JS_DIR ?>/sb-admin-2.js"></script>
      <!-- DataTables JavaScript -->
     <script src="<?= BOWER_DIR ?>/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="<?= BOWER_DIR ?>/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>

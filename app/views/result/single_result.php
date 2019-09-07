@@ -55,6 +55,7 @@
                     <div class="form-inline form-padding">
                         <form id="frmSearch" role="form">
                             <input type="hidden" data-id="<?= $this->examId ?>" id="examId">
+                            <a class="btn btn-success" id="exportBtn">Export to Excel</a>
                             <a onclick="refresh()" class="btn btn-info">Refresh</a>
                             <div class="input-group col-md-3 col-sm-4 col-xs-6"> <span class="input-group-addon">Filter by Category: </span>
                                 <select class="form-control" id="filterData" name="filterResult">
@@ -78,7 +79,7 @@
                         </div>
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
-                                <div class="table-responsive">
+                                <div class="table-responsive" id="toExport">
                               <table id="resultDetailTable" class="table table-bordered table-striped paginated tablesorter">
                                   <thead>
                                       <tr role="row">

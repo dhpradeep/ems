@@ -1,6 +1,4 @@
-<?php
-    if(Session::isLoggedIn(1) || Session::isLoggedIn(2)) {
-?>
+
 <div class="navbar-default sidebar" role="navigation" style="top: 0px;">
     <div class="sidebar-nav navbar-collapse">
         <ul class="nav" id="side-menu">
@@ -66,6 +64,3 @@
     </div>
     <!-- /.sidebar-collapse -->
 </div>
-<?php
-    }
-?>

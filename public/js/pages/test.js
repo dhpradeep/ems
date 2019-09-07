@@ -133,6 +133,22 @@ $(document).on("click", ".answerRadio", function(e) {
     });
 });
 
+function sleep(time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+function submitTest() {
+    var id = $("#timeTrack").data('exam');
+    var time = $("#timeTrack").data('time');
+    time = (time < 0) ? 0 : time;
+    sendStatus(time, id, true);    
+}
+
+function animate(sec) {
+    
+    return;
+}
+
 
 $(document).on("click", "#submitBtn", function(e) {
     e.preventDefault();
@@ -143,8 +159,19 @@ $(document).on("click", "#submitBtn", function(e) {
             label: 'Yes',
             cssClass: 'btn-primary',
             action: function(dialog) {
-                dialog.close();
                 submitTest();
+                var target = document.getElementById('target1');
+                var spinner = new Spinner({
+                    radius: 30,
+                    length: 0,
+                    width: 10,
+                    trail: 40
+                }).spin(target);
+                sleep(1000).then(() => {
+                    spinner.stop();
+                    dialog.close();
+                    document.location.reload();
+                });
             }
         }, {
             label: 'No',
@@ -155,25 +182,6 @@ $(document).on("click", "#submitBtn", function(e) {
         }]
     });
 });
-
-function submitTest() {
-    var id = $("#timeTrack").data('exam');
-    var time = $("#timeTrack").data('time');
-    time = (time < 0) ? 0 : time;
-    sendStatus(time, id, true);
-    BootstrapDialog.show({
-        title: 'Thank you.',
-        message: 'You test/exam is submitted.',
-        buttons: [{
-            label: 'Ok',
-            cssClass: 'btn-primary',
-            action: function(dialog) {
-                dialog.close();
-            }
-        }]
-    });
-    document.location.reload();
-}
 
 $(".next").click(function() {
     $('#myTabs li.active').next('li').find('a').trigger('click'); 

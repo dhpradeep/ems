@@ -12,7 +12,7 @@ class Student extends Controller {
 
 	public function all($name = "") {
 		$this->model->setTable('userlogin');
-		if(($name == "add" || $name == "update" || $name == "delete" || $name == "get") && Session::isLoggedIn(1)) {
+		if(($name == "add" || $name == "update" || $name == "delete" || $name == "get") && (Session::isLoggedIn(1) || Session::isLoggedIn(2))) {
 			$result = array('status' => 0);	
 			if(isset($_POST) && count($_POST) > 0) {
 				if($name == "get") {
@@ -32,7 +32,7 @@ class Student extends Controller {
 			}		
 
 		} else if($name == ''){	
-			if(Session::isLoggedIn(1)) {
+			if(Session::isLoggedIn(1) || Session::isLoggedIn(2)) {
 				$this->model->setTable('program');
 				$all = $this->model->getAllStudent();
 				$this->model->data['program'] = $all;
