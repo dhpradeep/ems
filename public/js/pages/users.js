@@ -10,6 +10,22 @@ $('body').on('shown.bs.modal', '#adduser', function() {
     $('input:visible:enabled:first', this).focus();
 })
 
+
+$('body').on('hidden.bs.modal', '#adduser', function() {
+    resetFields();
+})
+
+function resetFields() {
+    $('#fname').val("");
+    $('#mname').val("");
+    $('#lname').val("");
+    $('#username').val("");
+    $('#passwordHash').val("");
+    $('#cpasswordHash').val("");
+    $('#email').val("");
+    $('#role').val(1);
+}
+
 $(document).on("click", ".remove-icon", function(e) {
     var id = $(this).data('id');
     BootstrapDialog.show({

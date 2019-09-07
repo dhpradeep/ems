@@ -7,9 +7,6 @@ $('#addQuestion').on('hidden.bs.modal', function(e) {
     resetFields();
 });
 
-$('body').on('shown.bs.modal', '#addQuestion', function() {
-})
-
 function resetFields() {
     CKEDITOR.instances['question'].setData("");
     CKEDITOR.instances['passage'].setData("");
