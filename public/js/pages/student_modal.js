@@ -57,5 +57,14 @@ function educationFormatter(i) {
 
 $("#nestedForm").on("click", ".removeEdu", function() { $(this).parent().parent().parent().remove() });
 
-$(".next").click(function() { $('#tabList li.active').next('li').find('a').trigger('click') });
-$(".previous").click(function() { $('#tabList li.active').prev('li').find('a').trigger('click') });
+$(".next-student").click(function() { $('#tabList li.active').next('li').find('a').trigger('click') });
+$(".previous-student").click(function() { $('#tabList li.active').prev('li').find('a').trigger('click') });
+
+$(document).ready(function() { checkButton() });
+
+$(document).on("click", "#addStudent", function() { checkButton() });
+
+function checkButton(){
+    if($("#tabList li").first().hasClass("active")){ $(".previous-student").hide() }else{ $(".previous-student").show() }
+    if($("#tabList li").last().hasClass("active")){ $(".next-student").hide() }else{ $(".next-student").show() }
+};
