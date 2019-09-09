@@ -275,31 +275,26 @@ class Student extends Controller {
 			),
 			'municipality' => array(
 				'name' => 'Municipality',
-				'required' => true,
 				'min' => 1,
 				'max' => 255
 			),
 			'wardNo' => array(
 				'name' => 'Ward Number',
-				'required' => true,
 				'minLevel' => 1,
 				'maxLevel' => 1000
 			),
 			'area' => array(
 				'name' => 'Area',
-				'required' => true,
 				'min' => 1,
 				'max' => 255
 			),
 			'district' => array(
 				'name' => 'District',
-				'required' => true,
 				'min' => 1,
 				'max' => 255
 			),
 			'zone' => array(
 				'name' => 'Zone',
-				'required' => true,
 				'min' => 1,
 				'max' => 255
 			),
@@ -518,31 +513,26 @@ class Student extends Controller {
 			),
 			'municipality' => array(
 				'name' => 'Municipality',
-				'required' => true,
 				'min' => 1,
 				'max' => 255
 			),
 			'wardNo' => array(
 				'name' => 'Ward Number',
-				'required' => true,
 				'minLevel' => 1,
 				'maxLevel' => 1000
 			),
 			'area' => array(
 				'name' => 'Area',
-				'required' => true,
 				'min' => 1,
 				'max' => 255
 			),
 			'district' => array(
 				'name' => 'District',
-				'required' => true,
 				'min' => 1,
 				'max' => 255
 			),
 			'zone' => array(
 				'name' => 'Zone',
-				'required' => true,
 				'min' => 1,
 				'max' => 255
 			),

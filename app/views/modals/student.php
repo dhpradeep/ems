@@ -98,6 +98,11 @@
                                 <input type="text" class="form-control" name="lname" id="lname" placeholder="Last Name" />
                                 <span class="help-inline"></span>
                             </div>
+                            <div class="form-group col-md-6">
+                                <label for="email">Email *</label>
+                                <input type="text" class="form-control" name="email" id="email" placeholder="Email" />
+                                <span class="help-inline"></span>
+                            </div>
                             <div class="form-group col-md-12 text-right">
                                     <a href="#" class="btn btn-primary next">Next</a>
                             </div>
@@ -169,27 +174,27 @@
 
                     <div role="tabpanel" class="tab-pane" id="cdetails">
                             <div class="form-group col-md-6">
-                                <label for="municipality">Municipality *</label>
+                                <label for="municipality">Municipality </label>
                                 <input type="text" class="form-control" name="municipality" id="municipality" placeholder="Municipality" />
                                 <span class="help-inline"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="wardNo">Ward. No *</label>
+                                <label for="wardNo">Ward. No </label>
                                 <input type="number" class="form-control" name="wardNo" id="wardNo" placeholder="Ward. NO" />
                                 <span class="help-inline"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="area">Area *</label>
+                                <label for="area">Area </label>
                                 <input type="text" class="form-control" name="area" id="area" placeholder="Area" />
                                 <span class="help-inline"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="district">District *</label>
+                                <label for="district">District </label>
                                 <input type="text" class="form-control" name="district" id="district" placeholder="District" />
                                 <span class="help-inline"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="zone">Zone *</label>
+                                <label for="zone">Zone </label>
                                 <input type="text" class="form-control" name="zone" id="zone" placeholder="Zone" />
                                 <span class="help-inline"></span>
                             </div>
@@ -206,11 +211,6 @@
                             <div class="form-group col-md-6">
                                 <label for="blockNo">Block No</label>
                                 <input type="text" class="form-control" name="blockNo" id="blockNo" placeholder="Block No" />
-                                <span class="help-inline"></span>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="email">Email *</label>
-                                <input type="text" class="form-control" name="email" id="email" placeholder="Email" />
                                 <span class="help-inline"></span>
                             </div>
                             <div class="form-group col-md-6">
