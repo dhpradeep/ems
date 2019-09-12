@@ -38,48 +38,8 @@
                     </li>
                 </ul>
 
-                <!-- required field list -->
-            <!-- First Name : required
-                Middle name: not-required
-                Last name: required
-                -------
-                Program: required
-                Doa : required
-                Dob: not-required
-                Gender: required
-                Nationality: not-required
-                Fathers name: not-required
-                -------
-                #Edu
-                level: required
-                board: required
-                y.o.c: required
-                percentage: required
-                institute: required
-                -------
-                Municipality: not-required
-                Ward. no: not-required
-                Area: required
-                District: required
-                Zone: required
-                Mobile no: required
-                tel-no : not-required
-                block no: not-required
-                email: required
-                gurdian name: not-required
-                gurdian contact: not-required
-                gurdian relationship: not-required
-                -------
-                form no: required
-                Registration no: required (Autofill or hide)
+                <div class="tab-content tab-content-student">
                 
-
-             -->
-
-                <!-- end of required field list -->
-
-                <div class="tab-content">
-                <br>
                     <div role="tabpanel" class=" tab-pane active" id="home">
                         <form role="form">
                             <div class="form-group col-md-6">
@@ -102,9 +62,6 @@
                                 <label for="email">Email *</label>
                                 <input type="text" class="form-control" name="email" id="email" placeholder="Email" />
                                 <span class="help-inline"></span>
-                            </div>
-                            <div class="form-group col-md-12 text-right">
-                                    <a href="#" class="btn btn-primary next">Next</a>
                             </div>
                     </div>
 
@@ -149,12 +106,6 @@
                                 <input type="text" class="form-control" name="fatherName" id="fatherName" placeholder="Father's Name" />
                                 <span class="help-inline"></span>
                             </div>
-                            <div class="form-group col-sm-6 text-left">
-                                    <a href="#" class="btn btn-primary previous">Previous</a>
-                            </div>
-                            <div class="form-group col-sm-6 text-right">
-                                    <a href="#" class="btn btn-primary next">Next</a>
-                            </div>
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="education">
@@ -164,12 +115,6 @@
                         </div>
                         <div id="nestedForm">
                         </div>
-                            <div class="form-group col-sm-6 text-left">
-                                    <a href="#" class="btn btn-primary previous">Previous</a>
-                            </div>
-                            <div class="form-group col-sm-6 text-right">
-                                    <a href="#" class="btn btn-primary next">Next</a>
-                            </div>
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="cdetails">
@@ -227,12 +172,6 @@
                                 <label for="guardianContact">Guardian Contact</label>
                                 <input type="text" class="form-control" name="guardianContact" id="guardianContact" placeholder="Gurdian Contact" />
                                 <span class="help-inline"></span>
-                            </div>
-                            <div class="form-group col-sm-6 text-left">
-                                    <a href="#" class="btn btn-primary previous">Previous</a>
-                            </div>
-                            <div class="form-group col-sm-6 text-right">
-                                    <a href="#" class="btn btn-primary next">Next</a>
                             </div>
                     </div>
 
@@ -341,10 +280,8 @@
                                 <label for="remarks">Remarks:</label>
                                 <textarea class="form-control" id="remarks" name="remarks"></textarea>
                             </div>
-                            <div class="form-group col-6 col-sm-6 text-left">
-                                    <a href="#" class="btn btn-primary previous">Previous</a>
-                            </div>
-                            <div class="form-group col-6 col-sm-6 text-right">
+                            <div class="col-md-6 col-sm-6">&nbsp;</div>
+                            <div class="form-group col-md-6 col-sm-6 text-right">
                                     <a id="saveBtn" href="#" class="btn btn-success">Add</a>
                                     <button class="btn btn-warning" data-dismiss="modal">Close</button>
                             </div>
@@ -354,9 +291,12 @@
             </div>
             </div>
             <div class="modal-footer">
-                <!-- <button type="submit" class="btn btn-primary" id="saveBtn">Add</button>
-                <button type="reset" class="btn btn-warning">Reset</button>
-                <button class="btn btn-default" data-dismiss="modal">Close</button> -->
+                <div class="form-group col-sm-6 col-md-6 text-left">
+                    <a href="#" class="btn btn-primary previous-student">Previous</a>
+                </div>
+                <div class="form-group col-sm-6 col-md-6 text-right">
+                    <a href="#" class="btn btn-primary next-student">Next</a>
+                </div>
             </div>
         </div>
     </div>
