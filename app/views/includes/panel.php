@@ -13,6 +13,7 @@
                     </li>
                 </ul>
             </li>
+            <?php if(Session::isLoggedIn(1)) { ?>
             <li>
                 <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Manage<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
@@ -49,6 +50,7 @@
                 </ul>
                 <!-- /.nav-second-level -->
             </li>
+        <?php } ?>
         <!-- Student session -->
          <!--   <li>
                 <a href="#"><i class="fa fa-check fa-fw"></i> Test<span class="fa arrow"></span></a>
