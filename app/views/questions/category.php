@@ -37,14 +37,14 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="page-header">Courses</h2>
+                    <h2 class="page-header">Categories</h2>
                     <ol class="breadcrumb">
                         <li>
                             <i class="fa fa-dashboard"></i>
                             <a href="<?= SITE_URL.DS.'home'.DS ?>dashboard">Dashboard</a>
                         </li>
                         <li class="active">
-                            Category
+                            Categories
                         </li>
                     </ol>
                 </div>

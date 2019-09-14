@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Manage Program</h3>
+                <h3>Manage Student</h3>
             </div>
             <div class="modal-body">
             <div class="row">
@@ -39,7 +39,7 @@
                 </ul>
 
                 <div class="tab-content tab-content-student">
-                
+                    <br>
                     <div role="tabpanel" class=" tab-pane active" id="home">
                         <form role="form">
                             <div class="form-group col-md-6">
