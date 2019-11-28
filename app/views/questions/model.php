@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <title>
-        <?= WEBSITE_TITLE ?> | Model</title>
+        <?= WEBSITE_TITLE ?> | Program Model</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?= BOWER_DIR ?>/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -83,6 +83,9 @@
                                             </th>
                                             <th style="min-width: 200px">
                                                 Category
+                                            </th>
+                                            <th style="min-width: 200px">
+                                                Program
                                             </th>
                                             <th style="min-width: 100px">
                                                 Level

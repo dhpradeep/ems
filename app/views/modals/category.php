@@ -7,14 +7,22 @@
             <form method="post">
                 <div class="modal-body col-md-12">
                     <div class="form-group col-md-6">
+                        <label>Program *</label>
+                        <select class="form-control" id="programId" name="programId">
+                            <option value="1">BCA</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
                         <input id="categoryId" type="hidden"/>
-                        <label>Category Name</label>
+                        <label>Category Name *</label>
                         <input id="categoryName" type="text" class="form-control" name="categoryName" placeholder="category name" />
                         <span class="help-inline"></span>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Description</label>
-                        <input id="categoryDescription" type="text" class="form-control" name="categoryDescription" placeholder="category description" />
+                        <textarea id="categoryDescription" rows="4" type="text" class="form-control" name="categoryDescription" placeholder="category description"
+                        style="resize:vertical;height:auto">
+                        </textarea>
                         <span class="help-inline"></span>
                     </div>
                 </div>

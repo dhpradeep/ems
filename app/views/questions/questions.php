@@ -81,9 +81,14 @@
             <div class="row">
                 <div class="col-lg-12">
                    <div class="form-inline form-padding">
-                        <form id="frmSearch" role="form">                               
+                        <form id="frmSearch" role="form">
                             <a onclick="create_question()" class="btn btn-primary">Add Question</a>
                             <a onclick="refresh()" class="btn btn-info">Refresh</a>
+                            <div class="input-group col-md-3 col-sm-4 col-xs-6"> <span class="input-group-addon">Filter by Program: </span>
+                                <select class="form-control" id="filterProgram" name="filterProgram">
+                                    <option value="0" name="None"> None </option>
+                                </select>
+                            </div>
                             <div class="input-group col-md-3 col-sm-4 col-xs-6"> <span class="input-group-addon">Filter by Category: </span>
                                 <select class="form-control" id="filterData" name="filterResult">
                                     <option value="0" name="None"> None </option>
@@ -92,7 +97,7 @@
                                     ?>
                                             <option value="<?= $value['id'] ?>" name="<?= $value['name'] ?>"><?= $value['name'] ?></option>
                                     <?php
-                                         } 
+                                         }
                                     ?>
                                 </select>
                             </div>
@@ -106,7 +111,7 @@
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
                                 <div class="table-responsive">
-                                <table id="questionTable" 
+                                <table id="questionTable"
                                     class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
@@ -127,7 +132,7 @@
         <!-- /#page-wrapper -->
 
         <!-- modals -->
-        <?php include(MODALS_DIR.DS.'questions.php'); ?>        
+        <?php include(MODALS_DIR.DS.'questions.php'); ?>
 
     </div>
     <!-- /#wrapper -->
@@ -144,7 +149,7 @@
     <!-- DataTables JavaScript -->
     <script src="<?= BOWER_DIR ?>/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="<?= BOWER_DIR ?>/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-    
+
     <!-- ckeditor -->
     <script src="<?= BOWER_DIR ?>/ckeditor/ckeditor.js"></script>
 
@@ -154,13 +159,13 @@
     <!-- Notify -->
     <script src="<?= BOWER_DIR ?>/notifyjs/dist/notify.js"></script>
     <script src="<?= BOWER_DIR ?>/notifyjs/dist/styles/bootstrap/notify-bootstrap.js"></script>
-    
+
     <!-- Bootstrap Core JavaScript -->
     <script src="<?= BOWER_DIR ?>/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js"></script>
-    
+
     <!-- spinJS -->
     <script src="<?= BOWER_DIR ?>/spin.js/spin.js"></script>
-    
+
     <!-- Custom Theme JavaScript -->
     <script src="<?= JS_DIR ?>/sb-admin-2.js"></script>
     <script src="<?= JS_DIR ?>/pages/questions.js" type="text/javascript"></script>

@@ -57,6 +57,11 @@
                         <form id="frmSearch" role="form">
                             <a onclick="create_category()" class="btn btn-primary">Add Category</a>
                             <a onclick="refresh()" class="btn btn-info">Refresh</a>
+                            <div class="input-group col-md-3 col-sm-4 col-xs-6"> <span class="input-group-addon">Filter by Program: </span>
+                                <select class="form-control" id="filterProgram" name="filterProgram">
+                                    <option value="0" name="None"> None </option>
+                                </select>
+                            </div>
                         </form>
                     </div>
                     <br>
@@ -72,6 +77,9 @@
                                         <tr>
                                             <th style="min-width: 150px">
                                                 Category Name
+                                            </th>
+                                            <th style="min-width: 150px">
+                                                Program
                                             </th>
                                             <th style="min-width: 150px">
                                                 Category Description

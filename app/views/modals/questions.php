@@ -18,10 +18,10 @@
                         <label>Select passage</label>
                         <select class="form-control" id="passageList" name="level">
                             <option value="-1" name="passage-1">None</option>
-                            <?php 
+                            <?php
                                 if(!is_null($this->passages)) {
                                     foreach ($this->passages as $passage) {
-                                        echo "<option value='".$passage['id']."' name='passage".$passage['id']."'>".$passage['passageTitle']."</option>";  
+                                        echo "<option value='".$passage['id']."' name='passage".$passage['id']."'>".$passage['passageTitle']."</option>";
                                     }
                                 }
                             ?>
@@ -31,7 +31,7 @@
                     <div id="toHideForPassage">
                         <div class="form-group col-md-6">
                             <label>Passage Title *</label>
-                            <input type="text" name="passageTitle" id="passageTitle" class="form-control answer" required/> 
+                            <input type="text" name="passageTitle" id="passageTitle" class="form-control answer" required/>
                             <p class="help-inline"></p>
                         </div>
                         <div class="form-group col-md-12">
@@ -45,6 +45,12 @@
                         <textarea name="question" id="question" required></textarea>
                     </div>
                     <div class="form-group col-md-6">
+                        <label>Program *</label>
+                        <select class="form-control" id="programId" name="programId">
+                            <option value="1">BCA</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
                         <label>Category *</label>
                         <select class="form-control" id="categoryId" name="categoryId">
                             <?php
@@ -52,7 +58,7 @@
                             ?>
                                     <option value="<?= $value['id'] ?>" name="<?= $value['name'] ?>"><?= $value['name'] ?></option>
                             <?php
-                                 } 
+                                 }
                             ?>
                         </select>
                     </div>
@@ -65,6 +71,14 @@
                         </select>
                         <p class="help-inline"></p>
                     </div>
+                    
+                    <!-- This division is only for free space -->
+                    <div class="form-group col-md-6" style="visibility:hidden">
+                        <label>&nbsp;</label>
+                        <input class="form-control" />
+                    </div>
+                    <!-- end of extra division -->
+
                     <div class="form-group col-md-6">
                         <label>Correct Answer *</label>
                         <textarea name="answer" id="answer" required></textarea>

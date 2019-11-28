@@ -5,24 +5,30 @@
             <div class="modal-header">
                 <h3>Manage Model</h3>
             </div>
-            <div class="modal-body">
+            <div class="modal-body col-md-12">
                 <form role="form">
                     <input id="modelId" type="hidden"/>
                     <input id="programId" data-id="<?= $this->program['id']; ?>" type="hidden">
-                    <div class="form-group">
-                    <label>Category</label>
+                    <div class="form-group col-md-6">
+                        <label>Program *</label>
+                        <select class="form-control" id="programId" name="programId">
+                            <option value="1">BCA</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Category *</label>
                         <select class="form-control" id="categoryId" name="categoryId">
-                            <?php 
+                            <?php
                                 if(!is_null($this->category)) {
                                     foreach ($this->category as $value) {
-                                        echo "<option value='".$value['id']."' name='".$value['name']."'>".$value['name']."</option>";  
+                                        echo "<option value='".$value['id']."' name='".$value['name']."'>".$value['name']."</option>";
                                     }
                                 }
                             ?>
                         </select>
                     </div>
-                    <div class="form-group">
-                    <label>Question Level </label>
+                    <div class="form-group col-md-6">
+                    <label>Question Level *</label>
                         <select class="form-control" id="minLevel" name="minLevel">
                             <option value="1" name="Basic">Basic</option>
                             <option value="2" name="Medium">Medium</option>
@@ -30,8 +36,8 @@
                         </select>
                         <p class="help-inline"></p>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label">No. of questions</label>
+                    <div class="form-group col-md-6">
+                        <label class="control-label">No. of questions *</label>
                         <input type="number" class="form-control" id="noOfQuestions" name="noOfQuestions" min="1">
                         <span class="help-inline"></span>
                     </div>
