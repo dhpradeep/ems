@@ -31,6 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `category` (
   `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `programId` int(11) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -38,12 +39,12 @@ CREATE TABLE `category` (
 -- Dumping data for table `category`
 --
 
-INSERT INTO `category` (`id`, `name`, `description`) VALUES
-(1, 'Photoshop and Indesign', 'Photoshop and Indesign course in one section'),
-(4, 'Basic Mathematics', ''),
-(5, 'Computer Fundamental', ''),
-(6, 'paragraph', ''),
-(7, 'passage', '');
+INSERT INTO `category` (`id`, `name`, `programId`, `description`) VALUES
+(1, 'Photoshop and Indesign', 1, 'Photoshop and Indesign course in one section'),
+(4, 'Basic Mathematics', 1 , ''),
+(5, 'Computer Fundamental', 1, ''),
+(6, 'paragraph', 1, ''),
+(7, 'passage', 1, '');
 
 -- --------------------------------------------------------
 
@@ -265,6 +266,7 @@ INSERT INTO `questionmodel` (`id`, `programId`, `categoryId`, `minLevel`, `maxLe
 CREATE TABLE `questions` (
   `id` int(11) NOT NULL,
   `categoryId` int(11) NOT NULL,
+  `programId` int(11) COLLATE utf8_unicode_ci NOT NULL,
   `question` varchar(1200) COLLATE utf8_unicode_ci NOT NULL,
   `level` tinyint(4) NOT NULL,
   `answer` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -278,35 +280,35 @@ CREATE TABLE `questions` (
 -- Dumping data for table `questions`
 --
 
-INSERT INTO `questions` (`id`, `categoryId`, `question`, `level`, `answer`, `choice2`, `choice3`, `choice4`, `passageId`) VALUES
-(1, 1, 'What does the Eyedropper tool do?', 1, 'Selects the color at the cursor', 'Paints a single dot of color at the cursor', 'Creates a histogram of the area around the cursor', 'Fades the colors of an area centered on the cursor', NULL),
-(2, 1, '&lt;strong&gt;&amp;quot;Layers&amp;quot;&lt;/strong&gt; in Photoshop are:', 1, 'Images stacked on top of each other', 'Filters that have been applied to the image', 'Previous versions of an image', 'Color and brightness correction', NULL),
-(3, 1, 'How do you add a page in layout &lt;em&gt;(indesign)&lt;/em&gt;', 1, 'layout / page / add page', 'file / open', 'Under object, Effect', 'Under object, content', NULL),
-(4, 1, 'What are smart guides ?', 1, 'lines used to help line up object', 'border around page', 'None of these', 'grids in the background', NULL),
-(5, 1, 'What three color make up visible light spectrum ?', 1, 'RGB', 'CMYK', 'CMY', 'RGY', NULL),
-(6, 1, 'What does &lt;strong&gt;Control+shift+I&lt;/strong&gt; does in photoshop during selection?', 1, 'Inverse selection', 'New document', 'Desaturate', 'New layer', NULL),
-(7, 1, 'which of these is not a selection tool ?', 1, 'Pen Tool', 'Polygonal Lasso tool', 'Magnetic Lasso Tool', 'Lasso Tool', NULL),
-(8, 1, '&lt;strong&gt;&amp;quot;B&amp;quot;&lt;/strong&gt; is the keyboard shortcut in photoshop for :', 1, 'PaintBrush', 'Select Box', 'Blur', 'Bold', NULL),
-(9, 1, 'A layer style that outlines an object or type is called .......', 1, 'Stroke', 'Gradient Overlay', 'Warp', '3d modelling', NULL),
-(10, 1, 'What does 0% opacity does ?', 1, 'Transparent', 'Gradient Overlay', 'Opaque', 'Lightness', NULL),
-(11, 1, 'Which is photoshop default file extension for saving file ?', 3, '.psd', '.png', '.jpg', '.tiff', NULL),
-(12, 1, 'what is the standard size of photo paper is ?', 3, '4*6', '4*5', '4*7', '5*7', NULL),
-(13, 1, 'How many color can gradient include ?', 3, 'multiple', '2', '3', '1', NULL),
-(14, 1, 'Pen tool is primariliy used for :&amp;nbsp;', 3, 'Path', 'Shape', 'Selection', 'None of above', NULL),
-(15, 1, 'What is th keyboard shortcut for Zoom tool ?', 3, 'Z', 'Ctrl + Z', 'Alt + Z', 'Shift +Z', NULL),
-(16, 1, 'How to select whole canvas through shortcut ?', 2, 'Ctrl + a', 'Ctrl + w', 'Ctrl + Y', 'Ctrl + B', NULL),
-(17, 1, 'What is adobe indesign used for ?', 2, 'designing books', 'vector image', 'editing photos', '3d modelling', NULL),
-(18, 1, 'What is the use of &lt;strong&gt;CTRL + G&lt;/strong&gt; in layer&amp;nbsp; ?', 2, 'Group layer', 'Merge layer', 'Filter Layer', 'Save layer', NULL),
-(19, 1, '&lt;strong&gt;&amp;quot;Levels&amp;quot;&lt;/strong&gt; in Photoshop are:', 2, 'Color and brightness correction', 'Images stacked on top of each other', 'Previous versions of an image', 'Filters that have been applied to the image', NULL),
-(20, 1, 'What is canvas also called ?', 2, 'working space', 'editing toolkit', 'tool bar', 'history showing toolbar', NULL),
-(21, 1, 'What does &lt;strong&gt;CTRL+SHIFT+S&lt;/strong&gt; does ?', 2, 'Save As', 'Open', 'Save', 'Open As', NULL),
-(22, 1, 'Shortcut for resizing brush in photoshop ?', 2, '[ ]', '{ }', '( )', 'V', NULL),
-(23, 1, 'what does SHIFT does during selection ?', 2, 'Add', 'Substract', 'deselect', 'multiply', NULL),
-(24, 1, 'What is the shortcut key for Showing Text designing toolbar ?', 2, 'Ctrl + T', 'Ctrl+Y', 'Ctrl + Q', 'Ctrl + K', NULL),
-(25, 1, 'what does &lt;strong&gt;ALT&lt;/strong&gt; does during selection ?', 2, 'deselect', 'Substract', 'Add', 'multiply', NULL),
-(26, 5, 'What is the full form of &lt;strong&gt;BCA ?&lt;/strong&gt;', 2, 'bachelors in computer application', 'bachelors in computer architecture', 'bachelors in co-operative application', 'bachelors in computer engineer', NULL),
-(27, 4, 'Addition of 2 + 2 ?', 1, '4', '3', '2', '5', NULL),
-(28, 6, '&lt;p&gt;&lt;strong&gt;Lorem Ipsum&lt;/strong&gt;&amp;nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum ha&lt;/p&gt;\n\n&lt;p&gt;(Q1-5)&lt;/p&gt;\n\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n\n&lt;p&gt;Q1. djaadjldajl&amp;nbsp;&lt;/p&gt;\n', 1, '1', '2', '3', '4', NULL);
+INSERT INTO `questions` (`id`, `categoryId`, `programId`, `question`, `level`, `answer`, `choice2`, `choice3`, `choice4`, `passageId`) VALUES
+(1, 1, 1, 'What does the Eyedropper tool do?', 1, 'Selects the color at the cursor', 'Paints a single dot of color at the cursor', 'Creates a histogram of the area around the cursor', 'Fades the colors of an area centered on the cursor', NULL),
+(2, 1, 1, '&lt;strong&gt;&amp;quot;Layers&amp;quot;&lt;/strong&gt; in Photoshop are:', 1, 'Images stacked on top of each other', 'Filters that have been applied to the image', 'Previous versions of an image', 'Color and brightness correction', NULL),
+(3, 1, 1, 'How do you add a page in layout &lt;em&gt;(indesign)&lt;/em&gt;', 1, 'layout / page / add page', 'file / open', 'Under object, Effect', 'Under object, content', NULL),
+(4, 1, 1, 'What are smart guides ?', 1, 'lines used to help line up object', 'border around page', 'None of these', 'grids in the background', NULL),
+(5, 1, 1, 'What three color make up visible light spectrum ?', 1, 'RGB', 'CMYK', 'CMY', 'RGY', NULL),
+(6, 1, 1, 'What does &lt;strong&gt;Control+shift+I&lt;/strong&gt; does in photoshop during selection?', 1, 'Inverse selection', 'New document', 'Desaturate', 'New layer', NULL),
+(7, 1, 1, 'which of these is not a selection tool ?', 1, 'Pen Tool', 'Polygonal Lasso tool', 'Magnetic Lasso Tool', 'Lasso Tool', NULL),
+(8, 1, 1, '&lt;strong&gt;&amp;quot;B&amp;quot;&lt;/strong&gt; is the keyboard shortcut in photoshop for :', 1, 'PaintBrush', 'Select Box', 'Blur', 'Bold', NULL),
+(9, 1, 1, 'A layer style that outlines an object or type is called .......', 1, 'Stroke', 'Gradient Overlay', 'Warp', '3d modelling', NULL),
+(10, 1, 1, 'What does 0% opacity does ?', 1, 'Transparent', 'Gradient Overlay', 'Opaque', 'Lightness', NULL),
+(11, 1, 1, 'Which is photoshop default file extension for saving file ?', 3, '.psd', '.png', '.jpg', '.tiff', NULL),
+(12, 1, 1, 'what is the standard size of photo paper is ?', 3, '4*6', '4*5', '4*7', '5*7', NULL),
+(13, 1, 1, 'How many color can gradient include ?', 3, 'multiple', '2', '3', '1', NULL),
+(14, 1, 1, 'Pen tool is primariliy used for :&amp;nbsp;', 3, 'Path', 'Shape', 'Selection', 'None of above', NULL),
+(15, 1, 1, 'What is th keyboard shortcut for Zoom tool ?', 3, 'Z', 'Ctrl + Z', 'Alt + Z', 'Shift +Z', NULL),
+(16, 1, 1, 'How to select whole canvas through shortcut ?', 2, 'Ctrl + a', 'Ctrl + w', 'Ctrl + Y', 'Ctrl + B', NULL),
+(17, 1, 1, 'What is adobe indesign used for ?', 2, 'designing books', 'vector image', 'editing photos', '3d modelling', NULL),
+(18, 1, 1, 'What is the use of &lt;strong&gt;CTRL + G&lt;/strong&gt; in layer&amp;nbsp; ?', 2, 'Group layer', 'Merge layer', 'Filter Layer', 'Save layer', NULL),
+(19, 1, 1, '&lt;strong&gt;&amp;quot;Levels&amp;quot;&lt;/strong&gt; in Photoshop are:', 2, 'Color and brightness correction', 'Images stacked on top of each other', 'Previous versions of an image', 'Filters that have been applied to the image', NULL),
+(20, 1, 1, 'What is canvas also called ?', 2, 'working space', 'editing toolkit', 'tool bar', 'history showing toolbar', NULL),
+(21, 1, 1, 'What does &lt;strong&gt;CTRL+SHIFT+S&lt;/strong&gt; does ?', 2, 'Save As', 'Open', 'Save', 'Open As', NULL),
+(22, 1, 1, 'Shortcut for resizing brush in photoshop ?', 2, '[ ]', '{ }', '( )', 'V', NULL),
+(23, 1, 1, 'what does SHIFT does during selection ?', 2, 'Add', 'Substract', 'deselect', 'multiply', NULL),
+(24, 1, 1, 'What is the shortcut key for Showing Text designing toolbar ?', 2, 'Ctrl + T', 'Ctrl+Y', 'Ctrl + Q', 'Ctrl + K', NULL),
+(25, 1, 1, 'what does &lt;strong&gt;ALT&lt;/strong&gt; does during selection ?', 2, 'deselect', 'Substract', 'Add', 'multiply', NULL),
+(26, 5, 1, 'What is the full form of &lt;strong&gt;BCA ?&lt;/strong&gt;', 2, 'bachelors in computer application', 'bachelors in computer architecture', 'bachelors in co-operative application', 'bachelors in computer engineer', NULL),
+(27, 4, 1, 'Addition of 2 + 2 ?', 1, '4', '3', '2', '5', NULL),
+(28, 6, 1, '&lt;p&gt;&lt;strong&gt;Lorem Ipsum&lt;/strong&gt;&amp;nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum ha&lt;/p&gt;\n\n&lt;p&gt;(Q1-5)&lt;/p&gt;\n\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n\n&lt;p&gt;Q1. djaadjldajl&amp;nbsp;&lt;/p&gt;\n', 1, '1', '2', '3', '4', NULL);
 
 -- --------------------------------------------------------
 

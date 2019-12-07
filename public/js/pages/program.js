@@ -245,7 +245,7 @@ function getAllData(){
                  }
             }
         ],
-        "order": [[1, 'asc']]
+        "order": [[0, 'asc']]
     } );
 
     $('#programTable tbody').on('click', '.edit-icon', function () {

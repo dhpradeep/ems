@@ -18,6 +18,7 @@ class Validator {
             'max': 10
         }
     */
+
     public function check($source, $items = array()) { 
         foreach($items as $item => $rules) {
             foreach($rules as $rule => $rule_value) {
@@ -30,9 +31,9 @@ class Validator {
                 if($rule == 'matchName') {
                     $matchName = $rule_value;
                 }
-                if($rule === 'required' && empty($value)) {
+                if($rule === 'required' && $value != "0" &&empty($value)) {
                     $this->addError("{$itemName} is required"); 
-                } else if (!empty($value)) {
+                } else if(!empty($value)){
                     switch($rule) {
                         case 'min':
                             if(strlen($value) < $rule_value) {

@@ -9,7 +9,14 @@
                     <div class="form-group col-md-6">
                         <label>Program *</label>
                         <select class="form-control" id="programId" name="programId">
-                            <option value="1">BCA</option>
+                            <option value="0">None</option>
+                            <?php
+                                        foreach ($this->program as $value) {
+                                    ?>
+                                            <option value="<?= $value['id'] ?>" name="<?= $value['name'] ?>"><?= $value['name'] ?></option>
+                                    <?php
+                                         }
+                                    ?>
                         </select>
                     </div>
                     <div class="form-group col-md-6">

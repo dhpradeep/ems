@@ -8,6 +8,7 @@ function create_category(data = null) {
     }else{
         $("#categoryId").data('id','-1');
         $("#saveBtn")[0].innerHTML = "Add";
+        $("#programId").val(0);
         $("#categoryName").val("");
         $("#categoryDescription").val("");
         $('#addCategory').modal('show');
@@ -16,6 +17,11 @@ function create_category(data = null) {
  
 $(document).ready(function() {
     refresh();
+});
+
+$(document).on("change", "#filterProgram", function(e) {
+    e.preventDefault();
+    getAllData();
 });
 
 $(document).on("click", "#saveBtn", function(e) {
@@ -28,19 +34,17 @@ $(document).on("click", "#saveBtn", function(e) {
     }
 });
 
-$(document).on("click", ".edit-icon", function() {
-    var columnValues = $(this).parent().siblings().map(function() {
-        return $(this).text();
-    }).get();
-
-    $('#categoryId').data('id', $(this).data('id'));
-    $("#saveBtn")[0].innerHTML = "Update";
-    $("#categoryName").val(columnValues[0].trim());
-    $("#categoryDescription").val(columnValues[1].trim());
-
-    catId = $(this).data('id');
-    create_category(catId);
-});
+function edit_category(data) {
+    if(data != null) {
+        $('#categoryId').data('id', data.id);
+        $('#programId').val(data.programId);
+        $("#saveBtn")[0].innerHTML = "Update";
+        $("#categoryName").val(data.name);
+        $("#categoryDescription").val(data.description);
+        
+        create_category(data.id);
+    } 
+}
 
 $(document).on("click", ".remove-icon", function(e) {
     var id = $(this).data('id');
@@ -69,6 +73,12 @@ function updateCategory() {
         $(this).val($(this).val().trim());
     });
 
+    $programId = $('#programId').data('id');
+    if(programId < 1) {
+        $.notify("Please select a valid program", "error");
+        return;
+    }
+
     var id = $('#categoryId').data('id');
     if(id > 0) {
         $.ajax({
@@ -77,6 +87,7 @@ function updateCategory() {
             type: 'POST',
             data: {
                 id: $('#categoryId').data('id'),
+                programId : $programId,
                 name: $('#categoryName').val(),
                 description: $('#categoryDescription').val()
             },
@@ -116,39 +127,46 @@ function addCategory(){
         $(this).val($(this).val().trim());
     });
 
-    $.ajax({
-        url: '../question/category/add',
-        async: true,
-        type: 'POST',
-        data: {
-            name: $('#categoryName').val(),
-            description: $('#categoryDescription').val()
-        },
-        success: function(response) {
-            var decode = JSON.parse(response);
-            if (decode.success == true) {
-                $('#addCategory').modal('hide');
-                refresh();
-                $.notify("Record successfully saved", "success");
-            } else if (decode.success === false) {
-                decode.errors.forEach(function(element) {
-                  $.notify(element, "error");
-                });
-                if(decode.status == -1) $('#addCategory').modal('hide');
+    programId = $('#programId').val();
+    console.log(programId);
+    if(programId > 0) {
+        $.ajax({
+            url: '../question/category/add',
+            async: true,
+            type: 'POST',
+            data: {
+                programId : programId,
+                name: $('#categoryName').val(),
+                description: $('#categoryDescription').val()
+            },
+            success: function(response) {
+                var decode = JSON.parse(response);
+                if (decode.success == true) {
+                    $('#addCategory').modal('hide');
+                    refresh();
+                    $.notify("Record successfully saved", "success");
+                } else if (decode.success === false) {
+                    decode.errors.forEach(function(element) {
+                      $.notify(element, "error");
+                    });
+                    if(decode.status == -1) $('#addCategory').modal('hide');
+                    return;
+                }
+            },
+            error: function(error) {
+                console.log("Error:");
+                console.log(error.responseText);
+                console.log(error.message);
+                if (error.responseText) {
+                    var msg = JSON.parse(error.responseText)
+                    $.notify(msg.msg, "error");
+                }
                 return;
             }
-        },
-        error: function(error) {
-            console.log("Error:");
-            console.log(error.responseText);
-            console.log(error.message);
-            if (error.responseText) {
-                var msg = JSON.parse(error.responseText)
-                $.notify(msg.msg, "error");
-            }
-            return;
-        }
-    });
+        });
+    }else {
+         $.notify("Please select a valid program", "error");
+    }
 }
 
 function deletedata(id) {
@@ -211,17 +229,21 @@ function refresh() {
 
 function getAllData(){
     $("#categoryTable").dataTable().fnDestroy();
-     $('#categoryTable').DataTable( {
+    var table = $('#categoryTable').DataTable( {
         "processing": true,
         "serverSide": true,
         stateSave: true,
         "ajax": {
             "url": "../question/category/get",
-            "type": "POST"
+            "type": "POST",
+            "data": {
+                filterProgram: $("#filterProgram").val()
+            }
         },
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
         "columns": [
             { "data": "name" },
+            { "data": "programName"},
             { "data": "description" },
             {   
                  sortable: false,
@@ -231,4 +253,10 @@ function getAllData(){
             }
         ]
     } );
+
+    $('#categoryTable tbody').on('click', '.edit-icon', function() {
+        var tr = $(this).closest('tr');
+        var row = table.row(tr);
+        edit_category(row.data());
+    });
 }

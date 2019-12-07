@@ -16,6 +16,9 @@ function resetFields() {
     CKEDITOR.instances['choice4'].setData("");
     $("#questionId").data('id', '-1');
     $('#containPassage').val('-1');
+    $('#programId').val(0);
+    getSectionForProgram($('#programId'), "#categoryId", 0);
+    $('#categoryId').val(0);
     $('#passageList').val('-1');
     $("#passageList").attr('disabled', false);
     $('#passageTitle').val("");
@@ -42,7 +45,9 @@ function create_question(data = null) {
 
             $('#level').val(data.level);
 
-            $('#categoryId').val(data.categoryId);
+            $('#programId').val(data.programId);
+            getSectionForProgram($('#programId'), "#categoryId", data.categoryId);
+
             if (data.containPassage == 1) {
                 $('#containPassage').val('1');
                 $('#passageList').val(data.passageId);
@@ -138,9 +143,9 @@ $(document).on("click", ".remove-icon", function(e) {
 });
 
 function updateQuestion() {
-    $('input[type="text"]').each(function() {
+    /*$('input[type="text"]').each(function() {
         $(this).val($(this).val().trim());
-    });
+    });*/
 
     var containPassage = $('#containPassage').val();
     var passageId;
@@ -164,6 +169,7 @@ function updateQuestion() {
             type: 'POST',
             data: {
                 id: $('#questionId').data('id'),
+                programId: $('#programId').val(),
                 categoryId: $('#categoryId').children("option:selected").val(),
                 question: $().CKEditorValFor('question'),
                 level: $('#level').children("option:selected").val(),
@@ -231,7 +237,8 @@ function addQuestion() {
         async: true,
         type: 'POST',
         data: {
-            categoryId: $('#categoryId').children("option:selected").val(),
+            programId: $('#programId').val(),
+            categoryId: $('#categoryId').val(),
             question: $().CKEditorValFor('question'),
             level: $('#level').children("option:selected").val(),
             answer: $().CKEditorValFor('answer'),
@@ -303,10 +310,71 @@ function deletedata(id) {
     });
 }
 
+$(document).on("change", "#filterProgram", function(e) {
+    getSectionForProgram($(this), "#filterData");
+    e.preventDefault();
+    getAllData();
+});
+
+$(document).on("change", "#programId", function(e) {
+    getSectionForProgram($(this),"#categoryId");
+    e.preventDefault();
+});
+
 $(document).on("change", "#filterData", function(e) {
     e.preventDefault();
     getAllData();
 });
+
+function getSectionForProgram(root, destination, value = 0) {
+    var programId = root.val();
+    if (programId > 0) {
+        $.ajax({
+            url: '../question/all/getCategoryForProgram',
+            async: true,
+            type: 'POST',
+            data: {
+                filterProgram: programId,
+            },
+            success: function(response) {
+                var decode = JSON.parse(response);
+                if (decode.success == true) {
+                    var html = '<option value="-1">None</option>';
+                    if (decode.category.length >= 1) {
+                        for (var i = 0; i < decode.category.length; i++) {
+                            html += '<option value="' + decode.category[i].id + '">' + decode.category[i].name + '</option>';
+                        }
+                    } else {
+                        $.notify("Problem fetching categories for this program.");
+                    }
+                    $(destination).html(html);
+                    if(value != 0) {
+                        $(destination).val(value);
+                    }
+                } else if (decode.success === false) {
+                    var html = '<option value="-1">None</option>';
+                    if (decode.error != undefined) {
+                        $.notify(decode.error[0], "error");
+                    } else {
+                        $.notify("Problem fetching categories for this program.", "error");
+                    }
+                    $(destination).html(html);
+                    return;
+                }
+            },
+            error: function(error) {
+                if (error.responseText) {
+                    var msg = JSON.parse(error.responseText)
+                    $.notify(msg.msg, "error");
+                }
+                return;
+            }
+        });
+    } else {
+        var html = '<option value="-1">None</option>';
+        $(destination).html(html);
+    }
+}
 
 function sleep(time) {
     return new Promise((resolve) => setTimeout(resolve, time));
@@ -461,7 +529,8 @@ function getAllData() {
             "url": "../question/all/get",
             "type": "POST",
             "data": {
-                filterData: $("#filterData").val()
+                filterData: $("#filterData").val(),
+                filterProgram: $("#filterProgram").val()
             }
         },
         "lengthMenu": [

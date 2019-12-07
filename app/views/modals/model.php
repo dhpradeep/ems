@@ -11,13 +11,23 @@
                     <input id="programId" data-id="<?= $this->program['id']; ?>" type="hidden">
                     <div class="form-group col-md-6">
                         <label>Program *</label>
-                        <select class="form-control" id="programId" name="programId">
-                            <option value="1">BCA</option>
+                        <select class="form-control" id="programOption" name="programOption">
+                            <option value="0" name="None"> None </option>
+                                <?php
+                                if(!is_null($this->programs)) {
+                                    foreach ($this->programs as $value) {
+                                ?>
+                                <option value="<?= $value['id'] ?>" name="<?= $value['name'] ?>"><?= $value['name'] ?></option>
+                                <?php
+                                   }
+                                }
+                            ?>                        
                         </select>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Category *</label>
                         <select class="form-control" id="categoryId" name="categoryId">
+                            <option value="0" name="None"> None </option>
                             <?php
                                 if(!is_null($this->category)) {
                                     foreach ($this->category as $value) {

@@ -33,6 +33,10 @@ class Question extends Controller {
 
 		} else if($name == ''){	
 			if(Session::isLoggedIn(1) || Session::isLoggedIn(2)) {
+				$this->setForeignModel('QuestionModel');
+				$this->foreignModel->setTable('program');
+				$allPassage = $this->foreignModel->getAllQuestion();
+				$this->model->data['program'] = $allPassage;
 				$this->model->template = VIEWS_DIR.DS."questions".DS."category.php";
 				$this->view->render();
 			}else {
@@ -45,7 +49,7 @@ class Question extends Controller {
     
     public function all($name = "") {
 		$this->model->setTable('questions');
-		if(($name == "add" || $name == "update" || $name == "delete" || $name == "get" || $name == "getPassages") && (Session::isLoggedIn(1) || Session::isLoggedIn(2))) {
+		if(($name == "add" || $name == "update" || $name == "delete" || $name == "get" || $name == "getPassages" || $name == "getCategoryForProgram") && (Session::isLoggedIn(1) || Session::isLoggedIn(2))) {
 			$result = array('status' => 0);	
 			if(isset($_POST) && count($_POST) > 0) {
 				if($name == "get") {
@@ -63,6 +67,9 @@ class Question extends Controller {
 				if($name == "getPassages") {
 					return $this->getPassagesPrivate($result);
 				}
+				if($name == "getCategoryForProgram") {
+					return $this->getCategoryForProgramPrivate($result);
+				}
 			}else{
 				header("Location: ".SITE_URL."/home/dashboard");
 			}	
@@ -72,10 +79,10 @@ class Question extends Controller {
 				$this->model->setTable('category');
 				$all = $this->model->getAllQuestion();
 				$this->model->data['category'] = $all;
-				/*$this->setForeignModel('QuestionModel');
-				$this->foreignModel->setTable('passage');
+				$this->setForeignModel('QuestionModel');
+				$this->foreignModel->setTable('program');
 				$allPassage = $this->foreignModel->getAllQuestion();
-				$this->model->data['passages'] = $allPassage;*/
+				$this->model->data['program'] = $allPassage;
 				$this->model->template = VIEWS_DIR.DS."questions".DS."questions.php";
 				$this->view->render();
 			}else {
@@ -84,6 +91,32 @@ class Question extends Controller {
 		} else {
 			header("Location: ".SITE_URL."/home/message");
 		}
+    }
+
+
+    private function getCategoryForProgramPrivate($result) {
+    	if(!isset($_POST['filterProgram'])) {
+			$result['error'] = array("Invalid selection.");
+			$result['status'] = 0;
+		}else {
+			$programId = Input::get('filterProgram');
+			$dataToSearch = array('programId' => $programId);
+
+			$this->setForeignModel("QuestionModel");
+			$this->foreignModel->setTable("category");
+			$res = $this->foreignModel->searchQuestion($dataToSearch);
+
+			if(count($res) > 0) {
+				$result['category'] = $res;
+				$result['status'] = 1;
+			}else {
+				$result['error'] = array("Category not found for this program");
+				$result['status'] = 0;
+			}
+		}
+		$result['success'] = ($result['status'] == 1) ? true : false;
+		unset($_POST);
+		return print json_encode($result);
     }
     
     public function program($name='') {
@@ -126,6 +159,7 @@ class Question extends Controller {
 				$this->setForeignModel("QuestionModel");
 				$this->foreignModel->setTable("program");
 				$allPrograms = $this->foreignModel->getAllQuestion();
+				$this->model->data['programs'] = $allPrograms;
 				$program = null;
 				$allInfo = null;
 				foreach ($allPrograms as $value) {
@@ -226,9 +260,24 @@ class Question extends Controller {
 			$toSearch = array("id" => $res[$i]['categoryId']);
 			$this->setForeignModel("QuestionModel");
 			$this->foreignModel->setTable("category");
-			$categories = $this->foreignModel->searchQuestion($toSearch);			
+			$categories = $this->foreignModel->searchQuestion($toSearch);	
+
+			$progID = (count($categories) > 0) ? $categories[0]['programId'] : -1;
+			$progName = "undefined";
+			$programInnerId = 0;
+			if($progID > 0) {
+				$this->foreignModel->setTable("program");
+				$toSearch = array('id' => $progID);
+				$programToSearch = $this->foreignModel->searchQuestion($toSearch);
+				if(count($programToSearch) > 0) {
+					$progName = $programToSearch[0]['name'];
+					$programInnerId = $programToSearch[0]['id'];
+				}
+			}
 			$arr[$index] = $res[$i];
-			$arr[$index]['category'] = $categories[0]['name'];
+			$arr[$index]['programName'] = $progName;
+			$arr[$index]['programInnerId'] = $programInnerId;
+			$arr[$index]['category'] = (count($categories) > 0) ? $categories[0]['name'] : 'undefined';
 			switch ($arr[$index]['minLevel']) {
 				case 1:
 					$arr[$index]['levelName'] = "Basic";
@@ -390,12 +439,37 @@ class Question extends Controller {
 			$stringToSearch = Sanitize::escape($_POST["search"]["value"]);
 		}
 		$res = $this->model->getAllQuestionConditions($stringToSearch,$fieldToSearch,$columnToSort,$sortDir);
+			
+		if(isset($_POST['filterProgram']) && $_POST['filterProgram'] > 0) {
+			$i = 0;
+			foreach ($res as $value) {
+				if($value['programId'] != $_POST['filterProgram']) {
+					array_splice($res, $i, 1);
+					$i--;
+				}
+				$i++;
+			}
+		}
+
 		$total = count($res);
 		$index = 0;
 		$arr = array();
 		$totalCount = ($totalCount == -1) ? $total : $totalCount;
 		for ($i = $startIndex; $i < $startIndex + $totalCount && $i < $total; $i++){
-			$arr[$index++] = $res[$i];
+			$arr[$index] = $res[$i];
+			$progID = $res[$i]['programId'];
+			$progName = "undefined";
+			if($progID > 0) {
+				$this->setForeignModel("QuestionModel");
+				$this->foreignModel->setTable("program");
+				$toSearch = array('id' => $progID);
+				$programToSearch = $this->foreignModel->searchQuestion($toSearch);
+				if(count($programToSearch) > 0) {
+					$progName = $programToSearch[0]['name'];
+				}
+			}
+			$arr[$index]['programName'] = $progName;
+			$index++;
 		}
 
 		if(count($arr) >= 1){
@@ -763,6 +837,17 @@ class Question extends Controller {
 		}
 		$res = $this->model->getAllQuestionConditions($stringToSearch,$fieldToSearch,$columnToSort,$sortDir);
 
+		if(isset($_POST['filterProgram']) && $_POST['filterProgram'] > 0) {
+			$i = 0;
+			foreach ($res as $value) {
+				if($value['programId'] != $_POST['filterProgram']) {
+					array_splice($res, $i, 1);
+					$i--;
+				}
+				$i++;
+			}
+		}
+
 		if(isset($_POST['filterData']) && $_POST['filterData'] > 0) {
 			$i = 0;
 			foreach ($res as $value) {
@@ -911,6 +996,12 @@ class Question extends Controller {
 		));
 		if(Input::get('level') <= 0 || Input::get('minLevel') > 3 ) $validate->addError("Level isnot valid!");
 		if(Input::get('categoryId') <= 0) $validate->addError("Category not valid!");
+		if(Input::get('programId') <= 0) $validate->addError("Program not valid!");
+
+		$allAns = array($_POST['answer'],$_POST['choice2'],$_POST['choice3'],$_POST['choice4']);
+		if(count(array_unique($allAns)) < 4) {
+			$validate->addError("Duplicate answers");
+		}
 
 		if(Input::get('containPassage') == 1) {
 			if(Input::get('passageId') == -1) {
@@ -1042,12 +1133,17 @@ class Question extends Controller {
 				'name' => 'Level',
 				'minLevel' => 0,
 				'maxLevel' => 3
-			),
-			'categoryId' => array(
-				'name' => 'Category',
-				'minLevel' => 0
 			)
 		));
+
+		$allAns = array($_POST['answer'],$_POST['choice3'],$_POST['choice3'],$_POST['choice4']);
+		if(count(array_unique($allAns)) < 4) {
+			$validate->addError("Duplicate answers");
+		}
+
+		if(Input::get('programId') <= 0) $validate->addError("Program not valid!");
+		if(Input::get('categoryId') <= 0) $validate->addError("Category not valid!");
+
 		if(Input::get('containPassage') == 1) {
 			if(Input::get('passageId') == -1) {
 				$validation = $validate->check($_POST, array(

@@ -60,6 +60,13 @@
                             <div class="input-group col-md-3 col-sm-4 col-xs-6"> <span class="input-group-addon">Filter by Program: </span>
                                 <select class="form-control" id="filterProgram" name="filterProgram">
                                     <option value="0" name="None"> None </option>
+                                    <?php
+                                        foreach ($this->program as $value) {
+                                    ?>
+                                            <option value="<?= $value['id'] ?>" name="<?= $value['name'] ?>"><?= $value['name'] ?></option>
+                                    <?php
+                                         }
+                                    ?>
                                 </select>
                             </div>
                         </form>

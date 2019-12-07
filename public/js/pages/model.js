@@ -8,7 +8,9 @@ function create_model(data = null) {
         $('#noOfQuestions').val(data.noOfQuestions);
         $("#saveBtn")[0].innerHTML = "Update";
 
-        $('#categoryId').val(data.categoryId);
+        $('#programOption').val(data.programInnerId);
+        getSectionForProgram($('#programOption'), data.categoryId);
+        //$('#categoryId').val(data.categoryId);
 
         $('#minLevel').val(data.minLevel);
 
@@ -16,10 +18,69 @@ function create_model(data = null) {
     }else{
         $("#modelId").data('id','-1');
         $("#saveBtn")[0].innerHTML = "Add";
-        $('#categoryId').val('');
+        //$('#categoryId').val('');
+        $('#programOption').val('');
+        getSectionForProgram($('#programOption'));
         $('#minLevel').val('');
         $('#noOfQuestions').val("");
         $('#addModel').modal('show');
+    }
+}
+
+$(document).on("change", "#programOption", function(e) {
+    getSectionForProgram($(this));
+    e.preventDefault();
+});
+
+
+function getSectionForProgram(root, value = 0) {
+    var destination = "#categoryId";
+    var programId = root.val();
+    if (programId > 0) {
+        $.ajax({
+            url: '../../question/all/getCategoryForProgram',
+            async: true,
+            type: 'POST',
+            data: {
+                filterProgram: programId,
+            },
+            success: function(response) {
+                var decode = JSON.parse(response);
+                if (decode.success == true) {
+                    var html = '<option value="-1">None</option>';
+                    if (decode.category.length >= 1) {
+                        for (var i = 0; i < decode.category.length; i++) {
+                            html += '<option value="' + decode.category[i].id + '">' + decode.category[i].name + '</option>';
+                        }
+                    } else {
+                        $.notify("Problem fetching categories for this program.");
+                    }
+                    $(destination).html(html);
+                    if(value != 0) {
+                        $(destination).val(value);
+                    }
+                } else if (decode.success === false) {
+                    var html = '<option value="-1">None</option>';
+                    if (decode.error != undefined) {
+                        $.notify(decode.error[0], "error");
+                    } else {
+                        $.notify("Problem fetching categories for this program.", "error");
+                    }
+                    $(destination).html(html);
+                    return;
+                }
+            },
+            error: function(error) {
+                if (error.responseText) {
+                    var msg = JSON.parse(error.responseText)
+                    $.notify(msg.msg, "error");
+                }
+                return;
+            }
+        });
+    } else {
+        var html = '<option value="-1">None</option>';
+        $(destination).html(html);
     }
 }
  
@@ -65,9 +126,9 @@ function updateModel() {
         $(this).val($(this).val().trim());
     });
 
-    var programId = $('#programId').data('id');
+    var programId = $('#programOption').val();
     var id = $('#modelId').data('id');
-    if(id > 0) {
+    if(id > 0 && programId > 0) {
         $.ajax({
             url: '../../question/modelController/update',
             async: true,
@@ -106,52 +167,61 @@ function updateModel() {
                 return;
             }
         });
+    }else {
+        $.notify("Selection Error", "error");
     }
     
 }
 
 function addModel(){
 
+    var programId = $('#programOption').val();
+    var categoryId = $('#categoryId').val();
+
     $('input[type="text"]').each(function() {
         $(this).val($(this).val().trim());
     });
 
-    $.ajax({
-        url: '../../question/modelController/add',
-        async: true,
-        type: 'POST',
-        data: {
-            programId: $('#programId').data('id'),
-            categoryId: $('#categoryId').val(),
-            minLevel: $('#minLevel').val(),
-            maxLevel: $('#minLevel').val(),
-            noOfQuestions: $('#noOfQuestions').val()
+    if(programId > 0 && categoryId > 0) {
+        $.ajax({
+            url: '../../question/modelController/add',
+            async: true,
+            type: 'POST',
+            data: {
+                programId: $('#programId').data('id'),
+                categoryId: categoryId,
+                minLevel: $('#minLevel').val(),
+                maxLevel: $('#minLevel').val(),
+                noOfQuestions: $('#noOfQuestions').val()
+                },
+            success: function(response) {
+                var decode = JSON.parse(response);
+                if (decode.success == true) {
+                    $('#addModel').modal('hide');
+                    refresh();
+                    $.notify("Record successfully saved", "success");
+                } else if (decode.success === false) {
+                    decode.errors.forEach(function(element) {
+                      $.notify(element, "error");
+                    });
+                    if(decode.status == -1) $('#addModel').modal('hide');
+                    return;
+                }
             },
-        success: function(response) {
-            var decode = JSON.parse(response);
-            if (decode.success == true) {
-                $('#addModel').modal('hide');
-                refresh();
-                $.notify("Record successfully saved", "success");
-            } else if (decode.success === false) {
-                decode.errors.forEach(function(element) {
-                  $.notify(element, "error");
-                });
-                if(decode.status == -1) $('#addModel').modal('hide');
+            error: function(error) {
+                console.log("Error:");
+                console.log(error.responseText);
+                console.log(error.message);
+                if (error.responseText) {
+                    var msg = JSON.parse(error.responseText)
+                    $.notify(msg.msg, "error");
+                }
                 return;
             }
-        },
-        error: function(error) {
-            console.log("Error:");
-            console.log(error.responseText);
-            console.log(error.message);
-            if (error.responseText) {
-                var msg = JSON.parse(error.responseText)
-                $.notify(msg.msg, "error");
-            }
-            return;
-        }
-    });
+        });
+    }else {
+        $.notify("Selection Error", "error");
+    }    
 }
 
 function deletedata(id) {
@@ -232,6 +302,7 @@ function getAllData(){
             "columns": [
                 { "data": "order" },
                 { "data": "category" },
+                { "data": "programName"},
                 { "data": "levelName" },
                 { "data": "noOfQuestions" },
                 {   

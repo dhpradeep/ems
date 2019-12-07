@@ -47,19 +47,20 @@
                     <div class="form-group col-md-6">
                         <label>Program *</label>
                         <select class="form-control" id="programId" name="programId">
-                            <option value="1">BCA</option>
+                            <option value="0">None</option>
+                            <?php
+                                        foreach ($this->program as $value) {
+                                    ?>
+                                            <option value="<?= $value['id'] ?>" name="<?= $value['name'] ?>"><?= $value['name'] ?></option>
+                                    <?php
+                                         }
+                                    ?>
                         </select>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Category *</label>
                         <select class="form-control" id="categoryId" name="categoryId">
-                            <?php
-                                foreach ($this->category as $value) {
-                            ?>
-                                    <option value="<?= $value['id'] ?>" name="<?= $value['name'] ?>"><?= $value['name'] ?></option>
-                            <?php
-                                 }
-                            ?>
+                            <option value="0">None</option>
                         </select>
                     </div>
                     <div class="form-group col-md-6">
@@ -73,9 +74,11 @@
                     </div>
                     
                     <!-- This division is only for free space -->
-                    <div class="form-group col-md-6" style="visibility:hidden">
-                        <label>&nbsp;</label>
-                        <input class="form-control" />
+                    <div class="form-group col-md-6" style="visibility: hidden;">
+                        <label>Hidden</label>
+                        <select class="form-control">
+                        </select>
+                        <p class="help-inline"></p>
                     </div>
                     <!-- end of extra division -->
 
