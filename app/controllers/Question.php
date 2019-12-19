@@ -1136,7 +1136,7 @@ class Question extends Controller {
 			)
 		));
 
-		$allAns = array($_POST['answer'],$_POST['choice3'],$_POST['choice3'],$_POST['choice4']);
+		$allAns = array($_POST['answer'],$_POST['choice2'],$_POST['choice3'],$_POST['choice4']);
 		if(count(array_unique($allAns)) < 4) {
 			$validate->addError("Duplicate answers");
 		}

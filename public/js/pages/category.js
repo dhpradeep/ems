@@ -73,7 +73,7 @@ function updateCategory() {
         $(this).val($(this).val().trim());
     });
 
-    $programId = $('#programId').data('id');
+    $programId = $('#programId').val();
     if(programId < 1) {
         $.notify("Please select a valid program", "error");
         return;
