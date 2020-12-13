@@ -75,11 +75,13 @@
                 if(is_null($this->errors) || count($this->errors) <= 0) {
             ?>
             <div class="row mySticky">
-                <div class="mydiv navbtn prevbtn">
-                    <div class="cur previous">Previous</div>
+                <div class="col-xs-2 navbtn prevbtn">
+                    <div class="cur previous">
+                    <i class="fa fa-arrow-left"></i>
+                    </div>
                 </div>
                 <!-- <button type="submit"  name="test_submit" class="btn btn-success">Previous</button> -->
-                <div class="mydiv">
+                <div class="col-xs-8 timer-time">
                     <div class="row" style="margin: 0px 0px;">
                         <div id="time" class="col col-md-6"> Time </div>
                         <div id="questionsRecord" class="col col-md-6">
@@ -87,8 +89,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="mydiv text-right navbtn nextbtn">
-                    <div class="cur next">Next</div>
+                <div class="text-right navbtn nextbtn col-xs-2">
+                    <div class="cur next">
+                        <i class="fa fa-arrow-right"></i>
+                    </div>
                     <!-- <button type="button" class="btn btn-success">Next</button>
                         <button type="button" class="btn btn-success">Submit</button> -->
                 </div>

@@ -27,12 +27,9 @@
     position: sticky;
     position: -webkit-sticky;
     background: #f8f8f8;
-    border-bottom-left-radius: 50%;
-    border-bottom-right-radius: 50%;
-    opacity: 0.6;
-    padding-top: 10px;
     z-index: 1;
 }
+
 
 .cur {
     cursor: pointer;
@@ -40,17 +37,16 @@
 }
 
 .navbtn {
-    background-image: linear-gradient(to right, #337ab7 0%, #47a0ee 51%, #337ab7 100%);
     color: black;
     height: 100%;
     text-align: center;
     font-size: 1.3em;
-    padding-top: 7px;
+    padding-top: 10px;
+}
+.timer-time{
+    padding-top: 10px;
 }
 
-.prevbtn {
-    border-bottom-left-radius: 50%;
-}
 
 .submitbtn {
     border-radius: 20%;
@@ -58,17 +54,14 @@
 }
 
 .navbtn:hover {
-    background-image: linear-gradient(to right, #2382db 0%, #0d4e8b 51%, #7067be 100%);
-    color: white;
+    background: #ccc;
+    color: black;
 }
 
 .mySticky:hover{
     opacity: 1;
 }
 
-.nextbtn {
-    border-bottom-right-radius: 50%;
-}
 
 .mydiv {
     float: left;
@@ -80,12 +73,31 @@
     background: rgba(220, 220, 220, 0.4);
 }
 
+@media screen and (max-width: 880px) {
+    /* start of medium tablet styles */
+    .mySticky {
+        width: 60%;
+        margin-bottom: 50px;
+    }
+}
+
 @media screen and (max-width: 767px) {
     /* start of medium tablet styles */
     .mySticky {
         top: 100px;
         width: 100%;
         margin-bottom: 50px;
+    }
+}
+@media screen and (max-width: 400px) {
+    /* start of medium tablet styles */
+    .mySticky {
+        top: 150px;
+        width: 100%;
+        margin-bottom: 50px;
+    }
+    .main{
+        padding-top: 100px;
     }
 }
 
