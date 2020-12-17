@@ -1,4 +1,5 @@
-$(document).on('click', "#take-test-by-student", function() {
+$(document).on('click', "#take-test-by-student", function(e) {
+    programId = e.target.dataset['id'];
     BootstrapDialog.show({
         title: 'Confirm',
         message: 'Once you confirm, You can\'t revert back!\n Are you sure to start the test ?',
@@ -6,7 +7,7 @@ $(document).on('click', "#take-test-by-student", function() {
             label: 'Yes',
             cssClass: 'btn-primary',
             action: function(dialog) {
-                window.location.replace("./test/start");
+                window.location.replace("./test/start/"+programId);
                 dialog.close();
             }
         }, {

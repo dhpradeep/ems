@@ -16,7 +16,7 @@ $(document).ready(function() {
 function setAlldata() {
     var id = $("#timeTrack").data('exam');
     $.ajax({
-        url: '../test/update/get',
+        url: '../update/get',
         async: true,
         type: 'POST',
         data: {
@@ -86,7 +86,7 @@ function startTimer(sec, id) {
 
 function sendStatus(time, id, isSubmitted = false) {
     $.ajax({
-        url: '../test/update/status',
+        url: '../update/status',
         async: true,
         type: 'POST',
         data: {
@@ -106,7 +106,7 @@ $(document).on("click", ".answerRadio", function(e) {
     var answered = $("#answered").data('val');
     var catAnswered = $("#answeredCategory"+cid).data('val');
     $.ajax({
-        url: '../test/update/answer',
+        url: '../update/answer',
         async: true,
         type: 'POST',
         data: {
@@ -170,7 +170,7 @@ $(document).on("click", "#submitBtn", function(e) {
                 sleep(1000).then(() => {
                     spinner.stop();
                     dialog.close();
-                    document.location.reload();
+                    window.location.replace("../");
                 });
             }
         }, {

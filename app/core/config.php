@@ -75,11 +75,11 @@ defined("PDF_DIR")
 
 // To be used for some defaults values.
 defined("WEBSITE_TITLE")
-	|| define("WEBSITE_TITLE", "ENTRANCE MANAGEMENT SYSTEM");
+	|| define("WEBSITE_TITLE", "ONLINE EXAMINATION SYSTEM");
 
 // Brand Name
 defined("BRAND_NAME")
-	|| define("BRAND_NAME", "EVERsoft GROUP");
+	|| define("BRAND_NAME", "EVERsoft");
 
 // Brand Website
 defined("BRAND_WEBSITE")
@@ -87,6 +87,6 @@ defined("BRAND_WEBSITE")
 
 // App Version
 defined("VERSION")
-	|| define("VERSION", "1.0");
+	|| define("VERSION", "1.1");
 
 ?>

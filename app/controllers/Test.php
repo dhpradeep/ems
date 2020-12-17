@@ -20,17 +20,37 @@ class Test extends Controller {
 					header("Location: ".SITE_URL."/home/dashboard");
 				}else if($userRole == 3) {
 					$programForUser = $this->searchDataFromTable("personaldata", array('userId' => $userId));
-					if(count($programForUser) > 0 && $programForUser[0]['programId'] > 0) {
-						$userProgram = $programForUser[0]['programId'];
-						$checkProgram = $this->searchDataFromTable("program", array("id" => $userProgram));
-						if(count($checkProgram) <= 0) {
-							array_push($this->model->data['errors'], "No such program registered!");
-						}else {
-							if(Session::getSession("examStarted") == true) {
-								header("Location: ".SITE_URL."/test/start");
+					if(count($programForUser) > 0 && $programForUser[0]['groupId'] > 0) {
+						$userGroup = $programForUser[0]['groupId'];
+						$userProgram = $this->searchDataFromTable("programassign", array('groupId' => $userGroup));
+						if(count($userProgram) > 0) {
+							$userProgramArray = array();
+							for($i = 0; $i < count($userProgram); ++$i) {
+								$prog = $this->searchDataFromTable('program', array('id' => $userProgram[$i]['programId']));
+								if( count($prog) <= 0) {
+									array_push($this->model->data['errors'], "Unkown program registered!");
+								}else {
+									$previousExam = $this->searchDataFromTable("timetrack",array("userId" => Session::getSession('uid'), "programId" => $prog[0]['id']));
+									$completed = 0;
+									if(count($previousExam) > 0) {
+										if($previousExam[0]['isSubmitted'] == "true" || $previousExam[0]['remainingTime'] <= 0) {
+											$completed = 2;
+										}else {
+											$completed = 1;
+										}
+									}
+									$prog[0]['completed'] = $completed;
+									array_push($userProgramArray, $prog[0]);
+								}
 							}
-							$this->model->data = array_merge($this->model->data, $checkProgram[0]);
-						}
+							if(count($userProgramArray) <= 0) {
+								array_push($this->model->data['errors'], "No valid program registered!");
+							}else {
+								$this->model->data['programs'] = $userProgramArray;
+							}
+						}else {
+							array_push($this->model->data['errors'], "No Program set for User!");
+						}						
 					}else {
 						array_push($this->model->data['errors'], "No Program set for User!");
 					}
@@ -45,15 +65,21 @@ class Test extends Controller {
 		}
 	}
 
-	public function start() {
+	public function start($name='') {
+		$this->model->data['errors'] = array();	
+
+		if($name == '') {
+			array_push($this->model->data['errors'], "No such program registered!");
+		}else {
+			$programId = $name;
+		}
 		if(!Session::isLoggedIn() || is_null(Session::getSession('role'))) {
 			header("Location: ".SITE_URL."/user/login");	
 		}
 		if(is_null(Session::getSession("examStarted"))) {
-			Session::setSession("examStarted", true);
+			Session::setSession("examStarted", $programId);
 		}
-		$this->model->data['errors'] = array();	
-		$userProgram = $this->checkForValidProgram();
+		$userProgram = $this->checkForValidProgram($programId);
 		if(count($this->model->data['errors']) == 0) {
 			$examId = $this->checkForValidExam($userProgram);
 			if(count($this->model->data['errors']) == 0 && $examId != 0) {
@@ -204,7 +230,7 @@ class Test extends Controller {
 			return $examId;
 	}
 
-	private function checkForValidProgram() {
+	private function checkForValidProgram($programId) {
 		$userId = Session::getSession('uid');
 		$userRole = Session::getSession('role');
 		$userProgram = null;
@@ -219,9 +245,22 @@ class Test extends Controller {
 				$userProgram = -1;
 				array_push($this->model->data['errors'], "Admin/Teacher View shown (No test)!");
 			}else if($userRole == 3) {
-				$programForUser = $this->searchDataFromTable("personaldata", array('userId' => $userId));
-				if(count($programForUser) > 0 && $programForUser[0]['programId'] > 0) {
-					$userProgram = $programForUser[0]['programId'];
+				$groupForUser = $this->searchDataFromTable("personaldata", array('userId' => $userId));
+				if(count($groupForUser) > 0 && $groupForUser[0]['groupId'] > 0) {
+					$programForUser = $this->searchDataFromTable("programassign", array('groupId' => $groupForUser[0]['groupId']));
+					if(count($programForUser) > 0) {	
+						$found = false;
+						for($i = 0; $i< count($programForUser); ++$i) {
+							if($programId == $programForUser[$i]['programId'])
+								$found = true;
+						}
+						if($found == true)
+							$userProgram = $programId;
+						else 
+							array_push($this->model->data['errors'], "No Program set for User!");
+					}else {
+						array_push($this->model->data['errors'], "No Program set for User!");
+					}
 				}else {
 					array_push($this->model->data['errors'], "No Program set for User!");
 				}

@@ -22,6 +22,11 @@
     <link href="<?= BOWER_DIR ?>/morrisjs/morris.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="<?= BOWER_DIR ?>/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <style>
+        .submitbtn {
+        max-height: 40px;
+    }
+    </style>
 </head>
 
 <body>

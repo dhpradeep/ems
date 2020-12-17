@@ -51,6 +51,7 @@
 .submitbtn {
     border-radius: 20%;
     padding: 5px 20px;
+    max-height: 50px;
 }
 
 .navbtn:hover {

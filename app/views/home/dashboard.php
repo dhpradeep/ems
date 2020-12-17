@@ -56,27 +56,50 @@
                         <?php
                         }
                     }else {
+
                 ?>
                 <div class="row student-information">
                     <div>
-                        <span style="font-size:20px;">Name of Student : <strong><?= strtoupper(Session::getSession('uname')); ?></strong></span>
+                        <span style="font-size:16px;">Name of Student : <strong><?= strtoupper(Session::getSession('uname')); ?></strong></span>
                     </div>
                 </div>
+                <?php
+                    
+                    if(count($this->programs)>0) {
+                        foreach($this->programs as $program) {
+
+                ?>
                 <div class="row student-information">
                     <div>
-                        <span style="font-size:20px;">Program : <strong><?= $this->name ?></strong></span>
+                        <span style="font-size:16px;">Exam : <strong><?= $program['name'] ?></strong></span>
                     </div>
                 </div>
                 <div class="row brand-information-for-exam">
+                <?php if($program['completed'] != 2)  { ?>
                     <div class="col md-12">
-                    <p><?= htmlspecialchars_decode($this->welcome) ?></p><br><br>
-                    <div class="text-left">
-                        <a href="#"><button class="btn btn-success" type="button" id="take-test-by-student">Take Test</button></a>
+                        <p><?= htmlspecialchars_decode($program['welcome']) ?></p><br><br>
+                        <div class="text-left">
+                            <a href="#">
+                                <button data-id="<?= $program['id'] ?>" class="btn btn-success" type="button" id="take-test-by-student">
+                                <?php if($program['completed'] == 1) echo "Continue test"; else echo "Take test"; ?>
+                                </button>
+                            </a>
+                        </div>
                     </div>
+                
+                    <?php } else { ?>
+                        <div class="col md-12">
+                        <p><b> Already submitted! </b></p><br><br>
+                        </div>
+                    <?php
+                    } ?>
                 </div>
-            </div>
             <br>
-            <?php } ?>
+            <?php 
+                        }
+                    }
+        
+            } ?>
                 <!-- Brand info -->
                 <div class="row brand-information">
                     <div class="col-lg-12">
