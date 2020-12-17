@@ -3,10 +3,10 @@
 
 class Database {
 
-	private $_host = "localhost";
-	private $_user = "root";
-	private $_password = "";
-	private $_name = "ems";
+	private $_host;
+	private $_user;
+	private $_password;
+	private $_name;
 	
 	//PDO Object
 	private $conn = null;
@@ -30,6 +30,10 @@ class Database {
 	* This is construction method and will be connected
 	*/
 	public function __construct() {
+        $this->_host = getenv("MYSQL_HOST");
+        $this->_user = getenv("MYSQL_USER");
+        $this->_password = getenv("MYSQL_PASSWORD");
+        $this->_name = getenv("MYSQL_DATABASE");
 		$this->connect();
 	}
 	
