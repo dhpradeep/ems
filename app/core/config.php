@@ -2,7 +2,7 @@
 
 // site domain name with http
 defined("SITE_URL")
-	|| define("SITE_URL", "http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT']."/ems/public");
+	|| define("SITE_URL", "https://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT']."/ems/public");
 
 // To be used in MVC
 
@@ -83,7 +83,7 @@ defined("BRAND_NAME")
 
 // Brand Website
 defined("BRAND_WEBSITE")
-	|| define("BRAND_WEBSITE", "http://www.eversoftgroup.com");
+	|| define("BRAND_WEBSITE", "https://www.eversoftgroup.com");
 
 // App Version
 defined("VERSION")
