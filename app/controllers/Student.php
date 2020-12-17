@@ -11,7 +11,7 @@ class Student extends Controller {
 	}
 
 	public function groups($name = "") {
-		$this->model->setTable('groups');
+		$this->model->setTable('studentgroups');
 		if(($name == "add" || $name == "update" || $name == "delete" || $name == "get") && (Session::isLoggedIn(1) || Session::isLoggedIn(2))) {
 			$result = array('status' => 0);	
 			if(isset($_POST) && count($_POST) > 0) {
@@ -66,7 +66,7 @@ class Student extends Controller {
 
 		} else if($name == ''){	
 			if(Session::isLoggedIn(1) || Session::isLoggedIn(2)) {
-				$this->model->setTable('groups');
+				$this->model->setTable('studentgroups');
 				$all = $this->model->getAllStudent();
 				$this->model->data['group'] = $all;
 				$this->model->template = VIEWS_DIR.DS."students".DS."students.php";
@@ -154,7 +154,7 @@ class Student extends Controller {
 			unset($arr[$index]['role']);
 			$toSearch = array("id" => $res[$i]['groupId']);
 			$this->setForeignModel("QuestionModel");
-			$this->foreignModel->setTable("groups");
+			$this->foreignModel->setTable("studentgroups");
 			$programs = $this->foreignModel->searchQuestion($toSearch);
 			if(count($programs) > 0) {
 				$arr[$index]['groupName'] = $programs[0]['name'];

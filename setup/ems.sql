@@ -101,7 +101,7 @@ CREATE TABLE `program` (
 -- Table structure for table `group`
 --
 
-CREATE TABLE `groups` (
+CREATE TABLE `studentgroups` (
   `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -223,7 +223,7 @@ ALTER TABLE `category`
 --
 -- Indexes for table `group`
 --
-ALTER TABLE `groups`
+ALTER TABLE `studentgroups`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -301,7 +301,7 @@ ALTER TABLE `category`
 --
 -- AUTO_INCREMENT for table `group`
 --
-ALTER TABLE `groups`
+ALTER TABLE `studentgroups`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

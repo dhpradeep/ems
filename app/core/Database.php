@@ -34,6 +34,10 @@ class Database {
         $this->_user = getenv("MYSQL_USER");
         $this->_password = getenv("MYSQL_PASSWORD");
         $this->_name = getenv("MYSQL_DATABASE");
+        // $this->_host = "localhost";
+        // $this->_user = "root";
+        // $this->_password = "";
+        // $this->_name = "ems";
 		$this->connect();
 	}
 	

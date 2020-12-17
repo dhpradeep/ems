@@ -2,7 +2,7 @@
 
 // site domain name with http
 defined("SITE_URL")
-	|| define("SITE_URL", "http://".$_SERVER['SERVER_NAME']."/ems/public");
+	|| define("SITE_URL", "http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT']."/ems/public");
 
 // To be used in MVC
 

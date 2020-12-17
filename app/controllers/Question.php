@@ -143,7 +143,7 @@ class Question extends Controller {
 		} else if($name == ''){	
 			if(Session::isLoggedIn(1) || Session::isLoggedIn(2)) {
 				$this->setForeignModel("QuestionModel");
-				$this->foreignModel->setTable("groups");
+				$this->foreignModel->setTable("studentgroups");
 				$finalArray = $this->foreignModel->getAllQuestion();				
 				$this->model->data["groups"] = $finalArray;
 				$this->model->template = VIEWS_DIR.DS."questions".DS."program.php";
@@ -642,7 +642,7 @@ class Question extends Controller {
 			$groups = array();
 			if(count($allAssign) > 0) {
 				foreach ($allAssign as $key => $value) {
-					$this->foreignModel->setTable("groups");
+					$this->foreignModel->setTable("studentgroups");
 					$names = $this->foreignModel->searchQuestion(array("id" => $value['groupId']));
 					if($names != null) {
 						array_push($groups, $names[0]['name']);
