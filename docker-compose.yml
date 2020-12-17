@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+  web-server:
+    build: .
+    container_name: ems_container
+    restart: always
+    ports:
+      - "8081:80"
+    env_file: 
+      - ./setup/development.env
+    # volumes:
+    #   - ./ems:/var/www/html
+      
+  mysql-server:
+    image: mysql:8.0.19
+    container_name: ems_db
+    restart: always
+    env_file: 
+      - ./setup/development.env
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:5.0.1
+    container_name: ems_phpmyadmin
+    restart: always
+    env_file: 
+      - ./setup/development.env
+    ports:
+      - "5000:80"
+volumes:
+    mysql-data:
