@@ -142,6 +142,10 @@ class Question extends Controller {
 
 		} else if($name == ''){	
 			if(Session::isLoggedIn(1) || Session::isLoggedIn(2)) {
+				$this->setForeignModel("QuestionModel");
+				$this->foreignModel->setTable("groups");
+				$finalArray = $this->foreignModel->getAllQuestion();				
+				$this->model->data["groups"] = $finalArray;
 				$this->model->template = VIEWS_DIR.DS."questions".DS."program.php";
 				$this->view->render();
 			}else {
@@ -625,12 +629,30 @@ class Question extends Controller {
 		$total = count($res);
 		$index = 0;
 		$arr = array();
+		$this->setForeignModel("QuestionModel");
 		$totalCount = ($totalCount == -1) ? $total : $totalCount;
 		for ($i = $startIndex; $i < $startIndex + $totalCount && $i < $total; $i++){
 			$arr[$index] = $res[$i];
 			$arr[$index]['welcome'] = html_entity_decode($arr[$index]['welcome']);
 			$arr[$index]['thanks'] = html_entity_decode($arr[$index]['thanks']);
 			$arr[$index]['url'] = urlencode(strtolower(trim(str_replace(' ', '', $arr[$index]['name']))));
+			$this->foreignModel->setTable("programassign");
+			$allAssign = $this->foreignModel->searchQuestion(array("programId" => $arr[$index]['id']));
+			$groupIds = array();
+			$groups = array();
+			if(count($allAssign) > 0) {
+				foreach ($allAssign as $key => $value) {
+					$this->foreignModel->setTable("groups");
+					$names = $this->foreignModel->searchQuestion(array("id" => $value['groupId']));
+					if($names != null) {
+						array_push($groups, $names[0]['name']);
+						array_push($groupIds, $value['groupId']);
+					}
+				}
+			}
+			$arr[$index]['groupId'] = $groupIds;
+			$arr[$index]['groups'] = $groups;
+
 			$index++;
 		}
 
@@ -666,6 +688,11 @@ class Question extends Controller {
 					foreach ($questionsToDelete as $value) {
 						$this->foreignModel->deleteQuestion($value['id']);
 					}
+					$this->foreignModel->setTable("programassign");
+					$questionsToDelete = $this->foreignModel->searchQuestion($toDelete);
+					foreach ($questionsToDelete as $value) {
+						$this->foreignModel->deleteQuestion($value['id']);
+					}
 				}else {
 					$result['error'] = array("Connection Problem with server.");
 					$result['status'] = 0;
@@ -683,7 +710,8 @@ class Question extends Controller {
 	private function updateProgram($result) {
 		$data = array();
 		foreach ($_POST as $key => $value) {
-			$data[$key] = Input::get($key);
+			if($key != 'groupId')
+				$data[$key] = Input::get($key);
 		}
 		$validate = new Validator();
 		$validation = $validate->check($_POST, array(
@@ -714,7 +742,24 @@ class Question extends Controller {
 				$idToChange = $data['id'];
 				unset($data['id']);
 				$ret = $this->model->updateQuestion($idToChange, $data);
-				if($ret == 1) {
+				$this->setForeignModel("QuestionModel");
+				$this->foreignModel->setTable("programassign");
+				$pk = $this->foreignModel->getQuestionId(array('programId' => $idToChange));
+					$toWrite = 0;
+					do {
+						if($pk != 0) {
+							$this->foreignModel->deleteQuestion($pk);
+							$toWrite = 1;
+						}
+						$pk = $this->foreignModel->getQuestionId(array('programId' => $idToChange));
+					}while($pk != 0);					
+					if(isset($_POST['groupId']) && count($_POST['groupId']) > 0) {
+						foreach ($_POST['groupId'] as $value) {
+							$toWrite = $this->foreignModel->registerQuestion(array('programId' => $idToChange,
+										'groupId' => $value));
+						}
+					}
+				if($ret == 1 || ($toWrite != 0)) {
 					$result['status'] = 1;
 					$result['success'] = true;
 				} else {
@@ -763,10 +808,20 @@ class Question extends Controller {
 			$data = array();
 			$data['id'] = null;
 			foreach ($_POST as $key => $value) {
-				$data[$key] = Input::get($key);
+				if($key != 'groupId')
+					$data[$key] = Input::get($key);
 			}
 			$id = $this->model->registerQuestion($data);
-			if($id != 0){
+			if($id != 0){				
+				$this->setForeignModel("QuestionModel");
+				$this->foreignModel->setTable("programassign");
+				$toWrite = 0;
+				if(isset($_POST['groupId']) && count($_POST['groupId']) > 0) {
+						foreach ($_POST['groupId'] as $value) {
+							$toWrite = $this->foreignModel->registerQuestion(array(
+								'programId' => $id, 'groupId' => $value));
+						}
+				}
 				$result['status'] = 1;
 				$result['success'] = true;
 			}else{

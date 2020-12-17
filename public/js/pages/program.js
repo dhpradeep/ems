@@ -16,6 +16,7 @@ function resetFields() {
     $("#programId").data('id','-1');
     $('#name').val('');
     $('#duration').val('');
+    $("#groupId").val([]);
 }
 
 function create_program(data = null) {
@@ -27,6 +28,10 @@ function create_program(data = null) {
         $('#duration').val(data.duration);
         $("#saveBtn")[0].innerHTML = "Update";
         $('#addProgram').modal('show');
+        $("#groupId").val(data.groupId);
+        $('#groupId option:selected').each(function() {
+            $(this).prop('selected', true);
+        });
     }else{
         $("#saveBtn")[0].innerHTML = "Add";
                
@@ -77,6 +82,11 @@ function updateProgram() {
         $(this).val($(this).val().trim());
     });
 
+    var groupId = $('#groupId').val();
+    if(groupId == null) {
+        groupId = [];
+    }
+
     var id = $('#programId').data('id');
     if(id > 0) {
         $.ajax({
@@ -88,7 +98,9 @@ function updateProgram() {
                 name: $('#name').val(),
                 duration: $('#duration').val(),
                 welcome: $().CKEditorValFor('welcome'),
-                thanks : $().CKEditorValFor('thanks')
+                thanks : $().CKEditorValFor('thanks'),
+                groupId: groupId
+
             },
             success: function(response) {
                 animate(300);
@@ -126,6 +138,11 @@ function addProgram(){
         $(this).val($(this).val().trim());
     });
 
+    var groupId = $('#groupId').val();
+    if(groupId == null) {
+        groupId = [];
+    }
+
     $.ajax({
         url: '../question/program/add',
         async: true,
@@ -134,7 +151,8 @@ function addProgram(){
             name: $('#name').val(),
             duration: $('#duration').val(),
             welcome: $().CKEditorValFor('welcome'),
-            thanks : $().CKEditorValFor('thanks')
+            thanks : $().CKEditorValFor('thanks'),
+            groupId: groupId
         },
         success: function(response) {
             var decode = JSON.parse(response);
@@ -236,6 +254,7 @@ function getAllData(){
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
         "columns": [
             { "data": "name" },
+            { "data": "groups", sortable: false },
             { "data": "duration" },
             {   
                  sortable: false,

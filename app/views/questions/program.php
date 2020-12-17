@@ -74,7 +74,10 @@
                                             <th style="min-width: 150px">
                                                 Program Name
                                             </th>
-                                            <th style="min-width: 150px">
+                                            <th style="min-width: 200px;">
+                                                Assigned Groups
+                                            </th>
+                                            <th style="min-width: 60px">
                                                 Duration
                                             </th>
                                             <th style="min-width: 150px">Action</th>

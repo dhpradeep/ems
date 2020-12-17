@@ -111,6 +111,16 @@ CREATE TABLE `groups` (
 -- Table structure for table `questionmodel`
 --
 
+CREATE TABLE `programassign` (
+  `id` int(11) NOT NULL,
+  `programId` int(11) NOT NULL,
+  `groupId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `questionmodel`
+--
+
 CREATE TABLE `questionmodel` (
   `id` int(11) NOT NULL,
   `programId` int(11) NOT NULL,
@@ -241,6 +251,13 @@ ALTER TABLE `personaldata`
 ALTER TABLE `program`
   ADD PRIMARY KEY (`id`);
 
+
+--
+-- Indexes for table `programassign`
+--
+ALTER TABLE `programassign`
+  ADD PRIMARY KEY (`id`);
+
 --
 -- Indexes for table `questionmodel`
 --
@@ -327,6 +344,12 @@ ALTER TABLE `questions`
 -- AUTO_INCREMENT for table `record`
 --
 ALTER TABLE `record`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `record`
+--
+ALTER TABLE `programassign`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

@@ -18,6 +18,20 @@
                         <span class="input-group-addon">Min.</span>                 
                     </div>
                     <div class="form-group col-md-12">
+                        <label class="control-label" for="groupId">Assign Groups *</label>
+                        <select class="form-control"  id="groupId" name="groupId" multiple required>
+                            <?php
+                            if(!is_null($this->groups) && count($this->groups) > 0) {
+                                foreach ($this->groups as $value) {                            
+                            ?>
+                                <option data-id="<?= $value['id'] ?>" value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
+                            <?php
+                                 } 
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-12">
                         <label>Welcome Message for Students</label>
                         <textarea name="welcome" id="welcome" required></textarea>
                     </div>
