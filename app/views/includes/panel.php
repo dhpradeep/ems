@@ -11,6 +11,9 @@
                     <li>
                         <a href="<?= SITE_URL.DS.'student'.DS ?>all">Manage Students</a>
                     </li>
+                    <li>
+                        <a href="<?= SITE_URL.DS.'student'.DS ?>groups">Manage Groups</a>
+                    </li>
                 </ul>
             </li>
             <?php if(Session::isLoggedIn(1)) { ?>

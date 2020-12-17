@@ -60,14 +60,14 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="page-header">Students</h2>
+                    <h2 class="page-header">Groups</h2>
                     <ol class="breadcrumb">
                         <li>
                             <i class="fa fa-dashboard"></i> 
                             <a href="<?= SITE_URL.DS.'home'.DS ?>dashboard">Dashboard</a>
                         </li>
                         <li class="active">
-                            Students
+                            Groups
                         </li>
                     </ol>
                 </div>
@@ -78,41 +78,24 @@
                 <div class="col-lg-12">
                     <div class="form-inline form-padding">
                         <form id="frmSearch" role="form">
-                            <a onclick="create_student()" class="btn btn-primary">Add Student</a>
+                            <a onclick="create_group()" class="btn btn-primary">Add Groups</a>
                             <a onclick="refresh()" class="btn btn-info">Refresh</a>
-                            <a onclick="getAllData(2)" class="btn btn-success text-right">Export to excel</a>
-                            <div class="input-group col-md-3 col-sm-4 col-xs-6"> <span class="input-group-addon">Filter by Group: </span>
-                                <select class="form-control" id="filterData" name="filterResult">
-                                    <option value="0" name="None"> None </option>
-                                    <?php
-                                        foreach ($this->group as $value) {
-                                    ?>
-                                            <option value="<?= $value['id'] ?>" name="<?= $value['name'] ?>"><?= $value['name'] ?></option>
-                                    <?php
-                                         } 
-                                    ?>
-                                </select>
-                            </div>
                         </form>
                     </div>
                     <br>
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            List of Students
+                            List of Groups
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
                                 <div class="table-responsive">
-                                <table width="100%" class="table table-striped table-bordered table-hover paginated tablesorter" id="studentTable">
+                                <table width="100%" class="table table-striped table-bordered table-hover paginated tablesorter" id="groupTable">
                                     <thead>
                                         <tr>
-                                            <th style="min-width: 60px">Details</th>
-                                            <th style="min-width: 100px">Fullname</th>
-                                            <th style="min-width: 60px">Group</th>
-                                            <th style="min-width: 60px">Username</th>
-                                            <th style="min-width: 100px">Email</th>
-                                            <th style="min-width: 20px">Verified</th>
+                                            <th style="min-width: 60px">Group Name</th>
+                                            <th style="min-width: 100px">Number of students</th>
                                             <th style="min-width: 30px">Action</th>
                                         </tr>
                                     </thead>
@@ -132,10 +115,8 @@
         </div>
         <!-- /#page-wrapper -->
 
-        <div id="toExport"></div>
-
         <!-- modals -->
-     <?php include(MODALS_DIR.DS.'student.php'); ?>
+     <?php include(MODALS_DIR.DS.'group.php'); ?>
 
     <!-- jQuery -->
     <script src="<?= BOWER_DIR ?>/jquery/dist/jquery.min.js"></script>
@@ -166,8 +147,7 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="<?= JS_DIR ?>/sb-admin-2.js"></script>    
-    <script src="<?= JS_DIR ?>/pages/student_modal.js"></script>
-    <script src="<?= JS_DIR ?>/pages/student.js"></script>
+    <script src="<?= JS_DIR ?>/pages/group.js"></script>
 
 
 </body>

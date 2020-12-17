@@ -6,14 +6,14 @@
                     <h3>Manage Questions</h3>
                 </div>
                 <div class="modal-body col-md-12">
-                    <div class="form-group col-md-6">
+                    <!-- <div class="form-group col-md-6">
                         <label>Contain Passage ?</label>
                         <select class="form-control" id="containPassage" name="level">
                             <option value="-1" name="none">No</option>
                             <option value="1" name="passage">Yes</option>
                         </select>
                         <p class="help-inline"></p>
-                    </div>
+                    </div> -->
                     <div class="form-group col-md-6" id="toHideForLink">
                         <label>Select passage</label>
                         <select class="form-control" id="passageList" name="level">
