@@ -20,7 +20,7 @@ class Test extends Controller {
 					header("Location: ".SITE_URL."/home/dashboard");
 				}else if($userRole == 3) {
 					if(is_null(Session::getSession("readMe"))) {
-						Session::getSession("readMe", True);
+						Session::setSession("readMe", True);
 					}
 					$programForUser = $this->searchDataFromTable("personaldata", array('userId' => $userId));
 					if(count($programForUser) > 0 && $programForUser[0]['groupId'] > 0) {
@@ -86,7 +86,7 @@ class Test extends Controller {
 		if(is_null(Session::getSession("readMe"))) {
 			header("Location: ".SITE_URL."/test");
 		}else {
-			Session::clearSession("examStarted");
+			Session::clearSession("readMe");
 		}
 		$userProgram = $this->checkForValidProgram($programId);
 		if(count($this->model->data['errors']) == 0) {
