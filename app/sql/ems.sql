@@ -161,12 +161,7 @@ CREATE TABLE `record` (
   `userId` int(11) NOT NULL,
   `categoryId` int(11) NOT NULL,
   `questionId` int(11) NOT NULL,
-  `question` varchar(1200) COLLATE utf8_unicode_ci NOT NULL,
   `userAnswer` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `answer` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `choice2` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `choice3` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `choice4` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `result` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

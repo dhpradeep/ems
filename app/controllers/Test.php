@@ -19,6 +19,9 @@ class Test extends Controller {
 				if($userRole == 1 || $userRole == 2) {
 					header("Location: ".SITE_URL."/home/dashboard");
 				}else if($userRole == 3) {
+					if(is_null(Session::getSession("readMe"))) {
+						Session::getSession("readMe", True);
+					}
 					$programForUser = $this->searchDataFromTable("personaldata", array('userId' => $userId));
 					if(count($programForUser) > 0 && $programForUser[0]['groupId'] > 0) {
 						$userGroup = $programForUser[0]['groupId'];
@@ -69,7 +72,7 @@ class Test extends Controller {
 		$this->model->data['errors'] = array();	
 
 		if($name == '') {
-			array_push($this->model->data['errors'], "No such program registered!");
+			header("Location: ".SITE_URL."/test");	
 		}else {
 			$programId = $name;
 		}
@@ -78,6 +81,12 @@ class Test extends Controller {
 		}
 		if(is_null(Session::getSession("examStarted"))) {
 			Session::setSession("examStarted", $programId);
+		}
+		
+		if(is_null(Session::getSession("readMe"))) {
+			header("Location: ".SITE_URL."/test");
+		}else {
+			Session::clearSession("examStarted");
 		}
 		$userProgram = $this->checkForValidProgram($programId);
 		if(count($this->model->data['errors']) == 0) {
@@ -205,7 +214,7 @@ class Test extends Controller {
 					}
 				}else {
 					$examId = $previousExam[0]['id'];
-					$this->model->data['remainingTime'] = $previousExam[0]['remainingTime'];
+					$this->model->data['remainingTime'] = $previousExam[0]['remainingTime'] - 2;
 				}
 			}else {
 				$programs = $this->searchDataFromTable("program", array("id" => $userProgram));
